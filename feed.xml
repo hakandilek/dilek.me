@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Foo Bar Code</title>
+    <description>A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.</description>
+    <link>http://www.dilek.me/</link>
+    <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Hello World</title>
+        <description>&lt;p&gt;I&amp;rsquo;ve been planing to blog my experiences und humble ideas about software development for a long time. So here it is. I will try to write as often as I can in both English and Turkish.&lt;/p&gt;
+
+&lt;p&gt;I have been looking for a solution to build this blog with static pages and preferably using &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; infrastructure. When I&amp;rsquo;ve first read about &lt;a href=&quot;http://hubpress.io&quot;&gt;HubPress&lt;/a&gt; on &lt;a href=&quot;https://news.ycombinator.com/item?id=9020429&quot;&gt;Hacker News&lt;/a&gt; I thought that I should give it a try. But it didn&amp;rsquo;t have all the features I wanted, so I have switched to a  &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; based solution and this post has been edited accordingly. I&amp;rsquo;m planing to write about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; and static page hosting on &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; in another post later.&lt;/p&gt;
+
+&lt;p&gt;This post about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; will probably be in Turkish, because there is already quite a lot of documentation about that in English.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 26 Feb 2015 23:51:52 +0100</pubDate>
+        <link>http://www.dilek.me/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</link>
+        <guid isPermaLink="true">http://www.dilek.me/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</guid>
+      </item>
+    
+  </channel>
+</rss>
