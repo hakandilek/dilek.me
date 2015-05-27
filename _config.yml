@@ -1,6 +1,6 @@
 # Site settings
 title:       Foo Bar Code
-email:       hakan-at-dilek-dot-me
+email:       hakan@dilek.me
 author:      Hakan Dilek
 description: "A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff."
 baseurl:     ""
