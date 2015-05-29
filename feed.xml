@@ -7,6 +7,29 @@
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Install Atom Editor in Ubuntu</title>
+        <description>&lt;p&gt;Installing or updating Atom editor in Ubuntu or Linux Mint is not possible
+through apt-get but is quite easy.&lt;/p&gt;
+
+&lt;p&gt;First, download the package using &lt;code&gt;wget&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;wget https://atom.io/download/deb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;When the download is finished, install the package using &lt;code&gt;dpkg&lt;/code&gt;:
+&lt;code&gt;
+sudo dpkg --install atom-amd64.deb
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally launch atom editor:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;atom
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and you have it.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 29 May 2015 23:00:00 +0000</pubDate>
+        <link>http://www.dilek.me/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-in-Ubuntu/</link>
+        <guid isPermaLink="true">http://www.dilek.me/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-in-Ubuntu/</guid>
+      </item>
+    
+      <item>
         <title>Hello World</title>
         <description>&lt;p&gt;I&amp;rsquo;ve been planing to blog my experiences und humble ideas about software development for a long time. So here it is. I will try to write as often as I can in both English and Turkish.&lt;/p&gt;
 
@@ -14,7 +37,7 @@
 
 &lt;p&gt;This post about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; will probably be in Turkish, because there is already quite a lot of documentation about that in English.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 26 Feb 2015 23:51:52 +0100</pubDate>
+        <pubDate>Thu, 26 Feb 2015 22:51:52 +0000</pubDate>
         <link>http://www.dilek.me/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</link>
         <guid isPermaLink="true">http://www.dilek.me/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</guid>
       </item>
