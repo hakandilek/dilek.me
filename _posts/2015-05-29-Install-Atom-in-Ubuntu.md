@@ -27,3 +27,5 @@ atom
 ```
 
 and you have it.
+
+![Atom screenshot]({{ site.url }}/assets/Screenshot-2015-05-29.png)
