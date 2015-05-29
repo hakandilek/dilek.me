@@ -1,12 +1,12 @@
 ---
 layout:     post
-title:      Install Atom Editor in Ubuntu
+title:      Install Atom Editor on Ubuntu
 date:       2015-05-29 23:00:00
-summary:    Installing Atom editor in Ubuntu or Linux Mint
+summary:    Installing Atom editor on Ubuntu or Linux Mint
 categories: atom ubuntu linux-mint
 ---
 
-Installing or updating Atom editor in Ubuntu or Linux Mint is not possible
+Installing or updating Atom editor on Ubuntu or Linux Mint is not possible
 through apt-get but is quite easy.
 
 First, download the package using `wget`:
