@@ -12,18 +12,18 @@ through apt-get but is quite easy.
 First, download the package using `wget`:
 
 ```
-wget https://atom.io/download/deb
+$ wget https://atom.io/download/deb
 ```
 
 When the download is finished, install the package using `dpkg`:
 ```
-sudo dpkg --install atom-amd64.deb
+$ sudo dpkg --install atom-amd64.deb
 ```
 
 Finally launch atom editor:
 
 ```
-atom
+$ atom
 ```
 
 and you have it.
