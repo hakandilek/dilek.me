@@ -7,8 +7,8 @@
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Install Atom Editor in Ubuntu</title>
-        <description>&lt;p&gt;Installing or updating Atom editor in Ubuntu or Linux Mint is not possible
+        <title>Install Atom Editor on Ubuntu</title>
+        <description>&lt;p&gt;Installing or updating Atom editor on Ubuntu or Linux Mint is not possible
 through apt-get but is quite easy.&lt;/p&gt;
 
 &lt;p&gt;First, download the package using &lt;code&gt;wget&lt;/code&gt;:&lt;/p&gt;
@@ -23,6 +23,8 @@ sudo dpkg --install atom-amd64.deb
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;atom
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and you have it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-29.png&quot; alt=&quot;Atom screenshot&quot;&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 29 May 2015 23:00:00 +0000</pubDate>
         <link>http://www.dilek.me/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-in-Ubuntu/</link>
