@@ -7,7 +7,7 @@ baseurl:     ""
 url:         "http://www.dilek.me"
 
 # Google analytics
-google_analytics:
+google_analytics: UA-60180717-1
 
 # Optional features
 animated:           true
