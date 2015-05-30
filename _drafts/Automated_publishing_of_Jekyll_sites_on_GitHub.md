@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Automated publishing of Jekyll sites on GitHub
-date:       2015-02-26 22:51:52
+date:       2015-06-05 10:00:00
 summary:    How to publish Jekyll based static web sites on GitHub Pages automatically.
 categories: Jekyll GitHub-Pages publish Automated
 ---
