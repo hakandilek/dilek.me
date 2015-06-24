@@ -7,6 +7,68 @@
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Automated publishing of Jekyll sites on GitHub</title>
+        <description>&lt;p&gt;Publishing a Jekyll based static website on GitHub Pages is quite easy once it is setup properly. This way you can trigger a publish on a different branch every time a change is pushed into the GitHub repository.&lt;/p&gt;
+
+&lt;p&gt;I will describe how to do it using &lt;code&gt;rake-jekyll&lt;/code&gt;. For more detailed and probably updated information, please refer to the rake-jekyll documentation on &lt;a href=&quot;https://github.com/jirutka/rake-jekyll&quot;&gt;the  project page&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you already don&amp;rsquo;t have one, create a &lt;code&gt;Gemfile&lt;/code&gt; in your repository or update one you already have according to the following:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://rubygems.org&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;jekyll&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rake&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rake-jekyll&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Create or edit file &lt;code&gt;Rakefile&lt;/code&gt; in your repository:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rb&quot; data-lang=&quot;rb&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rake-jekyll&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Rake&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;GitDeployTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:deploy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Create file &lt;code&gt;.travis.yml&lt;/code&gt; in your repository:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;ruby&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;sudo&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;rvm&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;2.2.0&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;bundle exec rake deploy&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Install &lt;code&gt;travis&lt;/code&gt; gem using shell:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem install travis
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Enable &lt;a href=&quot;https://travis-ci.org&quot;&gt;Travis CI&lt;/a&gt; for your github repository:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;if you already don&amp;rsquo;t have a Travis CI account, &lt;a href=&quot;https://travis-ci.org/&quot;&gt;sign up&lt;/a&gt; for one.&lt;/li&gt;
+&lt;li&gt;open your &lt;a href=&quot;https://travis-ci.org/profile/&quot;&gt;profile page&lt;/a&gt; on Travis&lt;/li&gt;
+&lt;li&gt;find your github repository for the website and turn on the switch
+&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-30-1.png&quot; alt=&quot;the switch&quot;&gt;&lt;/li&gt;
+&lt;li&gt;click on the repository settings
+&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-30-2.png&quot; alt=&quot;repository settings&quot;&gt;&lt;/li&gt;
+&lt;li&gt;enable the setting “Build only if .travis.yml is present.”
+&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-30-3.png&quot; alt=&quot;enable setting&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Generate a new personal access token on GitHub:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Generate a new personal access token for your &lt;a href=&quot;https://github.com/settings/tokens/new&quot;&gt;Github profile&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;select &lt;code&gt;public_repo&lt;/code&gt; scope, enter description and generate. You will need the token displayed on the page for the next step.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Encrypt the token using the following shell command (replace the &lt;code&gt;&amp;lt;token&amp;gt;&lt;/code&gt; part with your generated token from the previous step):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;travis encrypt &lt;span class=&quot;nv&quot;&gt;GH_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;token&amp;gt; --add env.global
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Following content will be added to your &lt;code&gt;.travis.yml&lt;/code&gt; file:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;secure&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;YOUR-ENCRYPTED-TOKEN&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Commit your changes and push to GitHub. Travis will trigger a build and publish your website in a couple of minutes.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 24 Jun 2015 22:00:00 +0000</pubDate>
+        <link>http://www.dilek.me/jekyll/github-pages/publish/automated/2015/06/24/Automated-publishing-of-Jekyll-sites-on-GitHub/</link>
+        <guid isPermaLink="true">http://www.dilek.me/jekyll/github-pages/publish/automated/2015/06/24/Automated-publishing-of-Jekyll-sites-on-GitHub/</guid>
+      </item>
+    
+      <item>
         <title>Install Atom Editor on Ubuntu</title>
         <description>&lt;p&gt;Installing or updating Atom editor on Ubuntu or Linux Mint is not possible
 through apt-get but is quite easy.&lt;/p&gt;
