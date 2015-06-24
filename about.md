@@ -8,8 +8,13 @@ permalink: /about/
   <img src="/images/me.jpeg" alt="Hakan Dilek" class="avatar" />
 </div>
 
-My name is Hakan Dilek. I am a software engneer living in Germany. This is my
+My name is Hakan Dilek. I am a software engineer living in Germany. This is my
 personal website where I mostly share about software engineering.
+
+Some links about me:
+
+ * [CV/Resume](https://goo.gl/mnIocU)
+ * [GitHub profile](https://github.com/hakandilek)
 
 Thanks to the following tools used to build this website:
 
