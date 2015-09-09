@@ -51,3 +51,46 @@ Create an ionic.io account to send Push Notifications and use the Ionic View app
 This will create the seed project:
 
 ![Ionic seed project]({{ site.url }}/assets/Screenshot-2015-09-09.png)
+
+
+Running your app in browser
+---
+
+```bash
+ionic serve
+```
+
+You'll see it in browser:
+
+![Project running in browser]({{ site.url }}/assets/Screenshot-2015-09-09-2.png)
+
+Adding a target platform
+---
+
+TODO:
+* Add a platform (ios or Android): ionic platform add ios [android]
+  Note: iOS development requires OS X currently
+  See the Android Platform Guide for full Android installation instructions:
+  https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html
+
+
+Running your app on a device
+---
+
+TODO:
+* Run your app on a device: ionic run <PLATFORM>
+
+Building your app
+---
+TODO:
+* Build your app: ionic build <PLATFORM>
+
+Running your app on an emulator
+---
+TODO:
+* Simulate your app: ionic emulate <PLATFORM>
+
+Packaging your app
+---
+TODO:
+* Package an app using Ionic package service: ionic package <MODE> <PLATFORM>
