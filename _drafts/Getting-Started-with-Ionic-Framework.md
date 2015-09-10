@@ -66,29 +66,59 @@ You'll see it in browser:
 
 Adding a target platform
 ---
-
-TODO:
-* Add a platform (ios or Android): ionic platform add ios [android]
+Add a platform (ios or Android): ionic platform add ios [android]
   Note: iOS development requires OS X currently
   See the Android Platform Guide for full Android installation instructions:
   https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html
 
+For iOS:
+```
+ionic platform add ios
+```
+For Android:
+```
+ionic platform add android
+```
 
 Running your app on a device
 ---
+Run your app on a device: ionic run <PLATFORM>
 
-TODO:
-* Run your app on a device: ionic run <PLATFORM>
+For iOS:
+```
+ionic run ios
+```
+For Android:
+```
+ionic run android
+```
 
 Building your app
 ---
-TODO:
-* Build your app: ionic build <PLATFORM>
+Build your app: ionic build <PLATFORM>
+For iOS:
+```
+ionic build ios
+```
+For Android:
+```
+ionic build android
+```
 
 Running your app on an emulator
 ---
-TODO:
-* Simulate your app: ionic emulate <PLATFORM>
+Simulate your app: ionic emulate <PLATFORM>
+
+For iOS:
+```
+ionic emulate ios
+```
+For Android:
+```
+ionic emulate android
+```
+Note that Genymotion behaves like a device, so it requires `run` rather than `emulate`
+![ref missing]()
 
 Packaging your app
 ---
