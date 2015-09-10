@@ -50,7 +50,7 @@ Create an ionic.io account to send Push Notifications and use the Ionic View app
 ```
 This will create the seed project:
 
-![Ionic seed project]({{ site.url }}/assets/Screenshot-2015-09-09.png)
+![Ionic seed project](../assets/Screenshot-2015-09-09.png)
 
 
 Running your app in browser
@@ -62,7 +62,7 @@ ionic serve
 
 You'll see it in browser:
 
-![Project running in browser]({{ site.url }}/assets/Screenshot-2015-09-09-2.png)
+![Project running in browser](../assets/Screenshot-2015-09-09-2.png)
 
 Adding a target platform
 ---
