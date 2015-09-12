@@ -58,10 +58,7 @@ Create an ionic.io account to send Push Notifications and use the Ionic View app
 ```
 This will create the seed project:
 
-<!--
 ![Ionic seed project]({{ site.url }}/assets/Screenshot-2015-09-09.png)
--->
-![Ionic seed project](../assets/Screenshot-2015-09-09.png)
 
 
 # Running your app in browser
@@ -72,10 +69,7 @@ ionic serve
 
 You'll see it in browser:
 
-<!--
 ![Project running in browser]({{ site.url }}/assets/Screenshot-2015-09-09-2.png)
--->
-![Project running in browser](../assets/Screenshot-2015-09-09-2.png)
 
 Adding a target platform
 ---
@@ -99,10 +93,7 @@ Note: iOS development requires OS X currently
 
 Adding Android platform should generate Android source code under `platforms/android` directory, add a resource directory for images and extend existing `config.xml` and `package.json` files.
 
-<!--
 ![New files after adding Android platform]({{ site.url }}/assets/Screenshot-2015-09-12-1.png)
--->
-![New files after adding Android platform](../assets/Screenshot-2015-09-12-1.png)
 
 # Running your app on a device
 Run your app on a device: ionic run <PLATFORM>
@@ -119,10 +110,7 @@ ionic run ios
 
 App on Android device:
 
-<!--
 ![Running on Android device]({{ site.url }}/assets/Screenshot-2015-09-12-2.png)
--->
-![Running on Android device](../assets/Screenshot-2015-09-12-2.png)
 
 # Building your app
 
@@ -156,7 +144,8 @@ ionic emulate ios
 
 # Packaging your app
 
-You can package your app using Cordova Command : `cordova build <MODE> <PLATFORM>`
+You can package your app using Cordova Command :
+`cordova build <MODE> <PLATFORM>`
 
 ##### For Android debug packaging:
 ```
