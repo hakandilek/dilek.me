@@ -48,22 +48,14 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This will create the seed project:&lt;/p&gt;
 
-&lt;!--
-![Ionic seed project](http://www.dilek.me/assets/Screenshot-2015-09-09.png)
---&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/Screenshot-2015-09-09.png&quot; alt=&quot;Ionic seed project&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-09.png&quot; alt=&quot;Ionic seed project&quot;&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;running-your-app-in-browser&quot;&gt;Running your app in browser&lt;/h1&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ionic serve
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;You&amp;rsquo;ll see it in browser:&lt;/p&gt;
 
-&lt;!--
-![Project running in browser](http://www.dilek.me/assets/Screenshot-2015-09-09-2.png)
---&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/Screenshot-2015-09-09-2.png&quot; alt=&quot;Project running in browser&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-09-2.png&quot; alt=&quot;Project running in browser&quot;&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;adding-a-target-platform&quot;&gt;Adding a target platform&lt;/h2&gt;
 
@@ -83,11 +75,7 @@
 
 &lt;p&gt;Adding Android platform should generate Android source code under &lt;code&gt;platforms/android&lt;/code&gt; directory, add a resource directory for images and extend existing &lt;code&gt;config.xml&lt;/code&gt; and &lt;code&gt;package.json&lt;/code&gt; files.&lt;/p&gt;
 
-&lt;!--
-![New files after adding Android platform](http://www.dilek.me/assets/Screenshot-2015-09-12-1.png)
---&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/Screenshot-2015-09-12-1.png&quot; alt=&quot;New files after adding Android platform&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-12-1.png&quot; alt=&quot;New files after adding Android platform&quot;&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;running-your-app-on-a-device&quot;&gt;Running your app on a device&lt;/h1&gt;
 
@@ -101,11 +89,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;App on Android device:&lt;/p&gt;
 
-&lt;!--
-![Running on Android device](http://www.dilek.me/assets/Screenshot-2015-09-12-2.png)
---&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/Screenshot-2015-09-12-2.png&quot; alt=&quot;Running on Android device&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-12-2.png&quot; alt=&quot;Running on Android device&quot;&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;building-your-app&quot;&gt;Building your app&lt;/h1&gt;
 
@@ -131,7 +115,8 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h1 id=&quot;packaging-your-app&quot;&gt;Packaging your app&lt;/h1&gt;
 
-&lt;p&gt;You can package your app using Cordova Command : &lt;code&gt;cordova build &amp;lt;MODE&amp;gt; &amp;lt;PLATFORM&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You can package your app using Cordova Command :
+&lt;code&gt;cordova build &amp;lt;MODE&amp;gt; &amp;lt;PLATFORM&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;for-android-debug-packaging&quot;&gt;For Android debug packaging:&lt;/h5&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cordova build --debug android
