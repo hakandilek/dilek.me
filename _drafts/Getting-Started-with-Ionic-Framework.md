@@ -12,6 +12,10 @@ categories: ionic hybrid mobile
 
  Install Ionic Framework via `npm`
  ---
+ 
+*burada azıcık npm bilgisi iyi gider (ben ilk dün duydum)*
+
+npm is the pre-installed package manager for the Node.js server platform. (https://en.wikipedia.org/wiki/Node.js)
 
 On Linux:
 ```bash
@@ -77,6 +81,9 @@ Add a platform (ios or Android): ionic platform add ios [android]
   See the Android Platform Guide for full Android installation instructions:
   https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html
 
+Cordova requires the ANDROID_HOME environment variable to be set. This should point to the [ANDROID_SDK_DIR]\android-sdk directory. Next, create an environment variable for JAVA_HOME pointing to the root folder where the Java JDK was installed. 
+(http://ionicframework.com/docs/guide/installation.html)
+
 For iOS:
 ```
 ionic platform add ios
@@ -124,7 +131,7 @@ For Android:
 ionic emulate android
 ```
 Note that Genymotion behaves like a device, so it requires `run` rather than `emulate`
-![ref missing]()
+![ref bulundu](http://ionicframework.com/docs/guide/installation.html)
 
 Packaging your app
 ---
