@@ -7,6 +7,151 @@
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Getting started with Ionic Framework</title>
+        <description>&lt;p&gt;This guide aims to give a brief introduction for &lt;a href=&quot;http://ionicframework.com/&quot;&gt;Ionic Framework&lt;/a&gt; for starters.&lt;/p&gt;
+
+&lt;p&gt;I would like to thank to &lt;a href=&quot;http://mimoza.marmara.edu.tr/%7Emaeyler/&quot;&gt;Prof. Akif Eyler&lt;/a&gt; for his patience and contributions in this post.&lt;/p&gt;
+
+&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
+
+&lt;p&gt;Following tools have to be installed in order to follow this guide.
+- &lt;a href=&quot;https://www.npmjs.com/&quot;&gt;npm&lt;/a&gt; version 2.11.3
+- &lt;a href=&quot;https://nodejs.org&quot;&gt;node&lt;/a&gt; version v0.12.7
+- &lt;a href=&quot;https://developer.android.com/sdk/index.html&quot;&gt;Android SDK&lt;/a&gt; with API version 22&lt;/p&gt;
+
+&lt;p&gt;This guide aims to build a mobile app for the Android platform but will also provide instructions for iOS. iOS has another set of tools and SDK for building mobile apps which is not completely covered here.&lt;/p&gt;
+
+&lt;h1 id=&quot;install-ionic-framework-via-npm&quot;&gt;Install Ionic Framework via &lt;code&gt;npm&lt;/code&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.npmjs.com/&quot;&gt;npm&lt;/a&gt; is the pre-installed package manager for the &lt;a href=&quot;https://en.wikipedia.org/wiki/Node.js&quot;&gt;Node.js&lt;/a&gt; platform.&lt;/p&gt;
+
+&lt;h5 id=&quot;on-linux&quot;&gt;On Linux:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo npm install -g ionic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5 id=&quot;on-windows&quot;&gt;On Windows:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;npm install -g ionic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;install-cordova-cli&quot;&gt;Install Cordova CLI&lt;/h1&gt;
+
+&lt;h5 id=&quot;on-linux&quot;&gt;On Linux:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo npm install -g cordova
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5 id=&quot;on-windows&quot;&gt;On Windows:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;npm install -g cordova
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;create-a-seed-project&quot;&gt;Create a seed project:&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ionic start ionic-getting-started
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Answer &lt;code&gt;n&lt;/code&gt; to the following question indicating that you&amp;rsquo;ll skip ionic.io cloud integration. We want to keep it simple here, right?&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Create an ionic.io account to send Push Notifications and use the Ionic View app?
+(Y/n): n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will create the seed project:&lt;/p&gt;
+
+&lt;!--
+![Ionic seed project](http://www.dilek.me/assets/Screenshot-2015-09-09.png)
+--&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/Screenshot-2015-09-09.png&quot; alt=&quot;Ionic seed project&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;running-your-app-in-browser&quot;&gt;Running your app in browser&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ionic serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You&amp;rsquo;ll see it in browser:&lt;/p&gt;
+
+&lt;!--
+![Project running in browser](http://www.dilek.me/assets/Screenshot-2015-09-09-2.png)
+--&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/Screenshot-2015-09-09-2.png&quot; alt=&quot;Project running in browser&quot;&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;adding-a-target-platform&quot;&gt;Adding a target platform&lt;/h2&gt;
+
+&lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic platform add android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;See the &lt;a href=&quot;https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html&quot;&gt;Android Platform Guide&lt;/a&gt; for full Android installation instructions:&lt;/p&gt;
+
+&lt;p&gt;Cordova requires the &lt;code&gt;ANDROID_HOME&lt;/code&gt; environment variable to be set. This should point to the &lt;code&gt;[ANDROID_SDK_DIR]\android-sdk&lt;/code&gt; directory. Next, create an environment variable for &lt;code&gt;JAVA_HOME&lt;/code&gt; environment variable pointing to the root folder where the Java JDK was installed.&lt;/p&gt;
+
+&lt;p&gt;See &lt;a href=&quot;http://ionicframework.com/docs/guide/installation.html&quot;&gt;Ionic installation guide&lt;/a&gt; for further instructions.&lt;/p&gt;
+
+&lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic platform add ios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note: iOS development requires OS X currently&lt;/p&gt;
+
+&lt;p&gt;Adding Android platform should generate Android source code under &lt;code&gt;platforms/android&lt;/code&gt; directory, add a resource directory for images and extend existing &lt;code&gt;config.xml&lt;/code&gt; and &lt;code&gt;package.json&lt;/code&gt; files.&lt;/p&gt;
+
+&lt;!--
+![New files after adding Android platform](http://www.dilek.me/assets/Screenshot-2015-09-12-1.png)
+--&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/Screenshot-2015-09-12-1.png&quot; alt=&quot;New files after adding Android platform&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;running-your-app-on-a-device&quot;&gt;Running your app on a device&lt;/h1&gt;
+
+&lt;p&gt;Run your app on a device: ionic run &lt;PLATFORM&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic run android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic run ios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;App on Android device:&lt;/p&gt;
+
+&lt;!--
+![Running on Android device](http://www.dilek.me/assets/Screenshot-2015-09-12-2.png)
+--&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/Screenshot-2015-09-12-2.png&quot; alt=&quot;Running on Android device&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;building-your-app&quot;&gt;Building your app&lt;/h1&gt;
+
+&lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic build android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This should generate an &lt;code&gt;android-debug.apk&lt;/code&gt; file under &lt;code&gt;\platforms\android\build\outputs\apk\&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic build ios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;running-your-app-on-an-emulator&quot;&gt;Running your app on an emulator&lt;/h1&gt;
+
+&lt;p&gt;Simulate your app: ionic emulate &lt;PLATFORM&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic emulate android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you are using Genymotion instead of the standard Android emulator, note that Genymotion behaves like a device, so it requires &lt;code&gt;run&lt;/code&gt; rather than &lt;code&gt;emulate&lt;/code&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic emulate ios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;packaging-your-app&quot;&gt;Packaging your app&lt;/h1&gt;
+
+&lt;p&gt;You can package your app using Cordova Command : &lt;code&gt;cordova build &amp;lt;MODE&amp;gt; &amp;lt;PLATFORM&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;for-android-debug-packaging&quot;&gt;For Android debug packaging:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cordova build --debug android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will generate the file &lt;code&gt;\platforms\android\build\outputs\apk\android-debug.apk&lt;/code&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;for-android-release-packaging&quot;&gt;For Android release packaging:&lt;/h5&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cordova build --release android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will generate the file &lt;code&gt;\platforms\android\build\outputs\apk\android-release-unsigned.apk&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You will need to sign this file if you want to publish it in Google Play Store.
+See &lt;a href=&quot;http://ionicframework.com/docs/guide/publishing.html&quot;&gt;Ionic publishing instructions&lt;/a&gt; for further information.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 12 Sep 2015 22:00:00 +0000</pubDate>
+        <link>http://www.dilek.me/ionic/hybrid/mobile/2015/09/12/Getting-Started-with-Ionic-Framework/</link>
+        <guid isPermaLink="true">http://www.dilek.me/ionic/hybrid/mobile/2015/09/12/Getting-Started-with-Ionic-Framework/</guid>
+      </item>
+    
+      <item>
         <title>Automated publishing of Jekyll sites on GitHub</title>
         <description>&lt;p&gt;Publishing a Jekyll based static website on GitHub Pages is quite easy once it is setup properly. This way you can trigger a publish on a different branch every time a change is pushed into the GitHub repository.&lt;/p&gt;
 
