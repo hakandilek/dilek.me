@@ -6,8 +6,11 @@ summary:    Introduction to Ionic Framework
 categories: ionic hybrid mobile
 ---
 
-# Prerequisites
+This guide aims to give a brief introduction for [Ionic Framework](http://ionicframework.com/) for starters.
 
+I would like to thank to [Prof. Akif Eyler](http://mimoza.marmara.edu.tr/~maeyler/) for his patience and contributions in this post.
+
+# Prerequisites
 
 Following tools have to be installed in order to follow this guide.
 - [npm](https://www.npmjs.com/) version 2.11.3
@@ -38,7 +41,7 @@ sudo npm install -g cordova
 ```
 
 ##### On Windows:
-```cmd
+```
 npm install -g cordova
 ```
 # Create a seed project:
