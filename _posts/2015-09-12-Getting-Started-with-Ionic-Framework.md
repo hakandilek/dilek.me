@@ -10,7 +10,7 @@ This guide aims to give a brief introduction for [Ionic Framework](http://ionicf
 
 I would like to thank to [Prof. Akif Eyler](http://mimoza.marmara.edu.tr/~maeyler/) for his patience and contributions in this post.
 
-# Prerequisites
+### Prerequisites
 
 Following tools have to be installed in order to follow this guide.
 - [npm](https://www.npmjs.com/) version 2.11.3
@@ -19,7 +19,7 @@ Following tools have to be installed in order to follow this guide.
 
 This guide aims to build a mobile app for the Android platform but will also provide instructions for iOS. iOS has another set of tools and SDK for building mobile apps which is not completely covered here.
 
-# Install Ionic Framework via `npm`
+### Install Ionic Framework via `npm`
 
 [npm](https://www.npmjs.com/) is the pre-installed package manager for the [Node.js](https://en.wikipedia.org/wiki/Node.js) platform.
 
@@ -33,7 +33,7 @@ sudo npm install -g ionic
 npm install -g ionic
 ```
 
-# Install Cordova CLI
+### Install Cordova CLI
 
 ##### On Linux:
 ```bash
@@ -44,7 +44,7 @@ sudo npm install -g cordova
 ```
 npm install -g cordova
 ```
-# Create a seed project:
+### Create a seed project:
 
 ```bash
 ionic start ionic-getting-started
@@ -61,7 +61,7 @@ This will create the seed project:
 ![Ionic seed project]({{ site.url }}/assets/Screenshot-2015-09-09.png)
 
 
-# Running your app in browser
+### Running your app in browser
 
 ```bash
 ionic serve
@@ -142,7 +142,7 @@ If you are using Genymotion instead of the standard Android emulator, note that 
 ionic emulate ios
 ```
 
-# Packaging your app
+### Packaging your app
 
 You can package your app using Cordova Command :
 `cordova build <MODE> <PLATFORM>`
