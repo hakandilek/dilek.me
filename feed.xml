@@ -12,7 +12,7 @@
 
 &lt;p&gt;I would like to thank to &lt;a href=&quot;http://mimoza.marmara.edu.tr/%7Emaeyler/&quot;&gt;Prof. Akif Eyler&lt;/a&gt; for his patience and contributions in this post.&lt;/p&gt;
 
-&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
+&lt;h3 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h3&gt;
 
 &lt;p&gt;Following tools have to be installed in order to follow this guide.
 - &lt;a href=&quot;https://www.npmjs.com/&quot;&gt;npm&lt;/a&gt; version 2.11.3
@@ -21,7 +21,7 @@
 
 &lt;p&gt;This guide aims to build a mobile app for the Android platform but will also provide instructions for iOS. iOS has another set of tools and SDK for building mobile apps which is not completely covered here.&lt;/p&gt;
 
-&lt;h1 id=&quot;install-ionic-framework-via-npm&quot;&gt;Install Ionic Framework via &lt;code&gt;npm&lt;/code&gt;&lt;/h1&gt;
+&lt;h3 id=&quot;install-ionic-framework-via-npm&quot;&gt;Install Ionic Framework via &lt;code&gt;npm&lt;/code&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.npmjs.com/&quot;&gt;npm&lt;/a&gt; is the pre-installed package manager for the &lt;a href=&quot;https://en.wikipedia.org/wiki/Node.js&quot;&gt;Node.js&lt;/a&gt; platform.&lt;/p&gt;
 
@@ -31,26 +31,26 @@
 &lt;h5 id=&quot;on-windows&quot;&gt;On Windows:&lt;/h5&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;npm install -g ionic
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1 id=&quot;install-cordova-cli&quot;&gt;Install Cordova CLI&lt;/h1&gt;
+&lt;h3 id=&quot;install-cordova-cli&quot;&gt;Install Cordova CLI&lt;/h3&gt;
 
 &lt;h5 id=&quot;on-linux&quot;&gt;On Linux:&lt;/h5&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo npm install -g cordova
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h5 id=&quot;on-windows&quot;&gt;On Windows:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;npm install -g cordova
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;npm install -g cordova
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1 id=&quot;create-a-seed-project&quot;&gt;Create a seed project:&lt;/h1&gt;
+&lt;h3 id=&quot;create-a-seed-project&quot;&gt;Create a seed project:&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ionic start ionic-getting-started
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Answer &lt;code&gt;n&lt;/code&gt; to the following question indicating that you&amp;rsquo;ll skip ionic.io cloud integration. We want to keep it simple here, right?&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Create an ionic.io account to send Push Notifications and use the Ionic View app?
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;Create an ionic.io account to send Push Notifications and use the Ionic View app?
 (Y/n): n
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This will create the seed project:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-09.png&quot; alt=&quot;Ionic seed project&quot;&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;running-your-app-in-browser&quot;&gt;Running your app in browser&lt;/h1&gt;
+&lt;h3 id=&quot;running-your-app-in-browser&quot;&gt;Running your app in browser&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ionic serve
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;You&amp;rsquo;ll see it in browser:&lt;/p&gt;
@@ -60,7 +60,7 @@
 &lt;h2 id=&quot;adding-a-target-platform&quot;&gt;Adding a target platform&lt;/h2&gt;
 
 &lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic platform add android
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic platform add android
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;See the &lt;a href=&quot;https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html&quot;&gt;Android Platform Guide&lt;/a&gt; for full Android installation instructions:&lt;/p&gt;
 
@@ -69,7 +69,7 @@
 &lt;p&gt;See &lt;a href=&quot;http://ionicframework.com/docs/guide/installation.html&quot;&gt;Ionic installation guide&lt;/a&gt; for further instructions.&lt;/p&gt;
 
 &lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic platform add ios
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic platform add ios
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Note: iOS development requires OS X currently&lt;/p&gt;
 
@@ -82,10 +82,10 @@
 &lt;p&gt;Run your app on a device: ionic run &lt;PLATFORM&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic run android
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic run android
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic run ios
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic run ios
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;App on Android device:&lt;/p&gt;
 
@@ -94,37 +94,37 @@
 &lt;h1 id=&quot;building-your-app&quot;&gt;Building your app&lt;/h1&gt;
 
 &lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic build android
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic build android
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This should generate an &lt;code&gt;android-debug.apk&lt;/code&gt; file under &lt;code&gt;\platforms\android\build\outputs\apk\&lt;/code&gt; folder.&lt;/p&gt;
 
 &lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic build ios
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic build ios
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h1 id=&quot;running-your-app-on-an-emulator&quot;&gt;Running your app on an emulator&lt;/h1&gt;
 
 &lt;p&gt;Simulate your app: ionic emulate &lt;PLATFORM&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic emulate android
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic emulate android
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;If you are using Genymotion instead of the standard Android emulator, note that Genymotion behaves like a device, so it requires &lt;code&gt;run&lt;/code&gt; rather than &lt;code&gt;emulate&lt;/code&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ionic emulate ios
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic emulate ios
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1 id=&quot;packaging-your-app&quot;&gt;Packaging your app&lt;/h1&gt;
+&lt;h3 id=&quot;packaging-your-app&quot;&gt;Packaging your app&lt;/h3&gt;
 
 &lt;p&gt;You can package your app using Cordova Command :
 &lt;code&gt;cordova build &amp;lt;MODE&amp;gt; &amp;lt;PLATFORM&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;for-android-debug-packaging&quot;&gt;For Android debug packaging:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cordova build --debug android
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;cordova build --debug android
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This will generate the file &lt;code&gt;\platforms\android\build\outputs\apk\android-debug.apk&lt;/code&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;for-android-release-packaging&quot;&gt;For Android release packaging:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cordova build --release android
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;cordova build --release android
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This will generate the file &lt;code&gt;\platforms\android\build\outputs\apk\android-release-unsigned.apk&lt;/code&gt;&lt;/p&gt;
 
@@ -143,25 +143,25 @@ See &lt;a href=&quot;http://ionicframework.com/docs/guide/publishing.html&quot;&
 &lt;p&gt;I will describe how to do it using &lt;code&gt;rake-jekyll&lt;/code&gt;. For more detailed and probably updated information, please refer to the rake-jekyll documentation on &lt;a href=&quot;https://github.com/jirutka/rake-jekyll&quot;&gt;the  project page&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;If you already don&amp;rsquo;t have one, create a &lt;code&gt;Gemfile&lt;/code&gt; in your repository or update one you already have according to the following:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://rubygems.org&amp;#39;&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;https://rubygems.org&#39;&lt;/span&gt;
 
-&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;jekyll&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rake&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rake-jekyll&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;jekyll&#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;rake&#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;rake-jekyll&#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Create or edit file &lt;code&gt;Rakefile&lt;/code&gt; in your repository:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rb&quot; data-lang=&quot;rb&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rake-jekyll&amp;#39;&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rb&quot; data-lang=&quot;rb&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;rake-jekyll&#39;&lt;/span&gt;
 
-&lt;span class=&quot;no&quot;&gt;Rake&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;GitDeployTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:deploy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Rake&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;GitDeployTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:deploy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Create file &lt;code&gt;.travis.yml&lt;/code&gt; in your repository:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;ruby&lt;/span&gt;
-&lt;span class=&quot;l-Scalar-Plain&quot;&gt;sudo&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;false&lt;/span&gt;
-&lt;span class=&quot;l-Scalar-Plain&quot;&gt;rvm&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;2.2.0&lt;/span&gt;
-&lt;span class=&quot;l-Scalar-Plain&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;bundle exec rake deploy&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;s&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ruby&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;sudo&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;rvm&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2.2.0&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;bundle exec rake deploy&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Install &lt;code&gt;travis&lt;/code&gt; gem using shell:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem install travis
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;gem install travis
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Enable &lt;a href=&quot;https://travis-ci.org&quot;&gt;Travis CI&lt;/a&gt; for your github repository:&lt;/p&gt;
 
@@ -184,12 +184,12 @@ See &lt;a href=&quot;http://ionicframework.com/docs/guide/publishing.html&quot;&
 &lt;/ul&gt;
 
 &lt;p&gt;Encrypt the token using the following shell command (replace the &lt;code&gt;&amp;lt;token&amp;gt;&lt;/code&gt; part with your generated token from the previous step):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;travis encrypt &lt;span class=&quot;nv&quot;&gt;GH_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;token&amp;gt; --add env.global
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;travis encrypt &lt;span class=&quot;nv&quot;&gt;GH_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;token&amp;gt; --add env.global
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Following content will be added to your &lt;code&gt;.travis.yml&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;secure&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;YOUR-ENCRYPTED-TOKEN&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;s&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;secure&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;YOUR-ENCRYPTED-TOKEN&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Commit your changes and push to GitHub. Travis will trigger a build and publish your website in a couple of minutes.&lt;/p&gt;
 </description>
@@ -204,13 +204,13 @@ See &lt;a href=&quot;http://ionicframework.com/docs/guide/publishing.html&quot;&
 through apt-get but is quite easy.&lt;/p&gt;
 
 &lt;p&gt;First, download the package using &lt;code&gt;wget&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget https://atom.io/download/deb
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;wget https://atom.io/download/deb
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;When the download is finished, install the package using &lt;code&gt;dpkg&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo dpkg --install atom-amd64.deb
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo dpkg --install atom-amd64.deb
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Finally launch atom editor:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;atom
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;atom
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and you have it.&lt;/p&gt;
 

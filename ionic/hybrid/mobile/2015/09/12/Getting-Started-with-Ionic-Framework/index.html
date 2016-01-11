@@ -95,7 +95,7 @@
 
 <p>I would like to thank to <a href="http://mimoza.marmara.edu.tr/%7Emaeyler/">Prof. Akif Eyler</a> for his patience and contributions in this post.</p>
 
-<h1 id="prerequisites">Prerequisites</h1>
+<h3 id="prerequisites">Prerequisites</h3>
 
 <p>Following tools have to be installed in order to follow this guide.
 - <a href="https://www.npmjs.com/">npm</a> version 2.11.3
@@ -104,7 +104,7 @@
 
 <p>This guide aims to build a mobile app for the Android platform but will also provide instructions for iOS. iOS has another set of tools and SDK for building mobile apps which is not completely covered here.</p>
 
-<h1 id="install-ionic-framework-via-npm">Install Ionic Framework via <code>npm</code></h1>
+<h3 id="install-ionic-framework-via-npm">Install Ionic Framework via <code>npm</code></h3>
 
 <p><a href="https://www.npmjs.com/">npm</a> is the pre-installed package manager for the <a href="https://en.wikipedia.org/wiki/Node.js">Node.js</a> platform.</p>
 
@@ -114,26 +114,26 @@
 <h5 id="on-windows">On Windows:</h5>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">npm install -g ionic
 </code></pre></div>
-<h1 id="install-cordova-cli">Install Cordova CLI</h1>
+<h3 id="install-cordova-cli">Install Cordova CLI</h3>
 
 <h5 id="on-linux">On Linux:</h5>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo npm install -g cordova
 </code></pre></div>
 <h5 id="on-windows">On Windows:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g cordova
+<div class="highlight"><pre><code class="language-" data-lang="">npm install -g cordova
 </code></pre></div>
-<h1 id="create-a-seed-project">Create a seed project:</h1>
+<h3 id="create-a-seed-project">Create a seed project:</h3>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">ionic start ionic-getting-started
 </code></pre></div>
 <p>Answer <code>n</code> to the following question indicating that you&rsquo;ll skip ionic.io cloud integration. We want to keep it simple here, right?</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Create an ionic.io account to send Push Notifications and use the Ionic View app?
+<div class="highlight"><pre><code class="language-" data-lang="">Create an ionic.io account to send Push Notifications and use the Ionic View app?
 (Y/n): n
 </code></pre></div>
 <p>This will create the seed project:</p>
 
 <p><img src="http://www.dilek.me/assets/Screenshot-2015-09-09.png" alt="Ionic seed project"></p>
 
-<h1 id="running-your-app-in-browser">Running your app in browser</h1>
+<h3 id="running-your-app-in-browser">Running your app in browser</h3>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">ionic serve
 </code></pre></div>
 <p>You&rsquo;ll see it in browser:</p>
@@ -143,7 +143,7 @@
 <h2 id="adding-a-target-platform">Adding a target platform</h2>
 
 <h5 id="for-android">For Android:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ionic platform add android
+<div class="highlight"><pre><code class="language-" data-lang="">ionic platform add android
 </code></pre></div>
 <p>See the <a href="https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html">Android Platform Guide</a> for full Android installation instructions:</p>
 
@@ -152,7 +152,7 @@
 <p>See <a href="http://ionicframework.com/docs/guide/installation.html">Ionic installation guide</a> for further instructions.</p>
 
 <h5 id="for-ios">For iOS:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ionic platform add ios
+<div class="highlight"><pre><code class="language-" data-lang="">ionic platform add ios
 </code></pre></div>
 <p>Note: iOS development requires OS X currently</p>
 
@@ -165,10 +165,10 @@
 <p>Run your app on a device: ionic run <PLATFORM></p>
 
 <h5 id="for-android">For Android:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ionic run android
+<div class="highlight"><pre><code class="language-" data-lang="">ionic run android
 </code></pre></div>
 <h5 id="for-ios">For iOS:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ionic run ios
+<div class="highlight"><pre><code class="language-" data-lang="">ionic run ios
 </code></pre></div>
 <p>App on Android device:</p>
 
@@ -177,37 +177,37 @@
 <h1 id="building-your-app">Building your app</h1>
 
 <h5 id="for-android">For Android:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ionic build android
+<div class="highlight"><pre><code class="language-" data-lang="">ionic build android
 </code></pre></div>
 <p>This should generate an <code>android-debug.apk</code> file under <code>\platforms\android\build\outputs\apk\</code> folder.</p>
 
 <h5 id="for-ios">For iOS:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ionic build ios
+<div class="highlight"><pre><code class="language-" data-lang="">ionic build ios
 </code></pre></div>
 <h1 id="running-your-app-on-an-emulator">Running your app on an emulator</h1>
 
 <p>Simulate your app: ionic emulate <PLATFORM></p>
 
 <h5 id="for-android">For Android:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ionic emulate android
+<div class="highlight"><pre><code class="language-" data-lang="">ionic emulate android
 </code></pre></div>
 <p>If you are using Genymotion instead of the standard Android emulator, note that Genymotion behaves like a device, so it requires <code>run</code> rather than <code>emulate</code></p>
 
 <h5 id="for-ios">For iOS:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ionic emulate ios
+<div class="highlight"><pre><code class="language-" data-lang="">ionic emulate ios
 </code></pre></div>
-<h1 id="packaging-your-app">Packaging your app</h1>
+<h3 id="packaging-your-app">Packaging your app</h3>
 
 <p>You can package your app using Cordova Command :
 <code>cordova build &lt;MODE&gt; &lt;PLATFORM&gt;</code></p>
 
 <h5 id="for-android-debug-packaging">For Android debug packaging:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">cordova build --debug android
+<div class="highlight"><pre><code class="language-" data-lang="">cordova build --debug android
 </code></pre></div>
 <p>This will generate the file <code>\platforms\android\build\outputs\apk\android-debug.apk</code></p>
 
 <h5 id="for-android-release-packaging">For Android release packaging:</h5>
-<div class="highlight"><pre><code class="language-text" data-lang="text">cordova build --release android
+<div class="highlight"><pre><code class="language-" data-lang="">cordova build --release android
 </code></pre></div>
 <p>This will generate the file <code>\platforms\android\build\outputs\apk\android-release-unsigned.apk</code></p>
 

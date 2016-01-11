@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="How to publish Jekyll based static web sites on GitHub Pages automatically.">
     <meta name="author" content="Hakan Dilek">
-    <meta name="keywords" content="jekyll, github-pages, publish, automated">
+    <meta name="keywords" content="Jekyll, GitHub-Pages, publish, Automated">
     <link rel="canonical" href="http://www.dilek.me/jekyll/github-pages/publish/automated/2015/06/24/Automated-publishing-of-Jekyll-sites-on-GitHub/">
 
     <!-- Custom CSS -->
@@ -96,25 +96,25 @@
 <p>I will describe how to do it using <code>rake-jekyll</code>. For more detailed and probably updated information, please refer to the rake-jekyll documentation on <a href="https://github.com/jirutka/rake-jekyll">the  project page</a></p>
 
 <p>If you already don&rsquo;t have one, create a <code>Gemfile</code> in your repository or update one you already have according to the following:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-<span class="n">gem</span> <span class="s1">&#39;jekyll&#39;</span>
-<span class="n">gem</span> <span class="s1">&#39;rake&#39;</span>
-<span class="n">gem</span> <span class="s1">&#39;rake-jekyll&#39;</span>
+<span class="n">gem</span> <span class="s1">'jekyll'</span>
+<span class="n">gem</span> <span class="s1">'rake'</span>
+<span class="n">gem</span> <span class="s1">'rake-jekyll'</span>
 </code></pre></div>
 <p>Create or edit file <code>Rakefile</code> in your repository:</p>
-<div class="highlight"><pre><code class="language-rb" data-lang="rb"><span class="nb">require</span> <span class="s1">&#39;rake-jekyll&#39;</span>
+<div class="highlight"><pre><code class="language-rb" data-lang="rb"><span class="nb">require</span> <span class="s1">'rake-jekyll'</span>
 
-<span class="no">Rake</span><span class="o">::</span><span class="no">Jekyll</span><span class="o">::</span><span class="no">GitDeployTask</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:deploy</span><span class="p">)</span>
+<span class="no">Rake</span><span class="o">::</span><span class="no">Jekyll</span><span class="o">::</span><span class="no">GitDeployTask</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">:deploy</span><span class="p">)</span>
 </code></pre></div>
 <p>Create file <code>.travis.yml</code> in your repository:</p>
-<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ruby</span>
-<span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
-<span class="l-Scalar-Plain">rvm</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2.2.0</span>
-<span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bundle exec rake deploy</span>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">language</span><span class="pi">:</span> <span class="s">ruby</span>
+<span class="s">sudo</span><span class="pi">:</span> <span class="s">false</span>
+<span class="s">rvm</span><span class="pi">:</span> <span class="s">2.2.0</span>
+<span class="s">script</span><span class="pi">:</span> <span class="s">bundle exec rake deploy</span>
 </code></pre></div>
 <p>Install <code>travis</code> gem using shell:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>gem install travis
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>gem install travis
 </code></pre></div>
 <p>Enable <a href="https://travis-ci.org">Travis CI</a> for your github repository:</p>
 
@@ -137,12 +137,12 @@
 </ul>
 
 <p>Encrypt the token using the following shell command (replace the <code>&lt;token&gt;</code> part with your generated token from the previous step):</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>travis encrypt <span class="nv">GH_TOKEN</span><span class="o">=</span>&lt;token&gt; --add env.global
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>travis encrypt <span class="nv">GH_TOKEN</span><span class="o">=</span>&lt;token&gt; --add env.global
 </code></pre></div>
 <p>Following content will be added to your <code>.travis.yml</code> file:</p>
-<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">global</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">secure</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">YOUR-ENCRYPTED-TOKEN</span>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">env</span><span class="pi">:</span>
+  <span class="s">global</span><span class="pi">:</span>
+    <span class="s">secure</span><span class="pi">:</span> <span class="s">YOUR-ENCRYPTED-TOKEN</span>
 </code></pre></div>
 <p>Commit your changes and push to GitHub. Travis will trigger a build and publish your website in a couple of minutes.</p>
 
