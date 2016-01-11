@@ -95,7 +95,7 @@ Adding Android platform should generate Android source code under `platforms/and
 
 ![New files after adding Android platform]({{ site.url }}/assets/Screenshot-2015-09-12-1.png)
 
-# Running your app on a device
+### Running your app on a device
 Run your app on a device: ionic run <PLATFORM>
 
 ##### For Android:
@@ -112,7 +112,7 @@ App on Android device:
 
 ![Running on Android device]({{ site.url }}/assets/Screenshot-2015-09-12-2.png)
 
-# Building your app
+### Building your app
 
 ##### For Android:
 ```
@@ -126,7 +126,7 @@ This should generate an `android-debug.apk` file under `\platforms\android\build
 ionic build ios
 ```
 
-# Running your app on an emulator
+### Running your app on an emulator
 
 Simulate your app: ionic emulate <PLATFORM>
 
