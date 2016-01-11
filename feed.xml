@@ -77,7 +77,7 @@
 
 &lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-12-1.png&quot; alt=&quot;New files after adding Android platform&quot;&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;running-your-app-on-a-device&quot;&gt;Running your app on a device&lt;/h1&gt;
+&lt;h3 id=&quot;running-your-app-on-a-device&quot;&gt;Running your app on a device&lt;/h3&gt;
 
 &lt;p&gt;Run your app on a device: ionic run &lt;PLATFORM&gt;&lt;/p&gt;
 
@@ -91,7 +91,7 @@
 
 &lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-12-2.png&quot; alt=&quot;Running on Android device&quot;&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;building-your-app&quot;&gt;Building your app&lt;/h1&gt;
+&lt;h3 id=&quot;building-your-app&quot;&gt;Building your app&lt;/h3&gt;
 
 &lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic build android
@@ -101,7 +101,7 @@
 &lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic build ios
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1 id=&quot;running-your-app-on-an-emulator&quot;&gt;Running your app on an emulator&lt;/h1&gt;
+&lt;h3 id=&quot;running-your-app-on-an-emulator&quot;&gt;Running your app on an emulator&lt;/h3&gt;
 
 &lt;p&gt;Simulate your app: ionic emulate &lt;PLATFORM&gt;&lt;/p&gt;
 
