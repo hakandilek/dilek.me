@@ -6,6 +6,20 @@ summary:    Integrating UML diagrams into Jekyll based static web sites
 categories: Jekyll UML PlantUML
 ---
 
+Using [jekyll-plantuml Plugin](https://github.com/yegor256/jekyll-plantuml)
+
+config.yml: 
+```
+# Gems
+gems: ['jekyll-plantuml', ... other gems... ]
+```
+
+Gemfile:
+```
+gem 'jekyll-plantuml'
+```
+
+
 @startuml
 Object <|-- ArrayList
 
