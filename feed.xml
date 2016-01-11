@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Foo Bar Code</title>
-    <description>A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.</description>
+    <title>Hakan Dilek</title>
+    <description>My personal blog</description>
     <link>http://www.dilek.me/</link>
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
