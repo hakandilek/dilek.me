@@ -15,11 +15,38 @@
 &lt;p&gt;Here are some sample UML diagrams:&lt;/p&gt;
 
 &lt;h4 id=&quot;class-diagram&quot;&gt;Class diagram&lt;/h4&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-Markdown&quot; data-lang=&quot;Markdown&quot;&gt;![Alt text](http://g.gravizo.com/g?
+@startuml;
+Object &amp;lt;|-- ArrayList;
+Object : equals%28%29;
+ArrayList : Object[] elementData;
+ArrayList : size%28%29;
+@enduml
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src=&quot;http://g.gravizo.com/g?%0A@startuml;%0AObject%20%3C%7C--%20ArrayList;%0AObject%20:%20equals%28%29;%0AArrayList%20:%20Object%5B%5D%20elementData;%0AArrayList%20:%20size%28%29;%0A@enduml&quot; alt=&quot;Alt text&quot;&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;sequence-diagram&quot;&gt;Sequence diagram&lt;/h4&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-Markdown&quot; data-lang=&quot;Markdown&quot;&gt;![Alt text](http://g.gravizo.com/g?
+@startuml;
+actor User;
+participant &quot;First Class&quot; as A;
+participant &quot;Second Class&quot; as B;
+participant &quot;Last Class&quot; as C;
+User -&amp;gt; A: DoWork;
+activate A;
+A -&amp;gt; B: Create Request;
+activate B;
+B -&amp;gt; C: DoWork;
+activate C;
+C --&amp;gt; B: WorkDone;
+destroy C;
+B --&amp;gt; A: Request Created;
+deactivate B;
+A --&amp;gt; User: Done;
+deactivate A;
+@enduml)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src=&quot;http://g.gravizo.com/g?%0A@startuml;%0Aactor%20User;%0Aparticipant%20%22First%20Class%22%20as%20A;%0Aparticipant%20%22Second%20Class%22%20as%20B;%0Aparticipant%20%22Last%20Class%22%20as%20C;%0AUser%20-%3E%20A:%20DoWork;%0Aactivate%20A;%0AA%20-%3E%20B:%20Create%20Request;%0Aactivate%20B;%0AB%20-%3E%20C:%20DoWork;%0Aactivate%20C;%0AC%20--%3E%20B:%20WorkDone;%0Adestroy%20C;%0AB%20--%3E%20A:%20Request%20Created;%0Adeactivate%20B;%0AA%20--%3E%20User:%20Done;%0Adeactivate%20A;%0A@enduml&quot; alt=&quot;Alt text&quot;&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 15 Jan 2016 13:00:00 +0000</pubDate>
