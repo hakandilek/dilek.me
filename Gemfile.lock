@@ -25,7 +25,7 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     mercenary (0.3.5)
-    rake (10.4.2)
+    rake (10.5.0)
     rake-jekyll (1.1.0)
       rake (~> 10.0)
     rb-fsevent (0.9.7)
@@ -34,7 +34,7 @@ GEM
     redcarpet (3.3.4)
     rouge (1.10.1)
     safe_yaml (1.0.4)
-    sass (3.4.20)
+    sass (3.4.21)
 
 PLATFORMS
   ruby
