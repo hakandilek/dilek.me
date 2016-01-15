@@ -40,6 +40,8 @@ PLATFORMS
 DEPENDENCIES
   jekyll
   jekyll-paginate
+  jekyll-watch
+  listen
   rake
   rake-jekyll
   redcarpet

@@ -7,6 +7,27 @@
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>UML diagrams for Jekyll and Markdown</title>
+        <description>&lt;p&gt;It is possible to embed UML diagrams into Jekyll or Markdorn pages using the &lt;a href=&quot;http://www.gravizo.com/&quot;&gt;Gravizo&lt;/a&gt; image generation service.&lt;/p&gt;
+
+&lt;p&gt;You don&amp;rsquo;t have to install any local Gems or plugins to embed such diagrams in your Jakyll pages.&lt;/p&gt;
+
+&lt;p&gt;Here are some sample UML diagrams:&lt;/p&gt;
+
+&lt;h4 id=&quot;class-diagram&quot;&gt;Class diagram&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://g.gravizo.com/g?%0A@startuml;%0AObject%20%3C%7C--%20ArrayList;%0AObject%20:%20equals%28%29;%0AArrayList%20:%20Object%5B%5D%20elementData;%0AArrayList%20:%20size%28%29;%0A@enduml&quot; alt=&quot;Alt text&quot;&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;sequence-diagram&quot;&gt;Sequence diagram&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://g.gravizo.com/g?%0A@startuml;%0Aactor%20User;%0Aparticipant%20%22First%20Class%22%20as%20A;%0Aparticipant%20%22Second%20Class%22%20as%20B;%0Aparticipant%20%22Last%20Class%22%20as%20C;%0AUser%20-%3E%20A:%20DoWork;%0Aactivate%20A;%0AA%20-%3E%20B:%20Create%20Request;%0Aactivate%20B;%0AB%20-%3E%20C:%20DoWork;%0Aactivate%20C;%0AC%20--%3E%20B:%20WorkDone;%0Adestroy%20C;%0AB%20--%3E%20A:%20Request%20Created;%0Adeactivate%20B;%0AA%20--%3E%20User:%20Done;%0Adeactivate%20A;%0A@enduml&quot; alt=&quot;Alt text&quot;&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 15 Jan 2016 13:00:00 +0000</pubDate>
+        <link>http://www.dilek.me/uml/plantuml/markdown/2016/01/15/Uml-diagrams-in-Markdown-pages/</link>
+        <guid isPermaLink="true">http://www.dilek.me/uml/plantuml/markdown/2016/01/15/Uml-diagrams-in-Markdown-pages/</guid>
+      </item>
+    
+      <item>
         <title>Getting started with Ionic Framework</title>
         <description>&lt;p&gt;This guide aims to give a brief introduction for &lt;a href=&quot;http://ionicframework.com/&quot;&gt;Ionic Framework&lt;/a&gt; for starters.&lt;/p&gt;
 
