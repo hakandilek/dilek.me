@@ -25,10 +25,12 @@ After successfull compilation, you should see an UML diagram like the following 
 
 ![Alt text](http://g.gravizo.com/g?
 @startuml;
-Object : equals%28%29
-ArrayList : Object%5B%5D elementData
-ArrayList : size%28%29
-@enduml)
+Object <|-- ArrayList;
+Object : equals%28%29;
+ArrayList : Object[] elementData;
+ArrayList : size%28%29;
+@enduml
+)
 
 ![Alt text](http://g.gravizo.com/g?
 @startuml;
