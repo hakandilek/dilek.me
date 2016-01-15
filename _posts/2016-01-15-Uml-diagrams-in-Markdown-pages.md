@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      UML diagrams for Jekyll and Markdown
-date:       2016-01-15 18:00:00
+date:       2016-01-15 13:00:00
 summary:    Integrating UML diagrams into Github Markdown and Jekyll based static web sites
 categories: UML PlantUML markdown
 ---
