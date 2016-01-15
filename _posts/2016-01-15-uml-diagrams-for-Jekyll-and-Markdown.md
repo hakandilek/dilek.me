@@ -1,27 +1,18 @@
 ---
 layout:     post
-title:      UML diagrams for Jekyll
+title:      UML diagrams for Jekyll and Markdown
 date:       2016-01-15 18:00:00
-summary:    Integrating UML diagrams into Jekyll based static web sites
-categories: Jekyll UML PlantUML
+summary:    Integrating UML diagrams into Github Markdown and Jekyll based static web sites
+categories: UML PlantUML markdown
 ---
 
-It is possible to embed UML diagrams into Jekyll sites using the [jekyll-plantuml Plugin](https://github.com/yegor256/jekyll-plantuml) plugin.
+It is possible to embed UML diagrams into Jekyll or Markdorn pages using the [Gravizo](http://www.gravizo.com/) image generation service.
 
-You have to update following files and insert the `gem` definitions:
+You don't have to install any local Gems or plugins to embed such diagrams in your Jakyll pages.
 
-#### config.yml:
-```yaml
-# Gems
-gems: ['jekyll-plantuml', ... other gems... ]
-```
+Here are some sample UML diagrams:
 
-#### Gemfile:
-```ruby
-gem 'jekyll-plantuml'
-```
-
-After successfull compilation, you should see an UML diagram like the following here:
+#### Class diagram
 
 ![Alt text](http://g.gravizo.com/g?
 @startuml;
@@ -31,6 +22,9 @@ ArrayList : Object[] elementData;
 ArrayList : size%28%29;
 @enduml
 )
+
+
+#### Sequence diagram
 
 ![Alt text](http://g.gravizo.com/g?
 @startuml;
