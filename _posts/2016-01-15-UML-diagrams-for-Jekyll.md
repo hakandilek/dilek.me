@@ -31,8 +31,7 @@ Object : equals()
 ArrayList : Object[] elementData
 ArrayList : size()
 
-@enduml
-)
+@enduml)
 
 ![Alt text](http://g.gravizo.com/g?
 @startuml;
