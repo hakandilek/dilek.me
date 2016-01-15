@@ -25,7 +25,6 @@ After successfull compilation, you should see an UML diagram like the following 
 
 ![Alt text](http://g.gravizo.com/g?
 @startuml;
-
 Object <|-- ArrayList
 
 Object : equals()
