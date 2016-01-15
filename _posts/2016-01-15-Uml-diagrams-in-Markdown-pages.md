@@ -13,6 +13,16 @@ You don't have to install any local Gems or plugins to embed such diagrams in yo
 Here are some sample UML diagrams:
 
 #### Class diagram
+```Markdown
+![Alt text](http://g.gravizo.com/g?
+@startuml;
+Object <|-- ArrayList;
+Object : equals%28%29;
+ArrayList : Object[] elementData;
+ArrayList : size%28%29;
+@enduml
+)
+```
 
 ![Alt text](http://g.gravizo.com/g?
 @startuml;
@@ -25,6 +35,28 @@ ArrayList : size%28%29;
 
 
 #### Sequence diagram
+
+```Markdown
+![Alt text](http://g.gravizo.com/g?
+@startuml;
+actor User;
+participant "First Class" as A;
+participant "Second Class" as B;
+participant "Last Class" as C;
+User -> A: DoWork;
+activate A;
+A -> B: Create Request;
+activate B;
+B -> C: DoWork;
+activate C;
+C --> B: WorkDone;
+destroy C;
+B --> A: Request Created;
+deactivate B;
+A --> User: Done;
+deactivate A;
+@enduml)
+```
 
 ![Alt text](http://g.gravizo.com/g?
 @startuml;
