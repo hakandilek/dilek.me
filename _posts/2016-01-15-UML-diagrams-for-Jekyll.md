@@ -23,7 +23,9 @@ gem 'jekyll-plantuml'
 
 After successfull compilation, you should see an UML diagram like the following here:
 
-@startuml
+![Alt text](http://g.gravizo.com/g?
+@startuml;
+
 Object <|-- ArrayList
 
 Object : equals()
@@ -31,3 +33,4 @@ ArrayList : Object[] elementData
 ArrayList : size()
 
 @enduml
+)
