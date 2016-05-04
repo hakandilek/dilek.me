@@ -7,6 +7,50 @@
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>AWS Lambda Project with Gradle</title>
+        <description>&lt;p&gt;In project directory initialize &lt;code&gt;build.gradle&lt;/code&gt; file and gradle Wrapper:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;gradle init
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Edit generated &lt;code&gt;build.gradle&lt;/code&gt; file&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-gradle&quot; data-lang=&quot;gradle&quot;&gt;buildscript {
+  repositories { jcenter() }
+  dependencies {
+    //Gradle shadow plugin
+    classpath &#39;com.github.jengelman.gradle.plugins:shadow:1.2.3&#39;
+  }
+}
+
+apply plugin: &#39;java&#39;
+apply plugin: &#39;com.github.johnrengelman.shadow&#39;
+
+repositories { jcenter() }
+dependencies {
+    //AWS Lambda core library
+    compile &#39;com.amazonaws:aws-lambda-java-core:1.1.0&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Create a simple Java class in &lt;code&gt;project-dir/src/main/java/example/Hello.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;
+&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Use the following gradle command to generate your standalone .jar deployment file:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;./gradlew shadowJar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will generate the .jar file with all dependencies under &lt;code&gt;build/libs&lt;/code&gt; folder which can be uploaded to AWS Lambda.&lt;/p&gt;
+
+&lt;p&gt;Please checkout the &lt;a href=&quot;http://www.dilek.me/java/aws/lambda/2016/05/06/AWS-Lambda-Java-Example/&quot;&gt;next post for a simple AWS Lambda Java Example&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 May 2016 18:00:00 +0000</pubDate>
+        <link>http://www.dilek.me/gradle/aws/lambda/2016/05/04/AWS-Lambda-Project-with-Gradle/</link>
+        <guid isPermaLink="true">http://www.dilek.me/gradle/aws/lambda/2016/05/04/AWS-Lambda-Project-with-Gradle/</guid>
+      </item>
+    
+      <item>
         <title>UML diagrams for Jekyll and Markdown</title>
         <description>&lt;p&gt;It is possible to embed UML diagrams into Jekyll or Markdorn pages using the &lt;a href=&quot;http://www.gravizo.com/&quot;&gt;Gravizo&lt;/a&gt; image generation service.&lt;/p&gt;
 
