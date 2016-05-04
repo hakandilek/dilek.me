@@ -29,20 +29,19 @@ dependencies {
     compile &#39;com.amazonaws:aws-lambda-java-core:1.1.0&#39;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Create a simple Java class under &lt;code&gt;project-dir/src/main/java/example/Hello.java&lt;/code&gt;
-&amp;ldquo;`java
-package example;&lt;/p&gt;
+&lt;p&gt;Create a simple Java class under &lt;code&gt;project-dir/src/main/java/example/Hello.java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;
+&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
-&lt;p&gt;public class Hello {&lt;/p&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-&lt;p&gt;}
-&amp;rdquo;`&lt;/p&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;Use the following gradle command to generate your standalone .jar deployment file:
-&lt;code&gt;bash
-./gradlew shadowJar
-&lt;/code&gt;
-This will generate the .jar file with all dependencies under &lt;code&gt;build/libs&lt;/code&gt; folder which can be uploaded to AWS Lambda.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Use the following gradle command to generate your standalone .jar deployment file:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;./gradlew shadowJar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will generate the .jar file with all dependencies under &lt;code&gt;build/libs&lt;/code&gt; folder which can be uploaded to AWS Lambda.&lt;/p&gt;
 </description>
         <pubDate>Tue, 05 Apr 2016 18:00:00 +0000</pubDate>
         <link>http://www.dilek.me/gradle/aws/lambda/2016/04/05/AWS-Lambda-Project-with-Gradle/</link>
