@@ -9,7 +9,7 @@ categories: Gradle AWS Lambda
 In project directory initialize `build.gradle` file and gradle Wrapper:
 
 ```bash
-$ gradle init
+gradle init
 ```
 
 Edit generated `build.gradle` file
@@ -33,7 +33,7 @@ dependencies {
 }
 ```
 
-Create a simple Java class under `project-dir/src/main/java/example/Hello.java`
+Create a simple Java class in `project-dir/src/main/java/example/Hello.java`
 
 ```java
 
