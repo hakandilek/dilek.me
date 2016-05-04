@@ -34,16 +34,21 @@ dependencies {
 ```
 
 Create a simple Java class under `project-dir/src/main/java/example/Hello.java`
+
 ```java
+
 package example;
 
 public class Hello {
   
 }
+
 ```
 
 Use the following gradle command to generate your standalone .jar deployment file:
+
 ```bash
 ./gradlew shadowJar
 ```
+
 This will generate the .jar file with all dependencies under `build/libs` folder which can be uploaded to AWS Lambda.
