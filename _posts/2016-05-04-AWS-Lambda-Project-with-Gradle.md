@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      AWS Lambda Project with Gradle
-date:       2016-04-05 18:00:00
+date:       2016-05-04 18:00:00
 summary:    Creating an AWS Lambda Project with Gradle
 categories: Gradle AWS Lambda
 ---
@@ -52,3 +52,5 @@ Use the following gradle command to generate your standalone .jar deployment fil
 ```
 
 This will generate the .jar file with all dependencies under `build/libs` folder which can be uploaded to AWS Lambda.
+
+Please checkout the [next post for a simple AWS Lambda Java Example]({{ site.url }}/java/aws/lambda/2016/05/06/AWS-Lambda-Java-Example/)
