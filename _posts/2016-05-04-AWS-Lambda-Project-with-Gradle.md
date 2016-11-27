@@ -53,4 +53,4 @@ Use the following gradle command to generate your standalone .jar deployment fil
 
 This will generate the .jar file with all dependencies under `build/libs` folder which can be uploaded to AWS Lambda.
 
-Please checkout the [next post for a simple AWS Lambda Java Example]({{ site.url }}/java/aws/lambda/2016/05/06/AWS-Lambda-Java-Example/)
+Please checkout the [next post for a simple AWS Lambda Java Example]({{ site.url }}/java/aws/lambda/2016/05/05/AWS-Lambda-Java-Example/)
