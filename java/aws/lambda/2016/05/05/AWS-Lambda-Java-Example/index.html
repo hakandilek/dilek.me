@@ -105,8 +105,8 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="kd">implements</span> <span class="n">RequestHandler</span><span class="o">&lt;</span><span class="n">HelloRequest</span><span class="o">,</span> <span class="n">HelloResponse</span><span class="o">&gt;</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">HelloResponse</span> <span class="n">handleRequest</span><span class="o">(</span><span class="n">HelloRequest</span> <span class="n">input</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">HelloResponse</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getInput</span><span class="o">());</span>
+    <span class="kd">public</span> <span class="n">HelloResponse</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HelloRequest</span> <span class="n">input</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">HelloResponse</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getInput</span><span class="o">());</span>
     <span class="o">}</span>
 
 <span class="o">}</span>
@@ -121,18 +121,18 @@
 
     <span class="kd">private</span> <span class="n">String</span> <span class="n">input</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">HelloRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">HelloRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">input</span> <span class="o">=</span> <span class="n">input</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">HelloRequest</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">HelloRequest</span><span class="o">()</span> <span class="o">{</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getInput</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getInput</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">input</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setInput</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setInput</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">input</span> <span class="o">=</span> <span class="n">input</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -146,18 +146,18 @@
 
     <span class="kd">private</span> <span class="n">String</span> <span class="n">hello</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">HelloResponse</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">HelloResponse</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">hello</span> <span class="o">=</span> <span class="n">hello</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">HelloResponse</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">HelloResponse</span><span class="o">()</span> <span class="o">{</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getHello</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getHello</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">hello</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setHello</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setHello</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">hello</span> <span class="o">=</span> <span class="n">hello</span><span class="o">;</span>
     <span class="o">}</span>
 

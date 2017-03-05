@@ -95,22 +95,22 @@
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">gradle init
 </code></pre></div>
 <p>Edit generated <code>build.gradle</code> file</p>
-<div class="highlight"><pre><code class="language-gradle" data-lang="gradle">buildscript {
-  repositories { jcenter() }
-  dependencies {
-    //Gradle shadow plugin
-    classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
-  }
-}
+<div class="highlight"><pre><code class="language-gradle" data-lang="gradle"><span class="k">buildscript</span> <span class="o">{</span>
+  <span class="k">repositories</span> <span class="o">{</span> <span class="n">jcenter</span><span class="o">()</span> <span class="o">}</span>
+  <span class="k">dependencies</span> <span class="o">{</span>
+    <span class="c1">//Gradle shadow plugin</span>
+    <span class="n">classpath</span> <span class="s1">'com.github.jengelman.gradle.plugins:shadow:1.2.3'</span>
+  <span class="o">}</span>
+<span class="o">}</span>
 
-apply plugin: 'java'
-apply plugin: 'com.github.johnrengelman.shadow'
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'java'</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'com.github.johnrengelman.shadow'</span>
 
-repositories { jcenter() }
-dependencies {
-    //AWS Lambda core library
-    compile 'com.amazonaws:aws-lambda-java-core:1.1.0'
-}
+<span class="k">repositories</span> <span class="o">{</span> <span class="n">jcenter</span><span class="o">()</span> <span class="o">}</span>
+<span class="k">dependencies</span> <span class="o">{</span>
+    <span class="c1">//AWS Lambda core library</span>
+    <span class="n">compile</span> <span class="s1">'com.amazonaws:aws-lambda-java-core:1.1.0'</span>
+<span class="o">}</span>
 </code></pre></div>
 <p>Create a simple Java class in <code>project-dir/src/main/java/example/Hello.java</code></p>
 <div class="highlight"><pre><code class="language-java" data-lang="java">
@@ -126,7 +126,7 @@ dependencies {
 </code></pre></div>
 <p>This will generate the .jar file with all dependencies under <code>build/libs</code> folder which can be uploaded to AWS Lambda.</p>
 
-<p>Please checkout the <a href="http://www.dilek.me/java/aws/lambda/2016/05/06/AWS-Lambda-Java-Example/">next post for a simple AWS Lambda Java Example</a></p>
+<p>Please checkout the <a href="http://www.dilek.me/java/aws/lambda/2016/05/05/AWS-Lambda-Java-Example/">next post for a simple AWS Lambda Java Example</a></p>
 
 </article>
 
