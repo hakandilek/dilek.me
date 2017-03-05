@@ -3,8 +3,8 @@ sudo: false
 rvm: 2.2.0
 
 script: 
-  - git config --local user.email "travis@travis.ci"
-  - git config --local user.name "Travis CI"
+  - git config --global user.email "travis@travis.ci"
+  - git config --global user.name "Travis CI"
   - bundle exec rake deploy
 
 env:
