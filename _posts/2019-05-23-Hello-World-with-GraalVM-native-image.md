@@ -8,7 +8,7 @@ categories: Java GraalVM native-image benchmark
 
 ## Prerequisites
 
-* [GraalVM is installed](https://github.com/oracle/graal/releases) and <GraalVM>/bin directory is in the `$PATH`
+* [GraalVM is installed](https://github.com/oracle/graal/releases) and `<GraalVM>/bin` directory is in the `$PATH`
 * [Native Image](https://www.graalvm.org/docs/reference-manual/aot-compilation/) is installed using the command `gu install native-image`
 * Clone the [graalvm-playground repository](https://github.com/hakandilek/graalvm-playground)
 
