@@ -181,23 +181,23 @@ Copy <code>Role ARN</code> </li>
 
 <p>Use AWS-CLI to upload your function</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"> aws lambda create-function <span class="se">\</span>
-   --region eu-central-1 <span class="se">\</span>
-   --function-name hello-world-in-java <span class="se">\</span>
-   --zip-file fileb://build/libs/hello-sample-all.jar --role ROLE-ARN-HERE <span class="se">\</span>
-   --handler example.Hello <span class="se">\</span>
-   --runtime java8 <span class="se">\</span>
-   --timeout 15 <span class="se">\</span>
-   --memory-size 512
+   <span class="nt">--region</span> eu-central-1 <span class="se">\</span>
+   <span class="nt">--function-name</span> hello-world-in-java <span class="se">\</span>
+   <span class="nt">--zip-file</span> fileb://build/libs/hello-sample-all.jar <span class="nt">--role</span> ROLE-ARN-HERE <span class="se">\</span>
+   <span class="nt">--handler</span> example.Hello <span class="se">\</span>
+   <span class="nt">--runtime</span> java8 <span class="se">\</span>
+   <span class="nt">--timeout</span> 15 <span class="se">\</span>
+   <span class="nt">--memory-size</span> 512
 </code></pre></div>
 <p>Test your Function in <a href="https://eu-central-1.console.aws.amazon.com/lambda/home?region=eu-central-1#/functions/hello-world-in-java?tab=code">AWS Lambda Console</a></p>
 
 <p>Click <em>Test</em> button and change the JSON content with the following:</p>
-<div class="highlight"><pre><code class="language-" data-lang=""><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="nt">"input"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World!"</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre><code class="language-" data-lang="">
+{
+  "input": "World!"
+}
 
-</span></code></pre></div>
+</code></pre></div>
 <p>Click <em>Save and Test</em> button. You&rsquo;ll see the execution result:</p>
 
 <p><img src="http://www.dilek.me/assets/Screenshot-2016-05-04.png" alt="Successful Result"></p>
