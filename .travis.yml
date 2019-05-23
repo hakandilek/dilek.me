@@ -1,12 +1,10 @@
 language: ruby
 sudo: false
 rvm: 2.2.0
-
-script: 
-  - git config --global user.email "travis@travis.ci"
-  - git config --global user.name "Travis CI"
-  - bundle exec rake deploy
-
+script:
+- git config --global user.email "travis@travis.ci"
+- git config --global user.name "Travis CI"
+- bundle exec rake deploy
 env:
   global:
-  - secure: guTjlPIOBmION8E1/6nPa5fxH0vQ6Le9WtPF0s/QrBXujm/5MrAO5J/JNk2MmPbNGsoY4mgfwxC+OKcAgX4EesYFc07XFbQqSBdcB9C+kfl0nzRuAZ/gR9RwsW9PlNA5+BWUMEZUKfU2Lxljj7Ql7RpK9to4DNGFlDK8e9UDkBEujB292XdXfQUOmEEz9t9NOKTjkJrzQ4U2fmb+a8Il6mpcm1uLFtO9GxExSG90nHqyVMTM+/7OjAbA4B8hieMaEdWAmnmeMT+6TRN+2JfMCTvPFPG4Sb4a99z4yP/9AK4TgfONkR7d2tS11Zhe41HXlWP03oxNbw3iRh4iyZmpORJ0YuX+d8XeIGH3Tg8FTPHxZYWtK4dKyIPzz+32YhMGcgB1ZhjUESsZVQUgaP9F1l3xSpMmlv27L3n8To/gYnREJGUiCzWzQcyFJnCB91jOnopEhl2uMgvXceHlGN4MJfE0eYGXSOxAApryL+Sw2oEJlQGRcbgaRHd+jpABHFoYTyGzwZ64IGzDAP4g1Fcx8YlOtwC1R7OyrPcZyhp32F5hOQb+s4m1eZ4znl0WHi+eA6922xfenFCRTJWc1fGslVuMMV7dRUZTn85aceKE6uglhJCTrJGhKgXPjDN0omxJrVh1Cd3feYxIAm3UqWx92w1eJcNt5CDQQNhp/7iAuQw=
+    secure: lmOdHmI1lkJLr2ImdhktKVSAWeKOrXOBUd69WxUKooWNgpBBYZ89/k8f3jCmG+oelJLMR+HQ0RtgKY3ZJkontJRXw8GAxDxRlR3NUE4zNeExot1WdHsaUeICbkeC359g5vYoxAcLd24tIj+c/Z15Uvy8lhB7NS/EBFxGI/dbJ46QGRCzt63WIjL9F0oeuFU2YGDloaFpnb4WYfDMD90IqBeiscxb9xIrFPKrW6/ChIqiOa38onvIl/l/+RQqgr9CjG/U/RDlYt8sut0tprlI1KTtzf3EPl2RUZONDPGp8k4onSNkaUPzH17i6IxvHYdQFSDKLkY4PaDsrwzjbsfw6eW411e7hESX8lohfK894j1bxbIXTlNmyy5b+JZw4RSOkOUWmJATudBylTzxcMa/LjrfjRQbIw+hmhjXLcm9hOb+lAWFIXYha1wkrENZRHbuKA2+Rf9kXrDDlYfv/VmWzBE+u+aTx1+GincMn5RLD7b4U1LDkzFIgnaAC8ujvqafYt4iJyXZi15N/GK3pUV0lHJslaeU+1J3iZR/PkKkJdbhe34HfpcnwnGerMLOQYoD52pS63golrhK1fNcqmTs1B64oQi9VjSYM7Ld5kgt+S3Skb8nzG0M0GmUOElWwCsPKDoJ9v87MOC3rVzNtQrn0P5nVWuaQzJeaxDK7Ce0GlM=
