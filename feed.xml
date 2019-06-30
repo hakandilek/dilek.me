@@ -7,6 +7,142 @@
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Spring boot with GraalVM Native Image</title>
+        <description>&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/oracle/graal/releases&quot;&gt;GraalVM is installed&lt;/a&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;GraalVM&amp;gt;/bin&lt;/code&gt; directory is in the &lt;code class=&quot;highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.graalvm.org/docs/reference-manual/aot-compilation/&quot;&gt;Native Image&lt;/a&gt; is installed using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;gu install native-image&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Clone the &lt;a href=&quot;https://github.com/hakandilek/graalvm-playground&quot;&gt;graalvm-playground repository&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;run-in-the-vm&quot;&gt;Run in the VM&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For convenience first run the example in the local JVM:&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;graalvm-playground/spring-web
+  &lt;span class=&quot;nv&quot;&gt;$.&lt;/span&gt;/gradlew clean bootJar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/spring-web-0.0.1-SNAPSHOT.jar
+
+  BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;1s
+  4 actionable tasks: 4 executed
+
+    &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;   ____          _            __ _ _
+  /&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt; / ___&lt;span class=&quot;s1&quot;&gt;'_ __ _ _(_)_ __  __ _ \ \ \ \
+  ( ( )\___ | '&lt;/span&gt;_ | &lt;span class=&quot;s1&quot;&gt;'_| | '&lt;/span&gt;_ &lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt; _&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; | &lt;span class=&quot;se&quot;&gt;\ \ \ \&lt;/span&gt;
+  &lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;/  ___&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;| |_&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;| | | | | &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;_| |  &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'  |____| .__|_| |_|_| |_\__, | / / / /
+  =========|_|==============|___/=/_/_/_/
+  :: Spring Boot ::        (v2.1.5.RELEASE)
+
+  2019-05-23 23:19:27.344  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : Starting DemoApplication on l380 with PID 27401 (/home/XXX/graalvm-playground/spring-web/build/libs/spring-web-0.0.1-SNAPSHOT.jar started by XXX in /home/XXX/graalvm-playground/spring-web)
+  2019-05-23 23:19:27.347  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : No active profile set, falling back to default profiles: default
+  2019-05-23 23:19:28.456  INFO 27401 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+  2019-05-23 23:19:28.493  INFO 27401 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+  2019-05-23 23:19:28.493  INFO 27401 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
+  2019-05-23 23:19:28.592  INFO 27401 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+  2019-05-23 23:19:28.593  INFO 27401 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1197 ms
+  2019-05-23 23:19:28.925  INFO 27401 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService '&lt;/span&gt;applicationTaskExecutor&lt;span class=&quot;s1&quot;&gt;'
+  2019-05-23 23:19:29.169  INFO 27401 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+  2019-05-23 23:19:29.171  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : Started DemoApplication in 2.194 seconds (JVM running for 2.633)
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;build-native-image&quot;&gt;Build Native Image&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Make sure that you have the right JVM version (Currently most recent supported version is JDK8-u212):&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;javac &lt;span class=&quot;nt&quot;&gt;-version&lt;/span&gt;
+javac 1.8.0_212
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Try to build the native image&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./gradlew clean bootJar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    native-image &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/spring-web-0.0.1-SNAPSHOT.jar
+
+  BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
+  4 actionable tasks: 4 executed
+  Build on Server&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;pid: 4674, port: 34081&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]    classlist:     265.01 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cap&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     919.46 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        setup:   1,221.87 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     analysis:   4,072.66 ms
+  Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable
+  To diagnose the issue, you can add the option &lt;span class=&quot;nt&quot;&gt;--report-unsupported-elements-at-runtime&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; The unsupported element is &lt;span class=&quot;k&quot;&gt;then &lt;/span&gt;reported at run &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;when it is accessed the first time.
+  Detailed message:
+  Trace: 
+    at parsing java.net.URL.setURLStreamHandlerFactory&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;URL.java:1118&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  Call path from entry point to java.net.URL.setURLStreamHandlerFactory&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;URLStreamHandlerFactory&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
+    at java.net.URL.setURLStreamHandlerFactory&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;URL.java:1110&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    at org.springframework.boot.loader.jar.JarFile.resetCachedUrlHandlers&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JarFile.java:401&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    at org.springframework.boot.loader.jar.JarFile.registerUrlProtocolHandler&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JarFile.java:391&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    at org.springframework.boot.loader.Launcher.launch&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Launcher.java:48&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    at org.springframework.boot.loader.JarLauncher.main&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JarLauncher.java:51&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    at com.oracle.svm.core.JavaMainWrapper.run&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JavaMainWrapper.java:153&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    at com.oracle.svm.core.code.IsolateEnterStub.JavaMainWrapper_run_5087f5482cc9a6abc971913ece43acb471d2631b&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;generated:0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+  Warning: Use &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt;:+ReportExceptionStackTraces to print stacktrace of underlying exception
+  Build on Server&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;pid: 4674, port: 34081&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]    classlist:     114.69 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cap&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     642.22 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        setup:     896.36 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;typeflow&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   1,503.32 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;objects&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     705.94 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;features&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:      98.03 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     analysis:   2,358.07 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;clinit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:      64.41 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     universe:     202.79 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]      &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;parse&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     205.68 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;inline&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     586.94 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;compile&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   1,422.75 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]      compile:   2,394.41 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        image:     245.09 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        write:      56.23 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;total]:   6,324.13 ms
+  Warning: Image &lt;span class=&quot;s1&quot;&gt;'spring-web-0.0.1-SNAPSHOT'&lt;/span&gt; is a fallback image that requires a JDK &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;execution &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;use &lt;span class=&quot;nt&quot;&gt;--no-fallback&lt;/span&gt; to suppress fallback image generation&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Check the resulting image:&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ahl&lt;/span&gt;
+  ...
+  &lt;span class=&quot;nt&quot;&gt;-rwxr-xr-x&lt;/span&gt; 1 XXX XXX 2,6M Mai 23 23:22 spring-web-0.0.1-SNAPSHOT
+  ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;The resulting image requires a Java for execution!&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Run the native image&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./spring-web-0.0.1-SNAPSHOT&amp;amp; ps &lt;span class=&quot;nt&quot;&gt;-ef&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;java
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1] 28883
+  XXX    28883  5089  0 23:31 pts/1    00:00:00 /home/XXX/tools/graalvm-ce-19.0.0/jre/bin/java &lt;span class=&quot;nt&quot;&gt;-Dorg&lt;/span&gt;.graalvm.nativeimage.kind&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;fallback-executable &lt;span class=&quot;nt&quot;&gt;-cp&lt;/span&gt; /home/XXX/mutfak/graalvm-playground/spring-web/build/libs/spring-web-0.0.1-SNAPSHOT.jar org.springframework.boot.loader.JarLauncher
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The resulting image is not a real native image and needs a JRE to run. This is already indicated ruting native image build phase with the message &lt;code class=&quot;highlighter-rouge&quot;&gt;Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The reason is, current version of Spring 5.1 does not support GraalVM native images but the upcoming versions with 5.2 and 5.3 will mainly focus on supporting native images as mentioned &lt;a href=&quot;https://github.com/spring-projects/spring-framework/wiki/GraalVM-native-image-support#support-of-native-images-at-spring-framework-level&quot;&gt;here&lt;/a&gt; and &lt;a href=&quot;https://github.com/spring-projects/spring-framework/issues/21529#issuecomment-453474115&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 30 Jun 2019 18:00:00 +0000</pubDate>
+        <link>http://www.dilek.me/graalvm/spring/boot/2019/06/30/Spring-boot-with-GraalVM-Native-Image/</link>
+        <guid isPermaLink="true">http://www.dilek.me/graalvm/spring/boot/2019/06/30/Spring-boot-with-GraalVM-Native-Image/</guid>
+      </item>
+    
+      <item>
         <title>Hello World with GraalVM Native Image</title>
         <description>&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
 
@@ -693,19 +829,6 @@ through apt-get but is quite easy.&lt;/p&gt;
         <pubDate>Fri, 29 May 2015 23:00:00 +0000</pubDate>
         <link>http://www.dilek.me/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-on-Ubuntu/</link>
         <guid isPermaLink="true">http://www.dilek.me/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-on-Ubuntu/</guid>
-      </item>
-    
-      <item>
-        <title>Hello World</title>
-        <description>&lt;p&gt;I’ve been planing to blog my experiences und humble ideas about software development for a long time. So here it is. I will try to write as often as I can in both English and Turkish.&lt;/p&gt;
-
-&lt;p&gt;I have been looking for a solution to build this blog with static pages and preferably using &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; infrastructure. When I’ve first read about &lt;a href=&quot;http://hubpress.io&quot;&gt;HubPress&lt;/a&gt; on &lt;a href=&quot;https://news.ycombinator.com/item?id=9020429&quot;&gt;Hacker News&lt;/a&gt; I thought that I should give it a try. But it didn’t have all the features I wanted, so I have switched to a  &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; based solution and this post has been edited accordingly. I’m planing to write about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; and static page hosting on &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; in another post later.&lt;/p&gt;
-
-&lt;p&gt;This post about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; will probably be in Turkish, because there is already quite a lot of documentation about that in English.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 26 Feb 2015 22:51:52 +0000</pubDate>
-        <link>http://www.dilek.me/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</link>
-        <guid isPermaLink="true">http://www.dilek.me/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</guid>
       </item>
     
   </channel>
