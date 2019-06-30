@@ -2,6 +2,7 @@
 layout: page
 title: About Me
 permalink: /about/
+tags: about
 ---
 
 <div class="post-footer">
