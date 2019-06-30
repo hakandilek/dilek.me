@@ -9,6 +9,154 @@
     
         
             <item>
+                <title>Spring boot with GraalVM Native Image</title>
+                <link>http://www.dilek.me/graalvm/spring/boot/2019/06/30/Spring-boot-with-GraalVM-Native-Image/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="https://github.com/oracle/graal/releases">GraalVM is installed</a> and <code class="highlighter-rouge">&lt;GraalVM&gt;/bin</code> directory is in the <code class="highlighter-rouge">$PATH</code></li>
+  <li><a href="https://www.graalvm.org/docs/reference-manual/aot-compilation/">Native Image</a> is installed using the command <code class="highlighter-rouge">gu install native-image</code></li>
+  <li>Clone the <a href="https://github.com/hakandilek/graalvm-playground">graalvm-playground repository</a></li>
+</ul>
+
+<h2 id="run-in-the-vm">Run in the VM</h2>
+
+<ul>
+  <li>
+    <p>For convenience first run the example in the local JVM:</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">cd </span>graalvm-playground/spring-web
+  <span class="nv">$.</span>/gradlew clean bootJar <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">time </span>java <span class="nt">-jar</span> build/libs/spring-web-0.0.1-SNAPSHOT.jar
+
+  BUILD SUCCESSFUL <span class="k">in </span>1s
+  4 actionable tasks: 4 executed
+
+    <span class="nb">.</span>   ____          _            __ _ _
+  /<span class="se">\\</span> / ___<span class="s1">'_ __ _ _(_)_ __  __ _ \ \ \ \
+  ( ( )\___ | '</span>_ | <span class="s1">'_| | '</span>_ <span class="se">\/</span> _<span class="sb">`</span> | <span class="se">\ \ \ \</span>
+  <span class="se">\\</span>/  ___<span class="o">)</span>| |_<span class="o">)</span>| | | | | <span class="o">||</span> <span class="o">(</span>_| |  <span class="o">)</span> <span class="o">)</span> <span class="o">)</span> <span class="o">)</span>
+    <span class="s1">'  |____| .__|_| |_|_| |_\__, | / / / /
+  =========|_|==============|___/=/_/_/_/
+  :: Spring Boot ::        (v2.1.5.RELEASE)
+
+  2019-05-23 23:19:27.344  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : Starting DemoApplication on l380 with PID 27401 (/home/XXX/graalvm-playground/spring-web/build/libs/spring-web-0.0.1-SNAPSHOT.jar started by XXX in /home/XXX/graalvm-playground/spring-web)
+  2019-05-23 23:19:27.347  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : No active profile set, falling back to default profiles: default
+  2019-05-23 23:19:28.456  INFO 27401 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+  2019-05-23 23:19:28.493  INFO 27401 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+  2019-05-23 23:19:28.493  INFO 27401 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
+  2019-05-23 23:19:28.592  INFO 27401 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+  2019-05-23 23:19:28.593  INFO 27401 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1197 ms
+  2019-05-23 23:19:28.925  INFO 27401 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService '</span>applicationTaskExecutor<span class="s1">'
+  2019-05-23 23:19:29.169  INFO 27401 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+  2019-05-23 23:19:29.171  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : Started DemoApplication in 2.194 seconds (JVM running for 2.633)
+
+</span></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="build-native-image">Build Native Image</h2>
+
+<ul>
+  <li>
+    <p>Make sure that you have the right JVM version (Currently most recent supported version is JDK8-u212):</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>javac <span class="nt">-version</span>
+javac 1.8.0_212
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Try to build the native image</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>./gradlew clean bootJar <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    native-image <span class="nt">-jar</span> build/libs/spring-web-0.0.1-SNAPSHOT.jar
+
+  BUILD SUCCESSFUL <span class="k">in </span>0s
+  4 actionable tasks: 4 executed
+  Build on Server<span class="o">(</span>pid: 4674, port: 34081<span class="o">)</span>
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]    classlist:     265.01 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]        <span class="o">(</span>cap<span class="o">)</span>:     919.46 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]        setup:   1,221.87 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]     analysis:   4,072.66 ms
+  Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable
+  To diagnose the issue, you can add the option <span class="nt">--report-unsupported-elements-at-runtime</span><span class="nb">.</span> The unsupported element is <span class="k">then </span>reported at run <span class="nb">time </span>when it is accessed the first time.
+  Detailed message:
+  Trace: 
+    at parsing java.net.URL.setURLStreamHandlerFactory<span class="o">(</span>URL.java:1118<span class="o">)</span>
+  Call path from entry point to java.net.URL.setURLStreamHandlerFactory<span class="o">(</span>URLStreamHandlerFactory<span class="o">)</span>: 
+    at java.net.URL.setURLStreamHandlerFactory<span class="o">(</span>URL.java:1110<span class="o">)</span>
+    at org.springframework.boot.loader.jar.JarFile.resetCachedUrlHandlers<span class="o">(</span>JarFile.java:401<span class="o">)</span>
+    at org.springframework.boot.loader.jar.JarFile.registerUrlProtocolHandler<span class="o">(</span>JarFile.java:391<span class="o">)</span>
+    at org.springframework.boot.loader.Launcher.launch<span class="o">(</span>Launcher.java:48<span class="o">)</span>
+    at org.springframework.boot.loader.JarLauncher.main<span class="o">(</span>JarLauncher.java:51<span class="o">)</span>
+    at com.oracle.svm.core.JavaMainWrapper.run<span class="o">(</span>JavaMainWrapper.java:153<span class="o">)</span>
+    at com.oracle.svm.core.code.IsolateEnterStub.JavaMainWrapper_run_5087f5482cc9a6abc971913ece43acb471d2631b<span class="o">(</span>generated:0<span class="o">)</span>
+
+  Warning: Use <span class="nt">-H</span>:+ReportExceptionStackTraces to print stacktrace of underlying exception
+  Build on Server<span class="o">(</span>pid: 4674, port: 34081<span class="o">)</span>
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]    classlist:     114.69 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]        <span class="o">(</span>cap<span class="o">)</span>:     642.22 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]        setup:     896.36 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]   <span class="o">(</span>typeflow<span class="o">)</span>:   1,503.32 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]    <span class="o">(</span>objects<span class="o">)</span>:     705.94 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]   <span class="o">(</span>features<span class="o">)</span>:      98.03 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]     analysis:   2,358.07 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]     <span class="o">(</span>clinit<span class="o">)</span>:      64.41 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]     universe:     202.79 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]      <span class="o">(</span>parse<span class="o">)</span>:     205.68 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]     <span class="o">(</span>inline<span class="o">)</span>:     586.94 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]    <span class="o">(</span>compile<span class="o">)</span>:   1,422.75 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]      compile:   2,394.41 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]        image:     245.09 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]        write:      56.23 ms
+  <span class="o">[</span>spring-web-0.0.1-SNAPSHOT:4674]      <span class="o">[</span>total]:   6,324.13 ms
+  Warning: Image <span class="s1">'spring-web-0.0.1-SNAPSHOT'</span> is a fallback image that requires a JDK <span class="k">for </span>execution <span class="o">(</span>use <span class="nt">--no-fallback</span> to suppress fallback image generation<span class="o">)</span><span class="nb">.</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Check the resulting image:</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-ahl</span>
+  ...
+  <span class="nt">-rwxr-xr-x</span> 1 XXX XXX 2,6M Mai 23 23:22 spring-web-0.0.1-SNAPSHOT
+  ...
+</code></pre></div>    </div>
+
+    <p>The resulting image requires a Java for execution!</p>
+  </li>
+  <li>
+    <p>Run the native image</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./spring-web-0.0.1-SNAPSHOT&amp; ps <span class="nt">-ef</span> | <span class="nb">grep </span>java
+  <span class="o">[</span>1] 28883
+  XXX    28883  5089  0 23:31 pts/1    00:00:00 /home/XXX/tools/graalvm-ce-19.0.0/jre/bin/java <span class="nt">-Dorg</span>.graalvm.nativeimage.kind<span class="o">=</span>fallback-executable <span class="nt">-cp</span> /home/XXX/mutfak/graalvm-playground/spring-web/build/libs/spring-web-0.0.1-SNAPSHOT.jar org.springframework.boot.loader.JarLauncher
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The resulting image is not a real native image and needs a JRE to run. This is already indicated ruting native image build phase with the message <code class="highlighter-rouge">Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable</code>.</p>
+
+<p>The reason is, current version of Spring 5.1 does not support GraalVM native images but the upcoming versions with 5.2 and 5.3 will mainly focus on supporting native images as mentioned <a href="https://github.com/spring-projects/spring-framework/wiki/GraalVM-native-image-support#support-of-native-images-at-spring-framework-level">here</a> and <a href="https://github.com/spring-projects/spring-framework/issues/21529#issuecomment-453474115">here</a></p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/graalvm/spring/boot/2019/06/30/Spring-boot-with-GraalVM-Native-Image/</guid>
+                <description>
+                    
+                    Building a Spring Boot project with GraalVM Native Images
+                    
+                </description>
+                <pubDate>Sun, 30 Jun 2019 21:00:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
                 <title>Hello World with GraalVM Native Image</title>
                 <link>http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/</link>
                 <content:encoded>
@@ -118,10 +266,10 @@ javac 1.8.0_212
 <span class="kn">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.Context</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.RequestHandler</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="kd">implements</span> <span class="n">RequestHandler</span><span class="o">&lt;</span><span class="n">HelloRequest</span><span class="o">,</span> <span class="n">HelloResponse</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="kd">implements</span> <span class="nc">RequestHandler</span><span class="o">&lt;</span><span class="nc">HelloRequest</span><span class="o">,</span> <span class="nc">HelloResponse</span><span class="o">&gt;</span> <span class="o">{</span>
 
 	<span class="nd">@Override</span>
-	<span class="kd">public</span> <span class="n">HelloResponse</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HelloRequest</span> <span class="n">input</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">HelloResponse</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="nc">HelloRequest</span> <span class="n">input</span><span class="o">,</span> <span class="nc">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">return</span> <span class="k">new</span> <span class="nf">HelloResponse</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getInput</span><span class="o">());</span>
 	<span class="o">}</span>
 	
@@ -137,20 +285,20 @@ javac 1.8.0_212
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloRequest</span> <span class="o">{</span>
 
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">input</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">input</span><span class="o">;</span>
 
-	<span class="kd">public</span> <span class="nf">HelloRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nf">HelloRequest</span><span class="o">(</span><span class="nc">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">input</span> <span class="o">=</span> <span class="n">input</span><span class="o">;</span>
 	<span class="o">}</span>
 
 	<span class="kd">public</span> <span class="nf">HelloRequest</span><span class="o">()</span> <span class="o">{</span>
 	<span class="o">}</span>
 
-	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getInput</span><span class="o">()</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getInput</span><span class="o">()</span> <span class="o">{</span>
 		<span class="k">return</span> <span class="n">input</span><span class="o">;</span>
 	<span class="o">}</span>
 
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setInput</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setInput</span><span class="o">(</span><span class="nc">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">input</span> <span class="o">=</span> <span class="n">input</span><span class="o">;</span>
 	<span class="o">}</span>
 <span class="o">}</span>
@@ -164,20 +312,20 @@ javac 1.8.0_212
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResponse</span> <span class="o">{</span>
 
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">hello</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">hello</span><span class="o">;</span>
 
-	<span class="kd">public</span> <span class="nf">HelloResponse</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nf">HelloResponse</span><span class="o">(</span><span class="nc">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">hello</span> <span class="o">=</span> <span class="n">hello</span><span class="o">;</span>
 	<span class="o">}</span>
 
 	<span class="kd">public</span> <span class="nf">HelloResponse</span><span class="o">()</span> <span class="o">{</span>
 	<span class="o">}</span>
 
-	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getHello</span><span class="o">()</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getHello</span><span class="o">()</span> <span class="o">{</span>
 		<span class="k">return</span> <span class="n">hello</span><span class="o">;</span>
 	<span class="o">}</span>
 
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setHello</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setHello</span><span class="o">(</span><span class="nc">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">hello</span> <span class="o">=</span> <span class="n">hello</span><span class="o">;</span>
 	<span class="o">}</span>
 	
@@ -419,17 +567,17 @@ deactivate A;
 <p><a href="https://www.npmjs.com/">npm</a> is the pre-installed package manager for the <a href="https://en.wikipedia.org/wiki/Node.js">Node.js</a> platform.</p>
 
 <h5 id="on-linux">On Linux:</h5>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>npm install <span class="nt">-g</span> ionic
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>npm <span class="nb">install</span> <span class="nt">-g</span> ionic
 </code></pre></div></div>
 
 <h5 id="on-windows">On Windows:</h5>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install <span class="nt">-g</span> ionic
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-g</span> ionic
 </code></pre></div></div>
 
 <h3 id="install-cordova-cli">Install Cordova CLI</h3>
 
 <h5 id="on-linux-1">On Linux:</h5>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>npm install <span class="nt">-g</span> cordova
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>npm <span class="nb">install</span> <span class="nt">-g</span> cordova
 </code></pre></div></div>
 
 <h5 id="on-windows-1">On Windows:</h5>
@@ -587,7 +735,7 @@ See <a href="http://ionicframework.com/docs/guide/publishing.html">Ionic publish
 
 <p>Install <code class="highlighter-rouge">travis</code> gem using shell:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gem install travis
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gem <span class="nb">install </span>travis
 </code></pre></div></div>
 
 <p>Enable <a href="https://travis-ci.org">Travis CI</a> for your github repository:</p>
