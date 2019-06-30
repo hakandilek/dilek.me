@@ -1,9 +1,9 @@
 ---
 layout:     post
 title:      Spring boot with GraalVM Native Image
-date:       2019-06-30 17:00:00
-summary:    Building Sprong Boot GraalVM Native Images
-categories: Java GraalVM native spring boot
+date:       2019-06-30 18:00:00
+summary:    Building a Spring Boot project with GraalVM Native Images
+categories: GraalVM spring boot
 ---
 
 ## Prerequisites
