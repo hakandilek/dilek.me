@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title></title>
+    <link>http://www.dilek.me</link>
+    <description>
+      My personal blog
+    </description>
+    
+        
+            <item>
+                <title>Hello World with GraalVM Native Image</title>
+                <link>http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="https://github.com/oracle/graal/releases">GraalVM is installed</a> and <code class="highlighter-rouge">&lt;GraalVM&gt;/bin</code> directory is in the <code class="highlighter-rouge">$PATH</code></li>
+  <li><a href="https://www.graalvm.org/docs/reference-manual/aot-compilation/">Native Image</a> is installed using the command <code class="highlighter-rouge">gu install native-image</code></li>
+  <li>Clone the <a href="https://github.com/hakandilek/graalvm-playground">graalvm-playground repository</a></li>
+</ul>
+
+<h2 id="run-in-the-vm">Run in the VM</h2>
+
+<ul>
+  <li>
+    <p>For convenience first run the example in the local JVM:</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">cd </span>graalvm-playground/01hello-world 
+  <span class="nv">$ </span>./gradlew clean jar <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">time </span>java <span class="nt">-jar</span> build/libs/01hello-world.jar
+
+  BUILD SUCCESSFUL <span class="k">in </span>0s
+  3 actionable tasks: 3 executed
+  Hello World!
+  java <span class="nt">-jar</span> build/libs/01hello-world.jar  0,08s user 0,03s system 139% cpu 0,083 total
+  <span class="err">$</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="build-native-image">Build Native Image</h2>
+
+<ul>
+  <li>
+    <p>Make sure that you have the right JVM version (Currently most recent supported version is JDK8-u212):</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>javac <span class="nt">-version</span>
+javac 1.8.0_212
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Build and run native image</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>./gradlew clean jar <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    native-image <span class="nt">-jar</span> build/libs/01hello-world.jar <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">time</span> ./01hello-world
+
+  BUILD SUCCESSFUL <span class="k">in </span>0s
+  3 actionable tasks: 3 executed
+  Build on Server<span class="o">(</span>pid: 4674, port: 34081<span class="o">)</span>
+  <span class="o">[</span>01hello-world:4674]    classlist:     172.74 ms
+  <span class="o">[</span>01hello-world:4674]        <span class="o">(</span>cap<span class="o">)</span>:     955.19 ms
+  <span class="o">[</span>01hello-world:4674]        setup:   1,690.68 ms
+  <span class="o">[</span>01hello-world:4674]   <span class="o">(</span>typeflow<span class="o">)</span>:   2,260.10 ms
+  <span class="o">[</span>01hello-world:4674]    <span class="o">(</span>objects<span class="o">)</span>:     770.75 ms
+  <span class="o">[</span>01hello-world:4674]   <span class="o">(</span>features<span class="o">)</span>:     147.15 ms
+  <span class="o">[</span>01hello-world:4674]     analysis:   3,250.30 ms
+  <span class="o">[</span>01hello-world:4674]     <span class="o">(</span>clinit<span class="o">)</span>:      78.32 ms
+  <span class="o">[</span>01hello-world:4674]     universe:     262.43 ms
+  <span class="o">[</span>01hello-world:4674]      <span class="o">(</span>parse<span class="o">)</span>:     313.86 ms
+  <span class="o">[</span>01hello-world:4674]     <span class="o">(</span>inline<span class="o">)</span>:     913.91 ms
+  <span class="o">[</span>01hello-world:4674]    <span class="o">(</span>compile<span class="o">)</span>:   2,593.18 ms
+  <span class="o">[</span>01hello-world:4674]      compile:   4,097.51 ms
+  <span class="o">[</span>01hello-world:4674]        image:     390.85 ms
+  <span class="o">[</span>01hello-world:4674]        write:      89.51 ms
+  <span class="o">[</span>01hello-world:4674]      <span class="o">[</span>total]:  10,045.79 ms
+  Hello World!
+  ./01hello-world  0,00s user 0,00s system 87% cpu 0,002 total
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="benchmark-results">Benchmark results</h2>
+
+<p>JVM Call <strong>(0,083s)</strong> vs Native Image <strong>(0,002)</strong>: quiet an improvement!</p>
+
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/</guid>
+                <description>
+                    
+                    An introduction to GraalVM Native Image
+                    
+                </description>
+                <pubDate>Thu, 23 May 2019 23:00:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>Guide to Forking Pixyll</title>
+                <link>http://www.dilek.me/jekyll/pixyll/2019/01/26/guide-to-forking-pixyll/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>The following is an overview to copying and sharing Pixyll.<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<p>Most people have an understanding of what the copyright and licensing obligations are for source code, but not everyone has practical experience.  There is a lot of information about how to use free and open source source code generally, but not necessarily how it works specifically.</p>
+
+<h2 id="basics">Basics</h2>
+
+<p>Pixyll is free and open source software under the MIT license, a <em>permissive license</em>.  You can use Pixyll without charge and it is provided to you, “as is”, without warranty of any kind.</p>
+
+<p>These are some of the rights for Pixyll since it is under the MIT license:<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup></p>
+
+<ol>
+  <li>You can <strong>copy</strong> Pixyll by forking it on GitHub or by any other means of copying.</li>
+  <li>You can <strong>use</strong> Pixyll to publish your site without restriction or limitation.</li>
+  <li>You can <strong>change</strong> Pixyll as you wish, and you can publish your site with a modified version of Pixyll.</li>
+  <li>You can also <strong>distribute</strong> copies of Pixyll to other people.</li>
+  <li>You can also <strong>distribute modified</strong> copies of Pixyll.</li>
+</ol>
+
+<p>Other rights you have of Pixyll under the MIT license:</p>
+
+<ul>
+  <li>You can <strong>sell</strong> copies of Pixyll, including copies you have modified.</li>
+  <li>You can <strong>combine</strong> Pixyll with other works that are under the MIT license, or other permissive licenses, a copyleft license or a proprietary license.  Pixyll already does this itself by using Jekyll, Ruby and other dependencies.</li>
+  <li>You can distribute copies of Pixyll to others under either the MIT license or you can <strong>relicense</strong> Pixyll under another license.  This includes a different permissive license, a copyleft license or a proprietary license.</li>
+</ul>
+
+<p>Your only responsibility is to preserve both the copyright notices of Pixyll and the MIT license in your copy or modified work.</p>
+
+<h2 id="how-to">How to</h2>
+
+<p>If you’ve modified Pixyll significantly and want to share your version, especially public copies of the code, then there are a few items you should do.</p>
+
+<ol>
+  <li>You should probably <strong>rename</strong> your fork of Pixyll with a different name.</li>
+  <li>A new name isn’t required by the MIT license, but it is good etiquette.<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup></li>
+  <li>You should add your name to the <strong>copyright</strong> of your version, and you should preserve the existing copyrights of Pixyll.</li>
+  <li>Maintaining the copyright notices isn’t required of the MIT license, but it is suggested by the license and is a good practice for documenting the copyrights of your derived work.</li>
+</ol>
+
+<p>The items above do not apply when you just copied and modified Pixyll in small ways to just publish your site and you have no plans to fork Pixyll under a different name.</p>
+
+<p>If you want to publish a fork of Pixyll under a different name but keeping it under the MIT license, then you should add your name to the copyright notices:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Copyright (c) 2019 Your Name
+Copyright (c) 2014-2019 John Otander for Pixyll
+</code></pre></div></div>
+
+<p>However, if you want to publish a fork of Pixyll under a different name <em>and</em> a different license, then you should should still add your name to the copyright notices but have a section titled “Pixyll” at the bottom of your LICENSE file that preserves the copyright and license notices for Pixyll:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pixyll
+
+Copyright (c) 2014-2019 John Otander
+
+MIT License
+
+Permission is hereby granted, [...]
+</code></pre></div></div>
+
+<p>If you are just modifying Pixyll in small ways to customize your site, you are not obligated to maintain the copyright notices of Pixyll on your site.  However, if you want to credit the Pixyll theme that would be appreciated, see section on “Pixyll Plug” in the README file that came with Pixyll.</p>
+
+<p>Thanks for using Pixyll, and happy hacking!</p>
+
+<hr />
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p><strong>Disclaimer</strong>: This material is for informational purposes only, and should not be construed as legal advice or opinion.  For actual legal advice, you should consult with professional legal services. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>This list of privileges are derived from the four freedoms of “The Free Software Definition” published by the GNU project <a href="https://www.gnu.org/philosophy/free-sw.en.html">https://www.gnu.org/philosophy/free-sw.en.html</a>. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>Using a different name from “Pixyll” for your derivate work helps avoid misdirected questions from people who are using your version.  It’s similar to using version numbers to discrimate the revisions of software when troubleshooting issues. <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/jekyll/pixyll/2019/01/26/guide-to-forking-pixyll/</guid>
+                <description>
+                    
+                    Pixyll is available to you under the MIT license.
+                    
+                </description>
+                <pubDate>Sat, 26 Jan 2019 19:22:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>AWS Lambda Java Example</title>
+                <link>http://www.dilek.me/java/aws/lambda/2016/05/05/AWS-Lambda-Java-Example/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>Please checkout the <a href="http://www.dilek.me/gradle/aws/lambda/2016/05/04/AWS-Lambda-Project-with-Gradle/">Previous post for the gradle setup</a></p>
+
+<p>Define Java classes under <code class="highlighter-rouge">project-dir/src/main/java/example/</code></p>
+
+<h2 id="hellojava">Hello.java</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">package</span> <span class="n">example</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.Context</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.RequestHandler</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="kd">implements</span> <span class="n">RequestHandler</span><span class="o">&lt;</span><span class="n">HelloRequest</span><span class="o">,</span> <span class="n">HelloResponse</span><span class="o">&gt;</span> <span class="o">{</span>
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="n">HelloResponse</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HelloRequest</span> <span class="n">input</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="nf">HelloResponse</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getInput</span><span class="o">());</span>
+	<span class="o">}</span>
+	
+<span class="o">}</span>
+
+
+</code></pre></div></div>
+
+<h2 id="hellorequestjava">HelloRequest.java</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">package</span> <span class="n">example</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloRequest</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">input</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">HelloRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">input</span> <span class="o">=</span> <span class="n">input</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nf">HelloRequest</span><span class="o">()</span> <span class="o">{</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getInput</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">input</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setInput</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">input</span> <span class="o">=</span> <span class="n">input</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<h2 id="helloresponsejava">HelloResponse.java</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">package</span> <span class="n">example</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResponse</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">hello</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">HelloResponse</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">hello</span> <span class="o">=</span> <span class="n">hello</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nf">HelloResponse</span><span class="o">()</span> <span class="o">{</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getHello</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">hello</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setHello</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">hello</span> <span class="o">=</span> <span class="n">hello</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>Use the following gradle command to generate your standalone .jar deployment file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./gradlew shadowJar
+</code></pre></div></div>
+
+<p>This will generate the .jar file with all dependencies under <code class="highlighter-rouge">build/libs</code>.
+Let’s say this has generated the file <code class="highlighter-rouge">build/libs/hello-sample-all.jar</code>.</p>
+
+<p>Create an IAM Role using <a href="https://console.aws.amazon.com/iam/home?region=eu-central-1#roles">AWS IAM Console</a></p>
+
+<ul>
+  <li>Role Name : <code class="highlighter-rouge">hello-sample</code></li>
+  <li>AWS Service Roles : <code class="highlighter-rouge">AWS Lambda</code> [Select]</li>
+  <li>Policy: <code class="highlighter-rouge">AdministratorAccess</code> [Select]
+ Copy <code class="highlighter-rouge">Role ARN</code></li>
+</ul>
+
+<p>Use AWS-CLI to upload your function</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> aws lambda create-function <span class="se">\</span>
+   <span class="nt">--region</span> eu-central-1 <span class="se">\</span>
+   <span class="nt">--function-name</span> hello-world-in-java <span class="se">\</span>
+   <span class="nt">--zip-file</span> fileb://build/libs/hello-sample-all.jar <span class="nt">--role</span> ROLE-ARN-HERE <span class="se">\</span>
+   <span class="nt">--handler</span> example.Hello <span class="se">\</span>
+   <span class="nt">--runtime</span> java8 <span class="se">\</span>
+   <span class="nt">--timeout</span> 15 <span class="se">\</span>
+   <span class="nt">--memory-size</span> 512
+</code></pre></div></div>
+
+<p>Test your Function in <a href="https://eu-central-1.console.aws.amazon.com/lambda/home?region=eu-central-1#/functions/hello-world-in-java?tab=code">AWS Lambda Console</a></p>
+
+<p>Click <em>Test</em> button and change the JSON content with the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 
+{
+  "input": "World!"
+}
+
+</code></pre></div></div>
+
+<p>Click <em>Save and Test</em> button. You’ll see the execution result:</p>
+
+<p><img src="http://www.dilek.me/assets/Screenshot-2016-05-04.png" alt="Successful Result" /></p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/java/aws/lambda/2016/05/05/AWS-Lambda-Java-Example/</guid>
+                <description>
+                    
+                    A simple Java Example for AWS Lambda
+                    
+                </description>
+                <pubDate>Thu, 05 May 2016 18:00:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>AWS Lambda Project with Gradle</title>
+                <link>http://www.dilek.me/gradle/aws/lambda/2016/05/04/AWS-Lambda-Project-with-Gradle/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>In project directory initialize <code class="highlighter-rouge">build.gradle</code> file and gradle Wrapper:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gradle init
+</code></pre></div></div>
+
+<p>Edit generated <code class="highlighter-rouge">build.gradle</code> file</p>
+
+<div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
+  <span class="k">repositories</span> <span class="o">{</span> <span class="n">jcenter</span><span class="o">()</span> <span class="o">}</span>
+  <span class="k">dependencies</span> <span class="o">{</span>
+    <span class="c1">//Gradle shadow plugin</span>
+    <span class="n">classpath</span> <span class="s1">'com.github.jengelman.gradle.plugins:shadow:1.2.3'</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'java'</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'com.github.johnrengelman.shadow'</span>
+
+<span class="k">repositories</span> <span class="o">{</span> <span class="n">jcenter</span><span class="o">()</span> <span class="o">}</span>
+<span class="k">dependencies</span> <span class="o">{</span>
+    <span class="c1">//AWS Lambda core library</span>
+    <span class="n">compile</span> <span class="s1">'com.amazonaws:aws-lambda-java-core:1.1.0'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Create a simple Java class in <code class="highlighter-rouge">project-dir/src/main/java/example/Hello.java</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">package</span> <span class="n">example</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="o">{</span>
+  
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>Use the following gradle command to generate your standalone .jar deployment file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./gradlew shadowJar
+</code></pre></div></div>
+
+<p>This will generate the .jar file with all dependencies under <code class="highlighter-rouge">build/libs</code> folder which can be uploaded to AWS Lambda.</p>
+
+<p>Please checkout the <a href="http://www.dilek.me/java/aws/lambda/2016/05/05/AWS-Lambda-Java-Example/">next post for a simple AWS Lambda Java Example</a></p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/gradle/aws/lambda/2016/05/04/AWS-Lambda-Project-with-Gradle/</guid>
+                <description>
+                    
+                    Creating an AWS Lambda Project with Gradle
+                    
+                </description>
+                <pubDate>Wed, 04 May 2016 18:00:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>UML diagrams for Jekyll and Markdown</title>
+                <link>http://www.dilek.me/uml/plantuml/markdown/2016/01/15/Uml-diagrams-in-Markdown-pages/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>It is possible to embed UML diagrams into Jekyll or Markdorn pages using the <a href="http://www.gravizo.com/">Gravizo</a> image generation service.</p>
+
+<p>You don’t have to install any local Gems or plugins to embed such diagrams in your Jakyll pages.</p>
+
+<p>Here are some sample UML diagrams:</p>
+
+<h4 id="class-diagram">Class diagram</h4>
+<pre><code class="language-Markdown">![Alt text](http://g.gravizo.com/g?
+@startuml;
+Object &lt;|-- ArrayList;
+Object : equals%28%29;
+ArrayList : Object[] elementData;
+ArrayList : size%28%29;
+@enduml
+)
+</code></pre>
+
+<p><img src="http://g.gravizo.com/g?
+@startuml;
+Object &lt;|-- ArrayList;
+Object : equals%28%29;
+ArrayList : Object[] elementData;
+ArrayList : size%28%29;
+@enduml" alt="Alt text" /></p>
+
+<h4 id="sequence-diagram">Sequence diagram</h4>
+
+<pre><code class="language-Markdown">![Alt text](http://g.gravizo.com/g?
+@startuml;
+actor User;
+participant "First Class" as A;
+participant "Second Class" as B;
+participant "Last Class" as C;
+User -&gt; A: DoWork;
+activate A;
+A -&gt; B: Create Request;
+activate B;
+B -&gt; C: DoWork;
+activate C;
+C --&gt; B: WorkDone;
+destroy C;
+B --&gt; A: Request Created;
+deactivate B;
+A --&gt; User: Done;
+deactivate A;
+@enduml)
+</code></pre>
+
+<p>![Alt text](http://g.gravizo.com/g?
+@startuml;
+actor User;
+participant “First Class” as A;
+participant “Second Class” as B;
+participant “Last Class” as C;
+User -&gt; A: DoWork;
+activate A;
+A -&gt; B: Create Request;
+activate B;
+B -&gt; C: DoWork;
+activate C;
+C –&gt; B: WorkDone;
+destroy C;
+B –&gt; A: Request Created;
+deactivate B;
+A –&gt; User: Done;
+deactivate A;
+@enduml)</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/uml/plantuml/markdown/2016/01/15/Uml-diagrams-in-Markdown-pages/</guid>
+                <description>
+                    
+                    Integrating UML diagrams into Github Markdown and Jekyll based static web sites
+                    
+                </description>
+                <pubDate>Fri, 15 Jan 2016 13:00:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>Getting started with Ionic Framework</title>
+                <link>http://www.dilek.me/ionic/hybrid/mobile/2015/09/12/Getting-Started-with-Ionic-Framework/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>This guide aims to give a brief introduction for <a href="http://ionicframework.com/">Ionic Framework</a> for starters.</p>
+
+<p>I would like to thank to <a href="http://mimoza.marmara.edu.tr/~maeyler/">Prof. Akif Eyler</a> for his patience and contributions in this post.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<p>Following tools have to be installed in order to follow this guide.</p>
+<ul>
+  <li><a href="https://www.npmjs.com/">npm</a> version 2.11.3</li>
+  <li><a href="https://nodejs.org">node</a> version v0.12.7</li>
+  <li><a href="https://developer.android.com/sdk/index.html">Android SDK</a> with API version 22</li>
+</ul>
+
+<p>This guide aims to build a mobile app for the Android platform but will also provide instructions for iOS. iOS has another set of tools and SDK for building mobile apps which is not completely covered here.</p>
+
+<h3 id="install-ionic-framework-via-npm">Install Ionic Framework via <code class="highlighter-rouge">npm</code></h3>
+
+<p><a href="https://www.npmjs.com/">npm</a> is the pre-installed package manager for the <a href="https://en.wikipedia.org/wiki/Node.js">Node.js</a> platform.</p>
+
+<h5 id="on-linux">On Linux:</h5>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>npm install <span class="nt">-g</span> ionic
+</code></pre></div></div>
+
+<h5 id="on-windows">On Windows:</h5>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install <span class="nt">-g</span> ionic
+</code></pre></div></div>
+
+<h3 id="install-cordova-cli">Install Cordova CLI</h3>
+
+<h5 id="on-linux-1">On Linux:</h5>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>npm install <span class="nt">-g</span> cordova
+</code></pre></div></div>
+
+<h5 id="on-windows-1">On Windows:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install -g cordova
+</code></pre></div></div>
+<h3 id="create-a-seed-project">Create a seed project:</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic start ionic-getting-started
+</code></pre></div></div>
+
+<p>Answer <code class="highlighter-rouge">n</code> to the following question indicating that you’ll skip ionic.io cloud integration. We want to keep it simple here, right?</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Create an ionic.io account to send Push Notifications and use the Ionic View app?
+(Y/n): n
+</code></pre></div></div>
+<p>This will create the seed project:</p>
+
+<p><img src="http://www.dilek.me/assets/Screenshot-2015-09-09.png" alt="Ionic seed project" /></p>
+
+<h3 id="running-your-app-in-browser">Running your app in browser</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic serve
+</code></pre></div></div>
+
+<p>You’ll see it in browser:</p>
+
+<p><img src="http://www.dilek.me/assets/Screenshot-2015-09-09-2.png" alt="Project running in browser" /></p>
+
+<h2 id="adding-a-target-platform">Adding a target platform</h2>
+
+<h5 id="for-android">For Android:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic platform add android
+</code></pre></div></div>
+
+<p>See the <a href="https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html">Android Platform Guide</a> for full Android installation instructions:</p>
+
+<p>Cordova requires the <code class="highlighter-rouge">ANDROID_HOME</code> environment variable to be set. This should point to the <code class="highlighter-rouge">[ANDROID_SDK_DIR]\android-sdk</code> directory. Next, create an environment variable for <code class="highlighter-rouge">JAVA_HOME</code> environment variable pointing to the root folder where the Java JDK was installed.</p>
+
+<p>See <a href="http://ionicframework.com/docs/guide/installation.html">Ionic installation guide</a> for further instructions.</p>
+
+<h5 id="for-ios">For iOS:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic platform add ios
+</code></pre></div></div>
+<p>Note: iOS development requires OS X currently</p>
+
+<p>Adding Android platform should generate Android source code under <code class="highlighter-rouge">platforms/android</code> directory, add a resource directory for images and extend existing <code class="highlighter-rouge">config.xml</code> and <code class="highlighter-rouge">package.json</code> files.</p>
+
+<p><img src="http://www.dilek.me/assets/Screenshot-2015-09-12-1.png" alt="New files after adding Android platform" /></p>
+
+<h3 id="running-your-app-on-a-device">Running your app on a device</h3>
+<p>Run your app on a device: ionic run <PLATFORM></PLATFORM></p>
+
+<h5 id="for-android-1">For Android:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic run android
+</code></pre></div></div>
+
+<h5 id="for-ios-1">For iOS:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic run ios
+</code></pre></div></div>
+
+<p>App on Android device:</p>
+
+<p><img src="http://www.dilek.me/assets/Screenshot-2015-09-12-2.png" alt="Running on Android device" /></p>
+
+<h3 id="building-your-app">Building your app</h3>
+
+<h5 id="for-android-2">For Android:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic build android
+</code></pre></div></div>
+
+<p>This should generate an <code class="highlighter-rouge">android-debug.apk</code> file under <code class="highlighter-rouge">\platforms\android\build\outputs\apk\</code> folder.</p>
+
+<h5 id="for-ios-2">For iOS:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic build ios
+</code></pre></div></div>
+
+<h3 id="running-your-app-on-an-emulator">Running your app on an emulator</h3>
+
+<p>Simulate your app: ionic emulate <PLATFORM></PLATFORM></p>
+
+<h5 id="for-android-3">For Android:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic emulate android
+</code></pre></div></div>
+
+<p>If you are using Genymotion instead of the standard Android emulator, note that Genymotion behaves like a device, so it requires <code class="highlighter-rouge">run</code> rather than <code class="highlighter-rouge">emulate</code></p>
+
+<h5 id="for-ios-3">For iOS:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic emulate ios
+</code></pre></div></div>
+
+<h3 id="packaging-your-app">Packaging your app</h3>
+
+<p>You can package your app using Cordova Command :
+<code class="highlighter-rouge">cordova build &lt;MODE&gt; &lt;PLATFORM&gt;</code></p>
+
+<h5 id="for-android-debug-packaging">For Android debug packaging:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cordova build --debug android
+</code></pre></div></div>
+<p>This will generate the file <code class="highlighter-rouge">\platforms\android\build\outputs\apk\android-debug.apk</code></p>
+
+<h5 id="for-android-release-packaging">For Android release packaging:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cordova build --release android
+</code></pre></div></div>
+<p>This will generate the file <code class="highlighter-rouge">\platforms\android\build\outputs\apk\android-release-unsigned.apk</code></p>
+
+<p>You will need to sign this file if you want to publish it in Google Play Store.
+See <a href="http://ionicframework.com/docs/guide/publishing.html">Ionic publishing instructions</a> for further information.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/ionic/hybrid/mobile/2015/09/12/Getting-Started-with-Ionic-Framework/</guid>
+                <description>
+                    
+                    Introduction to Ionic Framework
+                    
+                </description>
+                <pubDate>Sat, 12 Sep 2015 22:00:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>Announcing Version 2.0</title>
+                <link>http://www.dilek.me/jekyll/pixyll/2015/07/11/announcing-pixyll-version-2/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>In an effort to make Pixyll easier to customize and more aesthetically pleasing, we’ve released version <code class="highlighter-rouge">2.0</code>.</p>
+
+<p>Pixyll now features:</p>
+
+<ul>
+  <li>Line anchors in code blocks and new syntax highlighting</li>
+  <li>A customizable variables file</li>
+  <li>Modular, and lighter weight CSS</li>
+  <li>No more <code class="highlighter-rouge">max-width</code> media queries</li>
+</ul>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/jekyll/pixyll/2015/07/11/announcing-pixyll-version-2/</guid>
+                <description>
+                    
+                    Now, Pixyll is lighter weight and more customizable than before.
+                    
+                </description>
+                <pubDate>Sat, 11 Jul 2015 00:00:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>Automated publishing of Jekyll sites on GitHub</title>
+                <link>http://www.dilek.me/jekyll/github-pages/publish/automated/2015/06/24/Automated-publishing-of-Jekyll-sites-on-GitHub/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>Publishing a Jekyll based static website on GitHub Pages is quite easy once it is setup properly. This way you can trigger a publish on a different branch every time a change is pushed into the GitHub repository.</p>
+
+<p>I will describe how to do it using <code class="highlighter-rouge">rake-jekyll</code>. For more detailed and probably updated information, please refer to the rake-jekyll documentation on <a href="https://github.com/jirutka/rake-jekyll">the  project page</a></p>
+
+<p>If you already don’t have one, create a <code class="highlighter-rouge">Gemfile</code> in your repository or update one you already have according to the following:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
+
+<span class="n">gem</span> <span class="s1">'jekyll'</span>
+<span class="n">gem</span> <span class="s1">'rake'</span>
+<span class="n">gem</span> <span class="s1">'rake-jekyll'</span>
+</code></pre></div></div>
+
+<p>Create or edit file <code class="highlighter-rouge">Rakefile</code> in your repository:</p>
+
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'rake-jekyll'</span>
+
+<span class="no">Rake</span><span class="o">::</span><span class="no">Jekyll</span><span class="o">::</span><span class="no">GitDeployTask</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">:deploy</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Create file <code class="highlighter-rouge">.travis.yml</code> in your repository:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">language</span><span class="pi">:</span> <span class="s">ruby</span>
+<span class="na">sudo</span><span class="pi">:</span> <span class="no">false</span>
+<span class="na">rvm</span><span class="pi">:</span> <span class="s">2.2.0</span>
+<span class="na">script</span><span class="pi">:</span> <span class="s">bundle exec rake deploy</span>
+</code></pre></div></div>
+
+<p>Install <code class="highlighter-rouge">travis</code> gem using shell:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gem install travis
+</code></pre></div></div>
+
+<p>Enable <a href="https://travis-ci.org">Travis CI</a> for your github repository:</p>
+
+<ul>
+  <li>if you already don’t have a Travis CI account, <a href="https://travis-ci.org/">sign up</a> for one.</li>
+  <li>open your <a href="https://travis-ci.org/profile/">profile page</a> on Travis</li>
+  <li>find your github repository for the website and turn on the switch
+ <img src="http://www.dilek.me/assets/Screenshot-2015-05-30-1.png" alt="the switch" /></li>
+  <li>click on the repository settings
+ <img src="http://www.dilek.me/assets/Screenshot-2015-05-30-2.png" alt="repository settings" /></li>
+  <li>enable the setting “Build only if .travis.yml is present.”
+ <img src="http://www.dilek.me/assets/Screenshot-2015-05-30-3.png" alt="enable setting" /></li>
+</ul>
+
+<p>Generate a new personal access token on GitHub:</p>
+
+<ul>
+  <li>Generate a new personal access token for your <a href="https://github.com/settings/tokens/new">Github profile</a></li>
+  <li>select <code class="highlighter-rouge">public_repo</code> scope, enter description and generate. You will need the token displayed on the page for the next step.</li>
+</ul>
+
+<p>Encrypt the token using the following shell command (replace the <code class="highlighter-rouge">&lt;token&gt;</code> part with your generated token from the previous step):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>travis encrypt <span class="nv">GH_TOKEN</span><span class="o">=</span>&lt;token&gt; <span class="nt">--add</span> env.global
+</code></pre></div></div>
+
+<p>Following content will be added to your <code class="highlighter-rouge">.travis.yml</code> file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">env</span><span class="pi">:</span>
+  <span class="na">global</span><span class="pi">:</span>
+    <span class="na">secure</span><span class="pi">:</span> <span class="s">YOUR-ENCRYPTED-TOKEN</span>
+</code></pre></div></div>
+
+<p>Commit your changes and push to GitHub. Travis will trigger a build and publish your website in a couple of minutes.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/jekyll/github-pages/publish/automated/2015/06/24/Automated-publishing-of-Jekyll-sites-on-GitHub/</guid>
+                <description>
+                    
+                    How to publish Jekyll based static web sites on GitHub Pages automatically.
+                    
+                </description>
+                <pubDate>Wed, 24 Jun 2015 22:00:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>Install Atom Editor on Ubuntu</title>
+                <link>http://www.dilek.me/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-on-Ubuntu/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>Installing or updating Atom editor on Ubuntu or Linux Mint is not possible
+through apt-get but is quite easy.</p>
+
+<p>First, download the package using <code class="highlighter-rouge">wget</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>wget https://atom.io/download/deb
+</code></pre></div></div>
+
+<p>When the download is finished, install the package using <code class="highlighter-rouge">dpkg</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>dpkg <span class="nt">--install</span> atom-amd64.deb
+</code></pre></div></div>
+
+<p>Finally launch atom editor:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>atom
+</code></pre></div></div>
+
+<p>and you have it.</p>
+
+<p><img src="http://www.dilek.me/assets/Screenshot-2015-05-29.png" alt="Atom screenshot" /></p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-on-Ubuntu/</guid>
+                <description>
+                    
+                    Installing Atom editor on Ubuntu or Linux Mint
+                    
+                </description>
+                <pubDate>Fri, 29 May 2015 23:00:00 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>Hello World</title>
+                <link>http://www.dilek.me/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>I’ve been planing to blog my experiences und humble ideas about software development for a long time. So here it is. I will try to write as often as I can in both English and Turkish.</p>
+
+<p>I have been looking for a solution to build this blog with static pages and preferably using <a href="https://github.com">GitHub</a> infrastructure. When I’ve first read about <a href="http://hubpress.io">HubPress</a> on <a href="https://news.ycombinator.com/item?id=9020429">Hacker News</a> I thought that I should give it a try. But it didn’t have all the features I wanted, so I have switched to a  <a href="http://jekyllrb.com">Jekyll</a> based solution and this post has been edited accordingly. I’m planing to write about <a href="http://jekyllrb.com">Jekyll</a> and static page hosting on <a href="https://github.com">GitHub</a> in another post later.</p>
+
+<p>This post about <a href="http://jekyllrb.com">Jekyll</a> will probably be in Turkish, because there is already quite a lot of documentation about that in English.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</guid>
+                <description>
+                    
+                    First post and brief introduction.
+                    
+                </description>
+                <pubDate>Thu, 26 Feb 2015 22:51:52 +0000</pubDate>
+                <author>Hakan Dilek</author>
+            </item>
+        
+    
+  </channel>
+</rss>

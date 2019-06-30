@@ -11,67 +11,76 @@
         <description>&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/oracle/graal/releases&quot;&gt;GraalVM is installed&lt;/a&gt; and &lt;code&gt;&amp;lt;GraalVM&amp;gt;/bin&lt;/code&gt; directory is in the &lt;code&gt;$PATH&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.graalvm.org/docs/reference-manual/aot-compilation/&quot;&gt;Native Image&lt;/a&gt; is installed using the command &lt;code&gt;gu install native-image&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Clone the &lt;a href=&quot;https://github.com/hakandilek/graalvm-playground&quot;&gt;graalvm-playground repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/oracle/graal/releases&quot;&gt;GraalVM is installed&lt;/a&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;GraalVM&amp;gt;/bin&lt;/code&gt; directory is in the &lt;code class=&quot;highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.graalvm.org/docs/reference-manual/aot-compilation/&quot;&gt;Native Image&lt;/a&gt; is installed using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;gu install native-image&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Clone the &lt;a href=&quot;https://github.com/hakandilek/graalvm-playground&quot;&gt;graalvm-playground repository&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;run-in-the-vm&quot;&gt;Run in the VM&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;For convenience first run the example in the local JVM:&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For convenience first run the example in the local JVM:&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;graalvm-playground/01hello-world 
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./gradlew clean jar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/01hello-world.jar
+
+  BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
+  3 actionable tasks: 3 executed
+  Hello World!
+  java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/01hello-world.jar  0,08s user 0,03s system 139% cpu 0,083 total
+  &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;graalvm-playground/01hello-world 
-    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./gradlew clean jar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/01hello-world.jar
 
-    BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
-    3 actionable tasks: 3 executed
-    Hello World!
-    java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/01hello-world.jar  0,08s user 0,03s system 139% cpu 0,083 total
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
-    &lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;
+&lt;h2 id=&quot;build-native-image&quot;&gt;Build Native Image&lt;/h2&gt;
 
-&lt;span class=&quot;c&quot;&gt;## Build Native Image&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Make sure that you have the right JVM version &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Currently most recent supported version is JDK8-u212&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
-
-  &lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;shell
-  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;javac &lt;span class=&quot;nt&quot;&gt;-version&lt;/span&gt;
-  javac 1.8.0_212
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;Build and run native image&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./gradlew clean jar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-      native-image &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/01hello-world.jar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;time&lt;/span&gt; ./01hello-world
+  &lt;li&gt;
+    &lt;p&gt;Make sure that you have the right JVM version (Currently most recent supported version is JDK8-u212):&lt;/p&gt;
 
-    BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
-    3 actionable tasks: 3 executed
-    Build on Server&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;pid: 4674, port: 34081&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]    classlist:     172.74 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cap&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     955.19 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        setup:   1,690.68 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;typeflow&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   2,260.10 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;objects&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     770.75 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;features&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     147.15 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     analysis:   3,250.30 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;clinit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:      78.32 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     universe:     262.43 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]      &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;parse&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     313.86 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;inline&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     913.91 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;compile&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   2,593.18 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]      compile:   4,097.51 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        image:     390.85 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        write:      89.51 ms
-    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;total]:  10,045.79 ms
-    Hello World!
-    ./01hello-world  0,00s user 0,00s system 87% cpu 0,002 total
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;javac &lt;span class=&quot;nt&quot;&gt;-version&lt;/span&gt;
+javac 1.8.0_212
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Build and run native image&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./gradlew clean jar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    native-image &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/01hello-world.jar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;time&lt;/span&gt; ./01hello-world
+
+  BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
+  3 actionable tasks: 3 executed
+  Build on Server&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;pid: 4674, port: 34081&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]    classlist:     172.74 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cap&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     955.19 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        setup:   1,690.68 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;typeflow&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   2,260.10 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;objects&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     770.75 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;features&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     147.15 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     analysis:   3,250.30 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;clinit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:      78.32 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     universe:     262.43 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]      &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;parse&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     313.86 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;inline&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     913.91 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;compile&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   2,593.18 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]      compile:   4,097.51 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        image:     390.85 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        write:      89.51 ms
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;total]:  10,045.79 ms
+  Hello World!
+  ./01hello-world  0,00s user 0,00s system 87% cpu 0,002 total
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;benchmark-results&quot;&gt;Benchmark results&lt;/h2&gt;
 
 &lt;p&gt;JVM Call &lt;strong&gt;(0,083s)&lt;/strong&gt; vs Native Image &lt;strong&gt;(0,002)&lt;/strong&gt;: quiet an improvement!&lt;/p&gt;
+
 </description>
         <pubDate>Thu, 23 May 2019 23:00:00 +0000</pubDate>
         <link>http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/</link>
@@ -79,97 +88,190 @@
       </item>
     
       <item>
+        <title>Guide to Forking Pixyll</title>
+        <description>&lt;p&gt;The following is an overview to copying and sharing Pixyll.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;Most people have an understanding of what the copyright and licensing obligations are for source code, but not everyone has practical experience.  There is a lot of information about how to use free and open source source code generally, but not necessarily how it works specifically.&lt;/p&gt;
+
+&lt;h2 id=&quot;basics&quot;&gt;Basics&lt;/h2&gt;
+
+&lt;p&gt;Pixyll is free and open source software under the MIT license, a &lt;em&gt;permissive license&lt;/em&gt;.  You can use Pixyll without charge and it is provided to you, “as is”, without warranty of any kind.&lt;/p&gt;
+
+&lt;p&gt;These are some of the rights for Pixyll since it is under the MIT license:&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You can &lt;strong&gt;copy&lt;/strong&gt; Pixyll by forking it on GitHub or by any other means of copying.&lt;/li&gt;
+  &lt;li&gt;You can &lt;strong&gt;use&lt;/strong&gt; Pixyll to publish your site without restriction or limitation.&lt;/li&gt;
+  &lt;li&gt;You can &lt;strong&gt;change&lt;/strong&gt; Pixyll as you wish, and you can publish your site with a modified version of Pixyll.&lt;/li&gt;
+  &lt;li&gt;You can also &lt;strong&gt;distribute&lt;/strong&gt; copies of Pixyll to other people.&lt;/li&gt;
+  &lt;li&gt;You can also &lt;strong&gt;distribute modified&lt;/strong&gt; copies of Pixyll.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Other rights you have of Pixyll under the MIT license:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You can &lt;strong&gt;sell&lt;/strong&gt; copies of Pixyll, including copies you have modified.&lt;/li&gt;
+  &lt;li&gt;You can &lt;strong&gt;combine&lt;/strong&gt; Pixyll with other works that are under the MIT license, or other permissive licenses, a copyleft license or a proprietary license.  Pixyll already does this itself by using Jekyll, Ruby and other dependencies.&lt;/li&gt;
+  &lt;li&gt;You can distribute copies of Pixyll to others under either the MIT license or you can &lt;strong&gt;relicense&lt;/strong&gt; Pixyll under another license.  This includes a different permissive license, a copyleft license or a proprietary license.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Your only responsibility is to preserve both the copyright notices of Pixyll and the MIT license in your copy or modified work.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to&quot;&gt;How to&lt;/h2&gt;
+
+&lt;p&gt;If you’ve modified Pixyll significantly and want to share your version, especially public copies of the code, then there are a few items you should do.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You should probably &lt;strong&gt;rename&lt;/strong&gt; your fork of Pixyll with a different name.&lt;/li&gt;
+  &lt;li&gt;A new name isn’t required by the MIT license, but it is good etiquette.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+  &lt;li&gt;You should add your name to the &lt;strong&gt;copyright&lt;/strong&gt; of your version, and you should preserve the existing copyrights of Pixyll.&lt;/li&gt;
+  &lt;li&gt;Maintaining the copyright notices isn’t required of the MIT license, but it is suggested by the license and is a good practice for documenting the copyrights of your derived work.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The items above do not apply when you just copied and modified Pixyll in small ways to just publish your site and you have no plans to fork Pixyll under a different name.&lt;/p&gt;
+
+&lt;p&gt;If you want to publish a fork of Pixyll under a different name but keeping it under the MIT license, then you should add your name to the copyright notices:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Copyright (c) 2019 Your Name
+Copyright (c) 2014-2019 John Otander for Pixyll
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;However, if you want to publish a fork of Pixyll under a different name &lt;em&gt;and&lt;/em&gt; a different license, then you should should still add your name to the copyright notices but have a section titled “Pixyll” at the bottom of your LICENSE file that preserves the copyright and license notices for Pixyll:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Pixyll
+
+Copyright (c) 2014-2019 John Otander
+
+MIT License
+
+Permission is hereby granted, [...]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you are just modifying Pixyll in small ways to customize your site, you are not obligated to maintain the copyright notices of Pixyll on your site.  However, if you want to credit the Pixyll theme that would be appreciated, see section on “Pixyll Plug” in the README file that came with Pixyll.&lt;/p&gt;
+
+&lt;p&gt;Thanks for using Pixyll, and happy hacking!&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;: This material is for informational purposes only, and should not be construed as legal advice or opinion.  For actual legal advice, you should consult with professional legal services. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;This list of privileges are derived from the four freedoms of “The Free Software Definition” published by the GNU project &lt;a href=&quot;https://www.gnu.org/philosophy/free-sw.en.html&quot;&gt;https://www.gnu.org/philosophy/free-sw.en.html&lt;/a&gt;. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot;&gt;
+      &lt;p&gt;Using a different name from “Pixyll” for your derivate work helps avoid misdirected questions from people who are using your version.  It’s similar to using version numbers to discrimate the revisions of software when troubleshooting issues. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 26 Jan 2019 19:22:00 +0000</pubDate>
+        <link>http://www.dilek.me/jekyll/pixyll/2019/01/26/guide-to-forking-pixyll/</link>
+        <guid isPermaLink="true">http://www.dilek.me/jekyll/pixyll/2019/01/26/guide-to-forking-pixyll/</guid>
+      </item>
+    
+      <item>
         <title>AWS Lambda Java Example</title>
         <description>&lt;p&gt;Please checkout the &lt;a href=&quot;http://www.dilek.me/gradle/aws/lambda/2016/05/04/AWS-Lambda-Project-with-Gradle/&quot;&gt;Previous post for the gradle setup&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Define Java classes under &lt;code&gt;project-dir/src/main/java/example/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Define Java classes under &lt;code class=&quot;highlighter-rouge&quot;&gt;project-dir/src/main/java/example/&lt;/code&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;hello-java&quot;&gt;Hello.java&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;
+&lt;h2 id=&quot;hellojava&quot;&gt;Hello.java&lt;/h2&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.amazonaws.services.lambda.runtime.Context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.amazonaws.services.lambda.runtime.RequestHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RequestHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RequestHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloResponse&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handleRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HelloRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Context&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
+	&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloResponse&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handleRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&quot;hellorequest-java&quot;&gt;HelloRequest.java&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;hellorequestjava&quot;&gt;HelloRequest.java&lt;/h2&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloRequest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&quot;helloresponse-java&quot;&gt;HelloResponse.java&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;helloresponsejava&quot;&gt;HelloResponse.java&lt;/h2&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloResponse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;Use the following gradle command to generate your standalone .jar deployment file:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;./gradlew shadowJar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This will generate the .jar file with all dependencies under &lt;code&gt;build/libs&lt;/code&gt;.
-Let&amp;rsquo;s say this has generated the file &lt;code&gt;build/libs/hello-sample-all.jar&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./gradlew shadowJar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will generate the .jar file with all dependencies under &lt;code class=&quot;highlighter-rouge&quot;&gt;build/libs&lt;/code&gt;.
+Let’s say this has generated the file &lt;code class=&quot;highlighter-rouge&quot;&gt;build/libs/hello-sample-all.jar&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Create an IAM Role using &lt;a href=&quot;https://console.aws.amazon.com/iam/home?region=eu-central-1#roles&quot;&gt;AWS IAM Console&lt;/a&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Role Name : &lt;code&gt;hello-sample&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;AWS Service Roles : &lt;code&gt;AWS Lambda&lt;/code&gt; [Select]&lt;/li&gt;
-&lt;li&gt;Policy: &lt;code&gt;AdministratorAccess&lt;/code&gt; [Select]
-Copy &lt;code&gt;Role ARN&lt;/code&gt; &lt;/li&gt;
+  &lt;li&gt;Role Name : &lt;code class=&quot;highlighter-rouge&quot;&gt;hello-sample&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;AWS Service Roles : &lt;code class=&quot;highlighter-rouge&quot;&gt;AWS Lambda&lt;/code&gt; [Select]&lt;/li&gt;
+  &lt;li&gt;Policy: &lt;code class=&quot;highlighter-rouge&quot;&gt;AdministratorAccess&lt;/code&gt; [Select]
+ Copy &lt;code class=&quot;highlighter-rouge&quot;&gt;Role ARN&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Use AWS-CLI to upload your function&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; aws lambda create-function &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; aws lambda create-function &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
    &lt;span class=&quot;nt&quot;&gt;--region&lt;/span&gt; eu-central-1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
    &lt;span class=&quot;nt&quot;&gt;--function-name&lt;/span&gt; hello-world-in-java &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
    &lt;span class=&quot;nt&quot;&gt;--zip-file&lt;/span&gt; fileb://build/libs/hello-sample-all.jar &lt;span class=&quot;nt&quot;&gt;--role&lt;/span&gt; ROLE-ARN-HERE &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
@@ -177,19 +279,22 @@ Copy &lt;code&gt;Role ARN&lt;/code&gt; &lt;/li&gt;
    &lt;span class=&quot;nt&quot;&gt;--runtime&lt;/span&gt; java8 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
    &lt;span class=&quot;nt&quot;&gt;--timeout&lt;/span&gt; 15 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
    &lt;span class=&quot;nt&quot;&gt;--memory-size&lt;/span&gt; 512
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;Test your Function in &lt;a href=&quot;https://eu-central-1.console.aws.amazon.com/lambda/home?region=eu-central-1#/functions/hello-world-in-java?tab=code&quot;&gt;AWS Lambda Console&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Click &lt;em&gt;Test&lt;/em&gt; button and change the JSON content with the following:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 
 {
   &quot;input&quot;: &quot;World!&quot;
 }
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Click &lt;em&gt;Save and Test&lt;/em&gt; button. You&amp;rsquo;ll see the execution result:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2016-05-04.png&quot; alt=&quot;Successful Result&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Click &lt;em&gt;Save and Test&lt;/em&gt; button. You’ll see the execution result:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2016-05-04.png&quot; alt=&quot;Successful Result&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 05 May 2016 18:00:00 +0000</pubDate>
         <link>http://www.dilek.me/java/aws/lambda/2016/05/05/AWS-Lambda-Java-Example/</link>
@@ -198,11 +303,14 @@ Copy &lt;code&gt;Role ARN&lt;/code&gt; &lt;/li&gt;
     
       <item>
         <title>AWS Lambda Project with Gradle</title>
-        <description>&lt;p&gt;In project directory initialize &lt;code&gt;build.gradle&lt;/code&gt; file and gradle Wrapper:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;gradle init
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Edit generated &lt;code&gt;build.gradle&lt;/code&gt; file&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-gradle&quot; data-lang=&quot;gradle&quot;&gt;&lt;span class=&quot;k&quot;&gt;buildscript&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        <description>&lt;p&gt;In project directory initialize &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file and gradle Wrapper:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gradle init
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Edit generated &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file&lt;/p&gt;
+
+&lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;buildscript&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jcenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;c1&quot;&gt;//Gradle shadow plugin&lt;/span&gt;
@@ -218,20 +326,25 @@ Copy &lt;code&gt;Role ARN&lt;/code&gt; &lt;/li&gt;
     &lt;span class=&quot;c1&quot;&gt;//AWS Lambda core library&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.amazonaws:aws-lambda-java-core:1.1.0'&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Create a simple Java class in &lt;code&gt;project-dir/src/main/java/example/Hello.java&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Create a simple Java class in &lt;code class=&quot;highlighter-rouge&quot;&gt;project-dir/src/main/java/example/Hello.java&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
+  
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;Use the following gradle command to generate your standalone .jar deployment file:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;./gradlew shadowJar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This will generate the .jar file with all dependencies under &lt;code&gt;build/libs&lt;/code&gt; folder which can be uploaded to AWS Lambda.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./gradlew shadowJar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will generate the .jar file with all dependencies under &lt;code class=&quot;highlighter-rouge&quot;&gt;build/libs&lt;/code&gt; folder which can be uploaded to AWS Lambda.&lt;/p&gt;
 
 &lt;p&gt;Please checkout the &lt;a href=&quot;http://www.dilek.me/java/aws/lambda/2016/05/05/AWS-Lambda-Java-Example/&quot;&gt;next post for a simple AWS Lambda Java Example&lt;/a&gt;&lt;/p&gt;
 </description>
@@ -244,12 +357,12 @@ Copy &lt;code&gt;Role ARN&lt;/code&gt; &lt;/li&gt;
         <title>UML diagrams for Jekyll and Markdown</title>
         <description>&lt;p&gt;It is possible to embed UML diagrams into Jekyll or Markdorn pages using the &lt;a href=&quot;http://www.gravizo.com/&quot;&gt;Gravizo&lt;/a&gt; image generation service.&lt;/p&gt;
 
-&lt;p&gt;You don&amp;rsquo;t have to install any local Gems or plugins to embed such diagrams in your Jakyll pages.&lt;/p&gt;
+&lt;p&gt;You don’t have to install any local Gems or plugins to embed such diagrams in your Jakyll pages.&lt;/p&gt;
 
 &lt;p&gt;Here are some sample UML diagrams:&lt;/p&gt;
 
 &lt;h4 id=&quot;class-diagram&quot;&gt;Class diagram&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-Markdown&quot; data-lang=&quot;Markdown&quot;&gt;![Alt text](http://g.gravizo.com/g?
+&lt;pre&gt;&lt;code class=&quot;language-Markdown&quot;&gt;![Alt text](http://g.gravizo.com/g?
 @startuml;
 Object &amp;lt;|-- ArrayList;
 Object : equals%28%29;
@@ -257,11 +370,19 @@ ArrayList : Object[] elementData;
 ArrayList : size%28%29;
 @enduml
 )
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://g.gravizo.com/g?%0A@startuml;%0AObject%20%3C%7C--%20ArrayList;%0AObject%20:%20equals%28%29;%0AArrayList%20:%20Object%5B%5D%20elementData;%0AArrayList%20:%20size%28%29;%0A@enduml&quot; alt=&quot;Alt text&quot;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://g.gravizo.com/g?
+@startuml;
+Object &amp;lt;|-- ArrayList;
+Object : equals%28%29;
+ArrayList : Object[] elementData;
+ArrayList : size%28%29;
+@enduml&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;sequence-diagram&quot;&gt;Sequence diagram&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-Markdown&quot; data-lang=&quot;Markdown&quot;&gt;![Alt text](http://g.gravizo.com/g?
+
+&lt;pre&gt;&lt;code class=&quot;language-Markdown&quot;&gt;![Alt text](http://g.gravizo.com/g?
 @startuml;
 actor User;
 participant &quot;First Class&quot; as A;
@@ -280,8 +401,27 @@ deactivate B;
 A --&amp;gt; User: Done;
 deactivate A;
 @enduml)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://g.gravizo.com/g?%0A@startuml;%0Aactor%20User;%0Aparticipant%20%22First%20Class%22%20as%20A;%0Aparticipant%20%22Second%20Class%22%20as%20B;%0Aparticipant%20%22Last%20Class%22%20as%20C;%0AUser%20-%3E%20A:%20DoWork;%0Aactivate%20A;%0AA%20-%3E%20B:%20Create%20Request;%0Aactivate%20B;%0AB%20-%3E%20C:%20DoWork;%0Aactivate%20C;%0AC%20--%3E%20B:%20WorkDone;%0Adestroy%20C;%0AB%20--%3E%20A:%20Request%20Created;%0Adeactivate%20B;%0AA%20--%3E%20User:%20Done;%0Adeactivate%20A;%0A@enduml&quot; alt=&quot;Alt text&quot;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;![Alt text](http://g.gravizo.com/g?
+@startuml;
+actor User;
+participant “First Class” as A;
+participant “Second Class” as B;
+participant “Last Class” as C;
+User -&amp;gt; A: DoWork;
+activate A;
+A -&amp;gt; B: Create Request;
+activate B;
+B -&amp;gt; C: DoWork;
+activate C;
+C –&amp;gt; B: WorkDone;
+destroy C;
+B –&amp;gt; A: Request Created;
+deactivate B;
+A –&amp;gt; User: Done;
+deactivate A;
+@enduml)&lt;/p&gt;
 </description>
         <pubDate>Fri, 15 Jan 2016 13:00:00 +0000</pubDate>
         <link>http://www.dilek.me/uml/plantuml/markdown/2016/01/15/Uml-diagrams-in-Markdown-pages/</link>
@@ -292,123 +432,139 @@ deactivate A;
         <title>Getting started with Ionic Framework</title>
         <description>&lt;p&gt;This guide aims to give a brief introduction for &lt;a href=&quot;http://ionicframework.com/&quot;&gt;Ionic Framework&lt;/a&gt; for starters.&lt;/p&gt;
 
-&lt;p&gt;I would like to thank to &lt;a href=&quot;http://mimoza.marmara.edu.tr/%7Emaeyler/&quot;&gt;Prof. Akif Eyler&lt;/a&gt; for his patience and contributions in this post.&lt;/p&gt;
+&lt;p&gt;I would like to thank to &lt;a href=&quot;http://mimoza.marmara.edu.tr/~maeyler/&quot;&gt;Prof. Akif Eyler&lt;/a&gt; for his patience and contributions in this post.&lt;/p&gt;
 
 &lt;h3 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h3&gt;
 
-&lt;p&gt;Following tools have to be installed in order to follow this guide.
-- &lt;a href=&quot;https://www.npmjs.com/&quot;&gt;npm&lt;/a&gt; version 2.11.3
-- &lt;a href=&quot;https://nodejs.org&quot;&gt;node&lt;/a&gt; version v0.12.7
-- &lt;a href=&quot;https://developer.android.com/sdk/index.html&quot;&gt;Android SDK&lt;/a&gt; with API version 22&lt;/p&gt;
+&lt;p&gt;Following tools have to be installed in order to follow this guide.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.npmjs.com/&quot;&gt;npm&lt;/a&gt; version 2.11.3&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://nodejs.org&quot;&gt;node&lt;/a&gt; version v0.12.7&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developer.android.com/sdk/index.html&quot;&gt;Android SDK&lt;/a&gt; with API version 22&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;This guide aims to build a mobile app for the Android platform but will also provide instructions for iOS. iOS has another set of tools and SDK for building mobile apps which is not completely covered here.&lt;/p&gt;
 
-&lt;h3 id=&quot;install-ionic-framework-via-npm&quot;&gt;Install Ionic Framework via &lt;code&gt;npm&lt;/code&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;install-ionic-framework-via-npm&quot;&gt;Install Ionic Framework via &lt;code class=&quot;highlighter-rouge&quot;&gt;npm&lt;/code&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.npmjs.com/&quot;&gt;npm&lt;/a&gt; is the pre-installed package manager for the &lt;a href=&quot;https://en.wikipedia.org/wiki/Node.js&quot;&gt;Node.js&lt;/a&gt; platform.&lt;/p&gt;
 
 &lt;h5 id=&quot;on-linux&quot;&gt;On Linux:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; ionic
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;npm install &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; ionic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;h5 id=&quot;on-windows&quot;&gt;On Windows:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; ionic
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; ionic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;h3 id=&quot;install-cordova-cli&quot;&gt;Install Cordova CLI&lt;/h3&gt;
 
-&lt;h5 id=&quot;on-linux&quot;&gt;On Linux:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; cordova
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h5 id=&quot;on-windows&quot;&gt;On Windows:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;npm install -g cordova
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5 id=&quot;on-linux-1&quot;&gt;On Linux:&lt;/h5&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;npm install &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; cordova
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;on-windows-1&quot;&gt;On Windows:&lt;/h5&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install -g cordova
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h3 id=&quot;create-a-seed-project&quot;&gt;Create a seed project:&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ionic start ionic-getting-started
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Answer &lt;code&gt;n&lt;/code&gt; to the following question indicating that you&amp;rsquo;ll skip ionic.io cloud integration. We want to keep it simple here, right?&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;Create an ionic.io account to send Push Notifications and use the Ionic View app?
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic start ionic-getting-started
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Answer &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; to the following question indicating that you’ll skip ionic.io cloud integration. We want to keep it simple here, right?&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Create an ionic.io account to send Push Notifications and use the Ionic View app?
 (Y/n): n
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;This will create the seed project:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-09.png&quot; alt=&quot;Ionic seed project&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-09.png&quot; alt=&quot;Ionic seed project&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;running-your-app-in-browser&quot;&gt;Running your app in browser&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ionic serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You&amp;rsquo;ll see it in browser:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-09-2.png&quot; alt=&quot;Project running in browser&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You’ll see it in browser:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-09-2.png&quot; alt=&quot;Project running in browser&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;adding-a-target-platform&quot;&gt;Adding a target platform&lt;/h2&gt;
 
 &lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic platform add android
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic platform add android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;See the &lt;a href=&quot;https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html&quot;&gt;Android Platform Guide&lt;/a&gt; for full Android installation instructions:&lt;/p&gt;
 
-&lt;p&gt;Cordova requires the &lt;code&gt;ANDROID_HOME&lt;/code&gt; environment variable to be set. This should point to the &lt;code&gt;[ANDROID_SDK_DIR]\android-sdk&lt;/code&gt; directory. Next, create an environment variable for &lt;code&gt;JAVA_HOME&lt;/code&gt; environment variable pointing to the root folder where the Java JDK was installed.&lt;/p&gt;
+&lt;p&gt;Cordova requires the &lt;code class=&quot;highlighter-rouge&quot;&gt;ANDROID_HOME&lt;/code&gt; environment variable to be set. This should point to the &lt;code class=&quot;highlighter-rouge&quot;&gt;[ANDROID_SDK_DIR]\android-sdk&lt;/code&gt; directory. Next, create an environment variable for &lt;code class=&quot;highlighter-rouge&quot;&gt;JAVA_HOME&lt;/code&gt; environment variable pointing to the root folder where the Java JDK was installed.&lt;/p&gt;
 
 &lt;p&gt;See &lt;a href=&quot;http://ionicframework.com/docs/guide/installation.html&quot;&gt;Ionic installation guide&lt;/a&gt; for further instructions.&lt;/p&gt;
 
 &lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic platform add ios
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic platform add ios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Note: iOS development requires OS X currently&lt;/p&gt;
 
-&lt;p&gt;Adding Android platform should generate Android source code under &lt;code&gt;platforms/android&lt;/code&gt; directory, add a resource directory for images and extend existing &lt;code&gt;config.xml&lt;/code&gt; and &lt;code&gt;package.json&lt;/code&gt; files.&lt;/p&gt;
+&lt;p&gt;Adding Android platform should generate Android source code under &lt;code class=&quot;highlighter-rouge&quot;&gt;platforms/android&lt;/code&gt; directory, add a resource directory for images and extend existing &lt;code class=&quot;highlighter-rouge&quot;&gt;config.xml&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; files.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-12-1.png&quot; alt=&quot;New files after adding Android platform&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-12-1.png&quot; alt=&quot;New files after adding Android platform&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;running-your-app-on-a-device&quot;&gt;Running your app on a device&lt;/h3&gt;
+&lt;p&gt;Run your app on a device: ionic run &lt;PLATFORM&gt;&lt;/PLATFORM&gt;&lt;/p&gt;
 
-&lt;p&gt;Run your app on a device: ionic run &lt;PLATFORM&gt;&lt;/p&gt;
+&lt;h5 id=&quot;for-android-1&quot;&gt;For Android:&lt;/h5&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic run android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic run android
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic run ios
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5 id=&quot;for-ios-1&quot;&gt;For iOS:&lt;/h5&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic run ios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;App on Android device:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-12-2.png&quot; alt=&quot;Running on Android device&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-09-12-2.png&quot; alt=&quot;Running on Android device&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;building-your-app&quot;&gt;Building your app&lt;/h3&gt;
 
-&lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic build android
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This should generate an &lt;code&gt;android-debug.apk&lt;/code&gt; file under &lt;code&gt;\platforms\android\build\outputs\apk\&lt;/code&gt; folder.&lt;/p&gt;
+&lt;h5 id=&quot;for-android-2&quot;&gt;For Android:&lt;/h5&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic build android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic build ios
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This should generate an &lt;code class=&quot;highlighter-rouge&quot;&gt;android-debug.apk&lt;/code&gt; file under &lt;code class=&quot;highlighter-rouge&quot;&gt;\platforms\android\build\outputs\apk\&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;h5 id=&quot;for-ios-2&quot;&gt;For iOS:&lt;/h5&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic build ios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;h3 id=&quot;running-your-app-on-an-emulator&quot;&gt;Running your app on an emulator&lt;/h3&gt;
 
-&lt;p&gt;Simulate your app: ionic emulate &lt;PLATFORM&gt;&lt;/p&gt;
+&lt;p&gt;Simulate your app: ionic emulate &lt;PLATFORM&gt;&lt;/PLATFORM&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;for-android&quot;&gt;For Android:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic emulate android
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;If you are using Genymotion instead of the standard Android emulator, note that Genymotion behaves like a device, so it requires &lt;code&gt;run&lt;/code&gt; rather than &lt;code&gt;emulate&lt;/code&gt;&lt;/p&gt;
+&lt;h5 id=&quot;for-android-3&quot;&gt;For Android:&lt;/h5&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic emulate android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h5 id=&quot;for-ios&quot;&gt;For iOS:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;ionic emulate ios
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you are using Genymotion instead of the standard Android emulator, note that Genymotion behaves like a device, so it requires &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; rather than &lt;code class=&quot;highlighter-rouge&quot;&gt;emulate&lt;/code&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;for-ios-3&quot;&gt;For iOS:&lt;/h5&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic emulate ios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;h3 id=&quot;packaging-your-app&quot;&gt;Packaging your app&lt;/h3&gt;
 
 &lt;p&gt;You can package your app using Cordova Command :
-&lt;code&gt;cordova build &amp;lt;MODE&amp;gt; &amp;lt;PLATFORM&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;cordova build &amp;lt;MODE&amp;gt; &amp;lt;PLATFORM&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;for-android-debug-packaging&quot;&gt;For Android debug packaging:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;cordova build --debug android
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This will generate the file &lt;code&gt;\platforms\android\build\outputs\apk\android-debug.apk&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cordova build --debug android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This will generate the file &lt;code class=&quot;highlighter-rouge&quot;&gt;\platforms\android\build\outputs\apk\android-debug.apk&lt;/code&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;for-android-release-packaging&quot;&gt;For Android release packaging:&lt;/h5&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;cordova build --release android
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This will generate the file &lt;code&gt;\platforms\android\build\outputs\apk\android-release-unsigned.apk&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cordova build --release android
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This will generate the file &lt;code class=&quot;highlighter-rouge&quot;&gt;\platforms\android\build\outputs\apk\android-release-unsigned.apk&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;You will need to sign this file if you want to publish it in Google Play Store.
 See &lt;a href=&quot;http://ionicframework.com/docs/guide/publishing.html&quot;&gt;Ionic publishing instructions&lt;/a&gt; for further information.&lt;/p&gt;
@@ -419,60 +575,90 @@ See &lt;a href=&quot;http://ionicframework.com/docs/guide/publishing.html&quot;&
       </item>
     
       <item>
+        <title>Announcing Version 2.0</title>
+        <description>&lt;p&gt;In an effort to make Pixyll easier to customize and more aesthetically pleasing, we’ve released version &lt;code class=&quot;highlighter-rouge&quot;&gt;2.0&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Pixyll now features:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Line anchors in code blocks and new syntax highlighting&lt;/li&gt;
+  &lt;li&gt;A customizable variables file&lt;/li&gt;
+  &lt;li&gt;Modular, and lighter weight CSS&lt;/li&gt;
+  &lt;li&gt;No more &lt;code class=&quot;highlighter-rouge&quot;&gt;max-width&lt;/code&gt; media queries&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 11 Jul 2015 00:00:00 +0000</pubDate>
+        <link>http://www.dilek.me/jekyll/pixyll/2015/07/11/announcing-pixyll-version-2/</link>
+        <guid isPermaLink="true">http://www.dilek.me/jekyll/pixyll/2015/07/11/announcing-pixyll-version-2/</guid>
+      </item>
+    
+      <item>
         <title>Automated publishing of Jekyll sites on GitHub</title>
         <description>&lt;p&gt;Publishing a Jekyll based static website on GitHub Pages is quite easy once it is setup properly. This way you can trigger a publish on a different branch every time a change is pushed into the GitHub repository.&lt;/p&gt;
 
-&lt;p&gt;I will describe how to do it using &lt;code&gt;rake-jekyll&lt;/code&gt;. For more detailed and probably updated information, please refer to the rake-jekyll documentation on &lt;a href=&quot;https://github.com/jirutka/rake-jekyll&quot;&gt;the  project page&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I will describe how to do it using &lt;code class=&quot;highlighter-rouge&quot;&gt;rake-jekyll&lt;/code&gt;. For more detailed and probably updated information, please refer to the rake-jekyll documentation on &lt;a href=&quot;https://github.com/jirutka/rake-jekyll&quot;&gt;the  project page&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;If you already don&amp;rsquo;t have one, create a &lt;code&gt;Gemfile&lt;/code&gt; in your repository or update one you already have according to the following:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://rubygems.org'&lt;/span&gt;
+&lt;p&gt;If you already don’t have one, create a &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; in your repository or update one you already have according to the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://rubygems.org'&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'jekyll'&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rake'&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rake-jekyll'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Create or edit file &lt;code&gt;Rakefile&lt;/code&gt; in your repository:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rb&quot; data-lang=&quot;rb&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rake-jekyll'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Create or edit file &lt;code class=&quot;highlighter-rouge&quot;&gt;Rakefile&lt;/code&gt; in your repository:&lt;/p&gt;
+
+&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rake-jekyll'&lt;/span&gt;
 
 &lt;span class=&quot;no&quot;&gt;Rake&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;GitDeployTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:deploy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Create file &lt;code&gt;.travis.yml&lt;/code&gt; in your repository:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ruby&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Create file &lt;code class=&quot;highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; in your repository:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ruby&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;sudo&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;rvm&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2.2.0&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;bundle exec rake deploy&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Install &lt;code&gt;travis&lt;/code&gt; gem using shell:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;travis
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Install &lt;code class=&quot;highlighter-rouge&quot;&gt;travis&lt;/code&gt; gem using shell:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem install travis
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;Enable &lt;a href=&quot;https://travis-ci.org&quot;&gt;Travis CI&lt;/a&gt; for your github repository:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;if you already don&amp;rsquo;t have a Travis CI account, &lt;a href=&quot;https://travis-ci.org/&quot;&gt;sign up&lt;/a&gt; for one.&lt;/li&gt;
-&lt;li&gt;open your &lt;a href=&quot;https://travis-ci.org/profile/&quot;&gt;profile page&lt;/a&gt; on Travis&lt;/li&gt;
-&lt;li&gt;find your github repository for the website and turn on the switch
-&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-30-1.png&quot; alt=&quot;the switch&quot;&gt;&lt;/li&gt;
-&lt;li&gt;click on the repository settings
-&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-30-2.png&quot; alt=&quot;repository settings&quot;&gt;&lt;/li&gt;
-&lt;li&gt;enable the setting “Build only if .travis.yml is present.”
-&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-30-3.png&quot; alt=&quot;enable setting&quot;&gt;&lt;/li&gt;
+  &lt;li&gt;if you already don’t have a Travis CI account, &lt;a href=&quot;https://travis-ci.org/&quot;&gt;sign up&lt;/a&gt; for one.&lt;/li&gt;
+  &lt;li&gt;open your &lt;a href=&quot;https://travis-ci.org/profile/&quot;&gt;profile page&lt;/a&gt; on Travis&lt;/li&gt;
+  &lt;li&gt;find your github repository for the website and turn on the switch
+ &lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-30-1.png&quot; alt=&quot;the switch&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;click on the repository settings
+ &lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-30-2.png&quot; alt=&quot;repository settings&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;enable the setting “Build only if .travis.yml is present.”
+ &lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-30-3.png&quot; alt=&quot;enable setting&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Generate a new personal access token on GitHub:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Generate a new personal access token for your &lt;a href=&quot;https://github.com/settings/tokens/new&quot;&gt;Github profile&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;select &lt;code&gt;public_repo&lt;/code&gt; scope, enter description and generate. You will need the token displayed on the page for the next step.&lt;/li&gt;
+  &lt;li&gt;Generate a new personal access token for your &lt;a href=&quot;https://github.com/settings/tokens/new&quot;&gt;Github profile&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;select &lt;code class=&quot;highlighter-rouge&quot;&gt;public_repo&lt;/code&gt; scope, enter description and generate. You will need the token displayed on the page for the next step.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Encrypt the token using the following shell command (replace the &lt;code&gt;&amp;lt;token&amp;gt;&lt;/code&gt; part with your generated token from the previous step):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;travis encrypt &lt;span class=&quot;nv&quot;&gt;GH_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;token&amp;gt; &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; env.global
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Following content will be added to your &lt;code&gt;.travis.yml&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;p&gt;Encrypt the token using the following shell command (replace the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;token&amp;gt;&lt;/code&gt; part with your generated token from the previous step):&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;travis encrypt &lt;span class=&quot;nv&quot;&gt;GH_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;token&amp;gt; &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; env.global
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Following content will be added to your &lt;code class=&quot;highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;secure&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;YOUR-ENCRYPTED-TOKEN&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;Commit your changes and push to GitHub. Travis will trigger a build and publish your website in a couple of minutes.&lt;/p&gt;
 </description>
         <pubDate>Wed, 24 Jun 2015 22:00:00 +0000</pubDate>
@@ -485,18 +671,24 @@ See &lt;a href=&quot;http://ionicframework.com/docs/guide/publishing.html&quot;&
         <description>&lt;p&gt;Installing or updating Atom editor on Ubuntu or Linux Mint is not possible
 through apt-get but is quite easy.&lt;/p&gt;
 
-&lt;p&gt;First, download the package using &lt;code&gt;wget&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget https://atom.io/download/deb
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When the download is finished, install the package using &lt;code&gt;dpkg&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dpkg &lt;span class=&quot;nt&quot;&gt;--install&lt;/span&gt; atom-amd64.deb
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;First, download the package using &lt;code class=&quot;highlighter-rouge&quot;&gt;wget&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget https://atom.io/download/deb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When the download is finished, install the package using &lt;code class=&quot;highlighter-rouge&quot;&gt;dpkg&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dpkg &lt;span class=&quot;nt&quot;&gt;--install&lt;/span&gt; atom-amd64.deb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;Finally launch atom editor:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;atom
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;atom
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;and you have it.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-29.png&quot; alt=&quot;Atom screenshot&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.dilek.me/assets/Screenshot-2015-05-29.png&quot; alt=&quot;Atom screenshot&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 29 May 2015 23:00:00 +0000</pubDate>
         <link>http://www.dilek.me/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-on-Ubuntu/</link>
@@ -505,9 +697,9 @@ through apt-get but is quite easy.&lt;/p&gt;
     
       <item>
         <title>Hello World</title>
-        <description>&lt;p&gt;I&amp;rsquo;ve been planing to blog my experiences und humble ideas about software development for a long time. So here it is. I will try to write as often as I can in both English and Turkish.&lt;/p&gt;
+        <description>&lt;p&gt;I’ve been planing to blog my experiences und humble ideas about software development for a long time. So here it is. I will try to write as often as I can in both English and Turkish.&lt;/p&gt;
 
-&lt;p&gt;I have been looking for a solution to build this blog with static pages and preferably using &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; infrastructure. When I&amp;rsquo;ve first read about &lt;a href=&quot;http://hubpress.io&quot;&gt;HubPress&lt;/a&gt; on &lt;a href=&quot;https://news.ycombinator.com/item?id=9020429&quot;&gt;Hacker News&lt;/a&gt; I thought that I should give it a try. But it didn&amp;rsquo;t have all the features I wanted, so I have switched to a  &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; based solution and this post has been edited accordingly. I&amp;rsquo;m planing to write about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; and static page hosting on &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; in another post later.&lt;/p&gt;
+&lt;p&gt;I have been looking for a solution to build this blog with static pages and preferably using &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; infrastructure. When I’ve first read about &lt;a href=&quot;http://hubpress.io&quot;&gt;HubPress&lt;/a&gt; on &lt;a href=&quot;https://news.ycombinator.com/item?id=9020429&quot;&gt;Hacker News&lt;/a&gt; I thought that I should give it a try. But it didn’t have all the features I wanted, so I have switched to a  &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; based solution and this post has been edited accordingly. I’m planing to write about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; and static page hosting on &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; in another post later.&lt;/p&gt;
 
 &lt;p&gt;This post about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; will probably be in Turkish, because there is already quite a lot of documentation about that in English.&lt;/p&gt;
 </description>
