@@ -3,7 +3,7 @@ layout:     post
 title:      Hello World with GraalVM Native Image
 date:       2019-05-23 23:00:00
 summary:    An introduction to GraalVM Native Image
-categories: Java GraalVM native-image benchmark
+categories: Java GraalVM native image benchmark
 ---
 
 ## Prerequisites
