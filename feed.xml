@@ -7,6 +7,78 @@
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Hello World with GraalVM Native Image</title>
+        <description>&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/oracle/graal/releases&quot;&gt;GraalVM is installed&lt;/a&gt; and &lt;code&gt;&amp;lt;GraalVM&amp;gt;/bin&lt;/code&gt; directory is in the &lt;code&gt;$PATH&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.graalvm.org/docs/reference-manual/aot-compilation/&quot;&gt;Native Image&lt;/a&gt; is installed using the command &lt;code&gt;gu install native-image&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Clone the &lt;a href=&quot;https://github.com/hakandilek/graalvm-playground&quot;&gt;graalvm-playground repository&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;run-in-the-vm&quot;&gt;Run in the VM&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;For convenience first run the example in the local JVM:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;graalvm-playground/01hello-world 
+    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./gradlew clean jar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/01hello-world.jar
+
+    BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
+    3 actionable tasks: 3 executed
+    Hello World!
+    java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/01hello-world.jar  0,08s user 0,03s system 139% cpu 0,083 total
+    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+    &lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## Build Native Image&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Make sure that you have the right JVM version &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Currently most recent supported version is JDK8-u212&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
+
+  &lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;shell
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;javac &lt;span class=&quot;nt&quot;&gt;-version&lt;/span&gt;
+  javac 1.8.0_212
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Build and run native image&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./gradlew clean jar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+      native-image &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/01hello-world.jar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;time&lt;/span&gt; ./01hello-world
+
+    BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
+    3 actionable tasks: 3 executed
+    Build on Server&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;pid: 4674, port: 34081&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]    classlist:     172.74 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cap&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     955.19 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        setup:   1,690.68 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;typeflow&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   2,260.10 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;objects&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     770.75 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;features&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     147.15 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     analysis:   3,250.30 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;clinit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:      78.32 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     universe:     262.43 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]      &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;parse&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     313.86 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;inline&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     913.91 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;compile&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   2,593.18 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]      compile:   4,097.51 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        image:     390.85 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]        write:      89.51 ms
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;01hello-world:4674]      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;total]:  10,045.79 ms
+    Hello World!
+    ./01hello-world  0,00s user 0,00s system 87% cpu 0,002 total
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;benchmark-results&quot;&gt;Benchmark results&lt;/h2&gt;
+
+&lt;p&gt;JVM Call &lt;strong&gt;(0,083s)&lt;/strong&gt; vs Native Image &lt;strong&gt;(0,002)&lt;/strong&gt;: quiet an improvement!&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 May 2019 23:00:00 +0000</pubDate>
+        <link>http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/</link>
+        <guid isPermaLink="true">http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/</guid>
+      </item>
+    
+      <item>
         <title>AWS Lambda Java Example</title>
         <description>&lt;p&gt;Please checkout the &lt;a href=&quot;http://www.dilek.me/gradle/aws/lambda/2016/05/04/AWS-Lambda-Project-with-Gradle/&quot;&gt;Previous post for the gradle setup&lt;/a&gt;&lt;/p&gt;
 
@@ -19,10 +91,10 @@
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.amazonaws.services.lambda.runtime.Context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.amazonaws.services.lambda.runtime.RequestHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RequestHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RequestHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
     &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloResponse&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handleRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloResponse&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handleRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HelloRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Context&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
@@ -36,20 +108,20 @@
 
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloRequest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
     &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
@@ -61,20 +133,20 @@
 
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloResponse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
     &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 

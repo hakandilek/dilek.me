@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hello World with GraalVM Native Image &#8211; Hakan Dilek</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An introduction to GraalVM Native Image">
+    <meta name="author" content="Hakan Dilek">
+    <meta name="keywords" content="Java, GraalVM, native, image, benchmark">
+    <link rel="canonical" href="http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    
+
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Hello World with GraalVM Native Image">
+    <meta property="og:description" content="My personal blog">
+    <meta property="og:url" content="http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/">
+    <meta property="og:site_name" content="Hakan Dilek">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-60180717-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    
+</head>
+
+<body class="animated fade-in-down">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://www.dilek.me" class="site-title">Hakan Dilek</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h3>Hello World with GraalVM Native Image</h3>
+  <span class="post-meta">May 23, 2019</span><br>
+  
+  <span class="post-meta small">1 minute read</span>
+</div>
+
+<article class="post-content">
+  <h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+<li><a href="https://github.com/oracle/graal/releases">GraalVM is installed</a> and <code>&lt;GraalVM&gt;/bin</code> directory is in the <code>$PATH</code></li>
+<li><a href="https://www.graalvm.org/docs/reference-manual/aot-compilation/">Native Image</a> is installed using the command <code>gu install native-image</code></li>
+<li>Clone the <a href="https://github.com/hakandilek/graalvm-playground">graalvm-playground repository</a></li>
+</ul>
+
+<h2 id="run-in-the-vm">Run in the VM</h2>
+
+<ul>
+<li>For convenience first run the example in the local JVM:</li>
+</ul>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell">    <span class="nv">$ </span><span class="nb">cd </span>graalvm-playground/01hello-world 
+    <span class="nv">$ </span>./gradlew clean jar <span class="o">&amp;&amp;</span> <span class="se">\</span>
+      <span class="nb">time </span>java <span class="nt">-jar</span> build/libs/01hello-world.jar
+
+    BUILD SUCCESSFUL <span class="k">in </span>0s
+    3 actionable tasks: 3 executed
+    Hello World!
+    java <span class="nt">-jar</span> build/libs/01hello-world.jar  0,08s user 0,03s system 139% cpu 0,083 total
+    <span class="err">$</span>
+    <span class="sb">```</span>
+
+<span class="c">## Build Native Image</span>
+
+<span class="k">*</span> Make sure that you have the right JVM version <span class="o">(</span>Currently most recent supported version is JDK8-u212<span class="o">)</span>:
+
+  <span class="sb">```</span>shell
+  <span class="nv">$ </span>javac <span class="nt">-version</span>
+  javac 1.8.0_212
+</code></pre></div>
+<ul>
+<li>Build and run native image</li>
+</ul>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell">    <span class="nv">$ </span>./gradlew clean jar <span class="o">&amp;&amp;</span> <span class="se">\</span>
+      native-image <span class="nt">-jar</span> build/libs/01hello-world.jar <span class="o">&amp;&amp;</span> <span class="se">\</span>
+      <span class="nb">time</span> ./01hello-world
+
+    BUILD SUCCESSFUL <span class="k">in </span>0s
+    3 actionable tasks: 3 executed
+    Build on Server<span class="o">(</span>pid: 4674, port: 34081<span class="o">)</span>
+    <span class="o">[</span>01hello-world:4674]    classlist:     172.74 ms
+    <span class="o">[</span>01hello-world:4674]        <span class="o">(</span>cap<span class="o">)</span>:     955.19 ms
+    <span class="o">[</span>01hello-world:4674]        setup:   1,690.68 ms
+    <span class="o">[</span>01hello-world:4674]   <span class="o">(</span>typeflow<span class="o">)</span>:   2,260.10 ms
+    <span class="o">[</span>01hello-world:4674]    <span class="o">(</span>objects<span class="o">)</span>:     770.75 ms
+    <span class="o">[</span>01hello-world:4674]   <span class="o">(</span>features<span class="o">)</span>:     147.15 ms
+    <span class="o">[</span>01hello-world:4674]     analysis:   3,250.30 ms
+    <span class="o">[</span>01hello-world:4674]     <span class="o">(</span>clinit<span class="o">)</span>:      78.32 ms
+    <span class="o">[</span>01hello-world:4674]     universe:     262.43 ms
+    <span class="o">[</span>01hello-world:4674]      <span class="o">(</span>parse<span class="o">)</span>:     313.86 ms
+    <span class="o">[</span>01hello-world:4674]     <span class="o">(</span>inline<span class="o">)</span>:     913.91 ms
+    <span class="o">[</span>01hello-world:4674]    <span class="o">(</span>compile<span class="o">)</span>:   2,593.18 ms
+    <span class="o">[</span>01hello-world:4674]      compile:   4,097.51 ms
+    <span class="o">[</span>01hello-world:4674]        image:     390.85 ms
+    <span class="o">[</span>01hello-world:4674]        write:      89.51 ms
+    <span class="o">[</span>01hello-world:4674]      <span class="o">[</span>total]:  10,045.79 ms
+    Hello World!
+    ./01hello-world  0,00s user 0,00s system 87% cpu 0,002 total
+</code></pre></div>
+<h2 id="benchmark-results">Benchmark results</h2>
+
+<p>JVM Call <strong>(0,083s)</strong> vs Native Image <strong>(0,002)</strong>: quiet an improvement!</p>
+
+</article>
+
+
+  <div class="share-page">
+  Share this post!
+
+  <div class="share-links">
+    
+
+    
+      <a class="fa fa-twitter" href="https://twitter.com/intent/tweet?text=Hello World with GraalVM Native Image&url=http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/" rel="nofollow" target="_blank" title="Share on Twitter"></a>
+    
+
+    
+
+    
+      <a class="fa fa-linkedin" href="http://www.linkedin.com/shareArticle?url=http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/&title=Hello World with GraalVM Native Image" rel="nofollow" target="_blank" title="Share on LinkedIn"></a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      <a class = "fa fa-hacker-news" onclick="parent.postMessage('submit','*')" href="https://news.ycombinator.com/submitlink?u=http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/&t=Hello World with GraalVM Native Image" rel="nofollow" target="_blank" title="Share on Hacker News"></a>
+    
+
+
+  </div>
+</div>
+
+
+
+
+  <div class="py2 post-footer">
+  <img src="/images/me.jpeg" alt="Hakan Dilek" class="avatar" />
+  <p>
+    <a href="http://dilek.me">Hakan Dilek</a> is a software engineer living in Germany.
+  </p>
+  <p>
+    Follow him on <a href="https://twitter.com/panikyok">Twitter</a>.
+  </p>
+</div>
+
+
+
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname  = 'dilekme';
+    var disqus_identifier = '/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+        Crafted with &lt;3 by <a href="http://dilek.me">Hakan Dilek</a> (<a href="https://twitter.com/panikyok">@panikyok</a>).<br>
+        &lt;/&gt; available on <a href="https://github.com/hakandilek/dilek.me">Github</a>.
+      </small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
