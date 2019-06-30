@@ -1,6 +1,6 @@
 language: ruby
 sudo: false
-rvm: 2.2.0
+rvm: 2.6.3
 script:
 - git config --global user.email "travis@travis.ci"
 - git config --global user.name "Travis CI"
