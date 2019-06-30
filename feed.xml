@@ -7,142 +7,6 @@
     <atom:link href="http://www.dilek.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Spring boot with GraalVM Native Image</title>
-        <description>&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/oracle/graal/releases&quot;&gt;GraalVM is installed&lt;/a&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;GraalVM&amp;gt;/bin&lt;/code&gt; directory is in the &lt;code class=&quot;highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.graalvm.org/docs/reference-manual/aot-compilation/&quot;&gt;Native Image&lt;/a&gt; is installed using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;gu install native-image&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Clone the &lt;a href=&quot;https://github.com/hakandilek/graalvm-playground&quot;&gt;graalvm-playground repository&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;run-in-the-vm&quot;&gt;Run in the VM&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;For convenience first run the example in the local JVM:&lt;/p&gt;
-
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;graalvm-playground/spring-web
-  &lt;span class=&quot;nv&quot;&gt;$.&lt;/span&gt;/gradlew clean bootJar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/spring-web-0.0.1-SNAPSHOT.jar
-
-  BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;1s
-  4 actionable tasks: 4 executed
-
-    &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;   ____          _            __ _ _
-  /&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt; / ___&lt;span class=&quot;s1&quot;&gt;'_ __ _ _(_)_ __  __ _ \ \ \ \
-  ( ( )\___ | '&lt;/span&gt;_ | &lt;span class=&quot;s1&quot;&gt;'_| | '&lt;/span&gt;_ &lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt; _&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; | &lt;span class=&quot;se&quot;&gt;\ \ \ \&lt;/span&gt;
-  &lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;/  ___&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;| |_&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;| | | | | &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;_| |  &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;'  |____| .__|_| |_|_| |_\__, | / / / /
-  =========|_|==============|___/=/_/_/_/
-  :: Spring Boot ::        (v2.1.5.RELEASE)
-
-  2019-05-23 23:19:27.344  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : Starting DemoApplication on l380 with PID 27401 (/home/XXX/graalvm-playground/spring-web/build/libs/spring-web-0.0.1-SNAPSHOT.jar started by XXX in /home/XXX/graalvm-playground/spring-web)
-  2019-05-23 23:19:27.347  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : No active profile set, falling back to default profiles: default
-  2019-05-23 23:19:28.456  INFO 27401 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
-  2019-05-23 23:19:28.493  INFO 27401 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-  2019-05-23 23:19:28.493  INFO 27401 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
-  2019-05-23 23:19:28.592  INFO 27401 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-  2019-05-23 23:19:28.593  INFO 27401 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1197 ms
-  2019-05-23 23:19:28.925  INFO 27401 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService '&lt;/span&gt;applicationTaskExecutor&lt;span class=&quot;s1&quot;&gt;'
-  2019-05-23 23:19:29.169  INFO 27401 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
-  2019-05-23 23:19:29.171  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : Started DemoApplication in 2.194 seconds (JVM running for 2.633)
-
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;build-native-image&quot;&gt;Build Native Image&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Make sure that you have the right JVM version (Currently most recent supported version is JDK8-u212):&lt;/p&gt;
-
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;javac &lt;span class=&quot;nt&quot;&gt;-version&lt;/span&gt;
-javac 1.8.0_212
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Try to build the native image&lt;/p&gt;
-
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./gradlew clean bootJar &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    native-image &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; build/libs/spring-web-0.0.1-SNAPSHOT.jar
-
-  BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
-  4 actionable tasks: 4 executed
-  Build on Server&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;pid: 4674, port: 34081&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]    classlist:     265.01 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cap&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     919.46 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        setup:   1,221.87 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     analysis:   4,072.66 ms
-  Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable
-  To diagnose the issue, you can add the option &lt;span class=&quot;nt&quot;&gt;--report-unsupported-elements-at-runtime&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; The unsupported element is &lt;span class=&quot;k&quot;&gt;then &lt;/span&gt;reported at run &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;when it is accessed the first time.
-  Detailed message:
-  Trace: 
-    at parsing java.net.URL.setURLStreamHandlerFactory&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;URL.java:1118&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  Call path from entry point to java.net.URL.setURLStreamHandlerFactory&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;URLStreamHandlerFactory&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
-    at java.net.URL.setURLStreamHandlerFactory&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;URL.java:1110&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    at org.springframework.boot.loader.jar.JarFile.resetCachedUrlHandlers&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JarFile.java:401&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    at org.springframework.boot.loader.jar.JarFile.registerUrlProtocolHandler&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JarFile.java:391&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    at org.springframework.boot.loader.Launcher.launch&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Launcher.java:48&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    at org.springframework.boot.loader.JarLauncher.main&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JarLauncher.java:51&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    at com.oracle.svm.core.JavaMainWrapper.run&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;JavaMainWrapper.java:153&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    at com.oracle.svm.core.code.IsolateEnterStub.JavaMainWrapper_run_5087f5482cc9a6abc971913ece43acb471d2631b&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;generated:0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-  Warning: Use &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt;:+ReportExceptionStackTraces to print stacktrace of underlying exception
-  Build on Server&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;pid: 4674, port: 34081&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]    classlist:     114.69 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cap&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     642.22 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        setup:     896.36 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;typeflow&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   1,503.32 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;objects&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     705.94 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;features&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:      98.03 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     analysis:   2,358.07 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;clinit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:      64.41 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     universe:     202.79 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]      &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;parse&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     205.68 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;inline&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:     586.94 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;compile&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   1,422.75 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]      compile:   2,394.41 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        image:     245.09 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]        write:      56.23 ms
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;spring-web-0.0.1-SNAPSHOT:4674]      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;total]:   6,324.13 ms
-  Warning: Image &lt;span class=&quot;s1&quot;&gt;'spring-web-0.0.1-SNAPSHOT'&lt;/span&gt; is a fallback image that requires a JDK &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;execution &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;use &lt;span class=&quot;nt&quot;&gt;--no-fallback&lt;/span&gt; to suppress fallback image generation&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Check the resulting image:&lt;/p&gt;
-
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ahl&lt;/span&gt;
-  ...
-  &lt;span class=&quot;nt&quot;&gt;-rwxr-xr-x&lt;/span&gt; 1 XXX XXX 2,6M Mai 23 23:22 spring-web-0.0.1-SNAPSHOT
-  ...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;The resulting image requires a Java for execution!&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Run the native image&lt;/p&gt;
-
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./spring-web-0.0.1-SNAPSHOT&amp;amp; ps &lt;span class=&quot;nt&quot;&gt;-ef&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;java
-  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1] 28883
-  XXX    28883  5089  0 23:31 pts/1    00:00:00 /home/XXX/tools/graalvm-ce-19.0.0/jre/bin/java &lt;span class=&quot;nt&quot;&gt;-Dorg&lt;/span&gt;.graalvm.nativeimage.kind&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;fallback-executable &lt;span class=&quot;nt&quot;&gt;-cp&lt;/span&gt; /home/XXX/mutfak/graalvm-playground/spring-web/build/libs/spring-web-0.0.1-SNAPSHOT.jar org.springframework.boot.loader.JarLauncher
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;The resulting image is not a real native image and needs a JRE to run. This is already indicated ruting native image build phase with the message &lt;code class=&quot;highlighter-rouge&quot;&gt;Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The reason is, current version of Spring 5.1 does not support GraalVM native images but the upcoming versions with 5.2 and 5.3 will mainly focus on supporting native images as mentioned &lt;a href=&quot;https://github.com/spring-projects/spring-framework/wiki/GraalVM-native-image-support#support-of-native-images-at-spring-framework-level&quot;&gt;here&lt;/a&gt; and &lt;a href=&quot;https://github.com/spring-projects/spring-framework/issues/21529#issuecomment-453474115&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sun, 30 Jun 2019 18:00:00 +0000</pubDate>
-        <link>http://www.dilek.me/graalvm/spring/boot/2019/06/30/Spring-boot-with-GraalVM-Native-Image/</link>
-        <guid isPermaLink="true">http://www.dilek.me/graalvm/spring/boot/2019/06/30/Spring-boot-with-GraalVM-Native-Image/</guid>
-      </item>
-    
-      <item>
         <title>Hello World with GraalVM Native Image</title>
         <description>&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
 
@@ -221,90 +85,6 @@ javac 1.8.0_212
         <pubDate>Thu, 23 May 2019 23:00:00 +0000</pubDate>
         <link>http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/</link>
         <guid isPermaLink="true">http://www.dilek.me/java/graalvm/native/image/benchmark/2019/05/23/Hello-World-with-GraalVM-native-image/</guid>
-      </item>
-    
-      <item>
-        <title>Guide to Forking Pixyll</title>
-        <description>&lt;p&gt;The following is an overview to copying and sharing Pixyll.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
-
-&lt;p&gt;Most people have an understanding of what the copyright and licensing obligations are for source code, but not everyone has practical experience.  There is a lot of information about how to use free and open source source code generally, but not necessarily how it works specifically.&lt;/p&gt;
-
-&lt;h2 id=&quot;basics&quot;&gt;Basics&lt;/h2&gt;
-
-&lt;p&gt;Pixyll is free and open source software under the MIT license, a &lt;em&gt;permissive license&lt;/em&gt;.  You can use Pixyll without charge and it is provided to you, “as is”, without warranty of any kind.&lt;/p&gt;
-
-&lt;p&gt;These are some of the rights for Pixyll since it is under the MIT license:&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;You can &lt;strong&gt;copy&lt;/strong&gt; Pixyll by forking it on GitHub or by any other means of copying.&lt;/li&gt;
-  &lt;li&gt;You can &lt;strong&gt;use&lt;/strong&gt; Pixyll to publish your site without restriction or limitation.&lt;/li&gt;
-  &lt;li&gt;You can &lt;strong&gt;change&lt;/strong&gt; Pixyll as you wish, and you can publish your site with a modified version of Pixyll.&lt;/li&gt;
-  &lt;li&gt;You can also &lt;strong&gt;distribute&lt;/strong&gt; copies of Pixyll to other people.&lt;/li&gt;
-  &lt;li&gt;You can also &lt;strong&gt;distribute modified&lt;/strong&gt; copies of Pixyll.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Other rights you have of Pixyll under the MIT license:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;You can &lt;strong&gt;sell&lt;/strong&gt; copies of Pixyll, including copies you have modified.&lt;/li&gt;
-  &lt;li&gt;You can &lt;strong&gt;combine&lt;/strong&gt; Pixyll with other works that are under the MIT license, or other permissive licenses, a copyleft license or a proprietary license.  Pixyll already does this itself by using Jekyll, Ruby and other dependencies.&lt;/li&gt;
-  &lt;li&gt;You can distribute copies of Pixyll to others under either the MIT license or you can &lt;strong&gt;relicense&lt;/strong&gt; Pixyll under another license.  This includes a different permissive license, a copyleft license or a proprietary license.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Your only responsibility is to preserve both the copyright notices of Pixyll and the MIT license in your copy or modified work.&lt;/p&gt;
-
-&lt;h2 id=&quot;how-to&quot;&gt;How to&lt;/h2&gt;
-
-&lt;p&gt;If you’ve modified Pixyll significantly and want to share your version, especially public copies of the code, then there are a few items you should do.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;You should probably &lt;strong&gt;rename&lt;/strong&gt; your fork of Pixyll with a different name.&lt;/li&gt;
-  &lt;li&gt;A new name isn’t required by the MIT license, but it is good etiquette.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-  &lt;li&gt;You should add your name to the &lt;strong&gt;copyright&lt;/strong&gt; of your version, and you should preserve the existing copyrights of Pixyll.&lt;/li&gt;
-  &lt;li&gt;Maintaining the copyright notices isn’t required of the MIT license, but it is suggested by the license and is a good practice for documenting the copyrights of your derived work.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;The items above do not apply when you just copied and modified Pixyll in small ways to just publish your site and you have no plans to fork Pixyll under a different name.&lt;/p&gt;
-
-&lt;p&gt;If you want to publish a fork of Pixyll under a different name but keeping it under the MIT license, then you should add your name to the copyright notices:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Copyright (c) 2019 Your Name
-Copyright (c) 2014-2019 John Otander for Pixyll
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;However, if you want to publish a fork of Pixyll under a different name &lt;em&gt;and&lt;/em&gt; a different license, then you should should still add your name to the copyright notices but have a section titled “Pixyll” at the bottom of your LICENSE file that preserves the copyright and license notices for Pixyll:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Pixyll
-
-Copyright (c) 2014-2019 John Otander
-
-MIT License
-
-Permission is hereby granted, [...]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you are just modifying Pixyll in small ways to customize your site, you are not obligated to maintain the copyright notices of Pixyll on your site.  However, if you want to credit the Pixyll theme that would be appreciated, see section on “Pixyll Plug” in the README file that came with Pixyll.&lt;/p&gt;
-
-&lt;p&gt;Thanks for using Pixyll, and happy hacking!&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;: This material is for informational purposes only, and should not be construed as legal advice or opinion.  For actual legal advice, you should consult with professional legal services. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;This list of privileges are derived from the four freedoms of “The Free Software Definition” published by the GNU project &lt;a href=&quot;https://www.gnu.org/philosophy/free-sw.en.html&quot;&gt;https://www.gnu.org/philosophy/free-sw.en.html&lt;/a&gt;. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:3&quot;&gt;
-      &lt;p&gt;Using a different name from “Pixyll” for your derivate work helps avoid misdirected questions from people who are using your version.  It’s similar to using version numbers to discrimate the revisions of software when troubleshooting issues. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Sat, 26 Jan 2019 19:22:00 +0000</pubDate>
-        <link>http://www.dilek.me/jekyll/pixyll/2019/01/26/guide-to-forking-pixyll/</link>
-        <guid isPermaLink="true">http://www.dilek.me/jekyll/pixyll/2019/01/26/guide-to-forking-pixyll/</guid>
       </item>
     
       <item>
@@ -711,24 +491,6 @@ See &lt;a href=&quot;http://ionicframework.com/docs/guide/publishing.html&quot;&
       </item>
     
       <item>
-        <title>Announcing Version 2.0</title>
-        <description>&lt;p&gt;In an effort to make Pixyll easier to customize and more aesthetically pleasing, we’ve released version &lt;code class=&quot;highlighter-rouge&quot;&gt;2.0&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Pixyll now features:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Line anchors in code blocks and new syntax highlighting&lt;/li&gt;
-  &lt;li&gt;A customizable variables file&lt;/li&gt;
-  &lt;li&gt;Modular, and lighter weight CSS&lt;/li&gt;
-  &lt;li&gt;No more &lt;code class=&quot;highlighter-rouge&quot;&gt;max-width&lt;/code&gt; media queries&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sat, 11 Jul 2015 00:00:00 +0000</pubDate>
-        <link>http://www.dilek.me/jekyll/pixyll/2015/07/11/announcing-pixyll-version-2/</link>
-        <guid isPermaLink="true">http://www.dilek.me/jekyll/pixyll/2015/07/11/announcing-pixyll-version-2/</guid>
-      </item>
-    
-      <item>
         <title>Automated publishing of Jekyll sites on GitHub</title>
         <description>&lt;p&gt;Publishing a Jekyll based static website on GitHub Pages is quite easy once it is setup properly. This way you can trigger a publish on a different branch every time a change is pushed into the GitHub repository.&lt;/p&gt;
 
@@ -829,6 +591,19 @@ through apt-get but is quite easy.&lt;/p&gt;
         <pubDate>Fri, 29 May 2015 23:00:00 +0000</pubDate>
         <link>http://www.dilek.me/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-on-Ubuntu/</link>
         <guid isPermaLink="true">http://www.dilek.me/atom/ubuntu/linux-mint/2015/05/29/Install-Atom-on-Ubuntu/</guid>
+      </item>
+    
+      <item>
+        <title>Hello World</title>
+        <description>&lt;p&gt;I’ve been planing to blog my experiences und humble ideas about software development for a long time. So here it is. I will try to write as often as I can in both English and Turkish.&lt;/p&gt;
+
+&lt;p&gt;I have been looking for a solution to build this blog with static pages and preferably using &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; infrastructure. When I’ve first read about &lt;a href=&quot;http://hubpress.io&quot;&gt;HubPress&lt;/a&gt; on &lt;a href=&quot;https://news.ycombinator.com/item?id=9020429&quot;&gt;Hacker News&lt;/a&gt; I thought that I should give it a try. But it didn’t have all the features I wanted, so I have switched to a  &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; based solution and this post has been edited accordingly. I’m planing to write about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; and static page hosting on &lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; in another post later.&lt;/p&gt;
+
+&lt;p&gt;This post about &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; will probably be in Turkish, because there is already quite a lot of documentation about that in English.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 26 Feb 2015 22:51:52 +0000</pubDate>
+        <link>http://www.dilek.me/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</link>
+        <guid isPermaLink="true">http://www.dilek.me/jekyll/pixyll/hubpress/github/2015/02/26/Hello-World/</guid>
       </item>
     
   </channel>
