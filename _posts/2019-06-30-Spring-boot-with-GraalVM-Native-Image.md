@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Spring boot with GraalVM Native Image
-date:       2019-06-30 18:00:00
+date:       2019-06-30 21:00:00
 summary:    Building a Spring Boot project with GraalVM Native Images
 categories: GraalVM spring boot
 ---
@@ -123,6 +123,6 @@ categories: GraalVM spring boot
 
 ## Conclusion
 
-  The resulting image is not a real native image and needs a JRE to run. This is already indicated ruting native image build phase with the message `Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable`.
+  The resulting image is not a real native image and needs a JRE to run. This is already indicated ruting native image build phase with the message ```Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable```.
 
   The reason is, current version of Spring 5.1 does not support GraalVM native images but the upcoming versions with 5.2 and 5.3 will mainly focus on supporting native images as mentioned [here](https://github.com/spring-projects/spring-framework/wiki/GraalVM-native-image-support#support-of-native-images-at-spring-framework-level) and [here](https://github.com/spring-projects/spring-framework/issues/21529#issuecomment-453474115)
