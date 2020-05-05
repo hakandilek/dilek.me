@@ -1,0 +1,5 @@
+baseURL = "https://www.dilek.me/"
+languageCode = "en-us"
+title = "Hakan Dilek"
+theme = "ananke"
+disqusShortname = "dilekme"
