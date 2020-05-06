@@ -3,9 +3,7 @@ title: "About Me"
 featured_image: ''
 ---
 
-{{< blocks/section >}}
-{{< figure src="/image/me.jpeg" >}}
-{{< /blocks/section >}}
+{{< figure src="/image/me.jpeg" width="150px" >}}
 
 My name is Hakan Dilek. I am a software engineer living in Germany. This is my
 personal website where I mostly share about software engineering.
