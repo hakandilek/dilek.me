@@ -1,0 +1,13 @@
+ 
+[default]
+name = "Hakan"
+uri = "https://www.dilek.me/"
+twitter = "panikyok"
+image = "image/me.jpeg"
+
+ 
+[hakan]
+name = "Hakan"
+uri = "https://www.dilek.me/"
+twitter = "panikyok"
+image = "image/me.jpeg"

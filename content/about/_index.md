@@ -3,7 +3,9 @@ title: "About Me"
 featured_image: ''
 ---
 
-{{< figure src="/me.jpeg" >}}
+{{< blocks/section >}}
+{{< figure src="/image/me.jpeg" >}}
+{{< /blocks/section >}}
 
 My name is Hakan Dilek. I am a software engineer living in Germany. This is my
 personal website where I mostly share about software engineering.
@@ -16,4 +18,4 @@ Some links about me:
 Thanks to the following tools used to build this website:
 
 * [Hugo](https://gohugo.io/) site builder
-* [Ananke](https://github.com/budparr/gohugo-theme-ananke) theme for Hugo.
+* [Axiom](https://github.com/marketempower/axiom) theme for Hugo.

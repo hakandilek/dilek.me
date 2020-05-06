@@ -1,34 +1,73 @@
 baseURL = "https://www.dilek.me/"
-languageCode = "en-us"
 title = "Hakan Dilek"
-theme = "ananke"
+theme = "axiom"
+
 disqusShortname = "dilekme"
 
 MetaDataFormat = "yaml"
-DefaultContentLanguage = "en"
+languageCode = "en-us"
+defaultContentLanguage = "en-us"
+
 SectionPagesMenu = "main"
-Paginate = 9
-googleAnalytics = "UA-60180717-1"
+Paginate = 5
 enableRobotsTXT = true
 
-[sitemap]
-  changefreq = "monthly"
-  priority = 0.5
-  filename = "sitemap.xml"
-
 [params]
-  favicon = ""
-  description = "My personal blog"
-  facebook = ""
-  twitter = "https://twitter.com/panikyok"
-  instagram = ""
-  youtube = ""
-  github = "https://github.com/hakandilek"
-  gitlab = "https://gitlab.com/hd"
-  linkedin = "https://www.linkedin.com/in/hakan/"
-  mastodon = ""
-  slack = ""
-  stackoverflow = "https://stackoverflow.com/users/430718/hakan-dilek"
-  # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
-  background_color_class = "bg-black"
-  recent_posts_number = 4
+mainSections = ["posts"]
+copyrightYear = 2015
+# Go Reference time: Mon Jan 2 15:04:05 MST 2006
+dateFormat = "Jan 2, 2006 3:04PM"
+
+[params.social]
+github = "https://github.com/hakandilek"
+linkedin = "https://www.linkedin.com/in/hakan/"
+stackoverflow = "https://stackoverflow.com/users/430718/hakan-dilek"
+twitter = "https://twitter.com/panikyok"
+#gitlab = "https://gitlab.com/hd"
+footer = ["github", "stackoverflow", "linkedin" ]
+
+
+[params.services]
+analyticsId = "UA-60180717-1"
+adwordsId = ""
+adsenseId = ""
+adsenseAdSlotId = ""
+adsenseLazy = false
+adwordsConversionId = ""
+adwordsConversionValue = 0
+facebookApp = ""
+facebookPixel = ""
+
+[languages]
+[languages."en-us"]
+weight = 1
+languageName = "US English"
+
+[outputs]
+home = ["HTML", "ATOM"]
+section = ["HTML"]
+taxonomy = ["HTML"]
+taxonomyTerm = ["HTML"]
+
+[outputFormats]
+[outputFormats.ATOM]
+name = "ATOM"
+baseName = "feed"
+mediaType = "application/atom+xml"
+
+[mediaTypes]
+[mediaTypes."application/atom+xml"]
+suffixes = ["atom"]
+
+
+[menu]
+
+[[menu.foot]]
+url = "/posts/"
+name = "Posts"
+weight = 1
+
+[[menu.foot]]
+url = "/about/"
+name = "About"
+weight = 2
