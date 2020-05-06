@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+  <title>Hakan Dilek</title>
+  <subtitle></subtitle>
+  <id>https://www.dilek.me/</id>
+  <author>
+    <name>Hakan Dilek</name>
+    <uri>https://www.dilek.me/</uri>
+  </author>
+  <updated>2020-05-06T22:06:39Z</updated>
+  <link rel="self" type="application/atom+xml" href="https://www.dilek.me/feed.atom" hreflang="en-us"/>
+  <link rel="alternate" type="text/html" href="https://www.dilek.me/" hreflang="en-us"/>
+  <entry>
+    <title>Spring boot with GraalVM Native Image</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2019-06-30-spring-boot-with-graalvm-native-image/</id>
+    <updated>2019-06-30T21:00:00Z</updated>
+    <published>2019-06-30T21:00:00Z</published>
+    <content type="html"><h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><a href="https://github.com/oracle/graal/releases">GraalVM is installed</a> and <code>&lt;GraalVM&gt;/bin</code> directory is in the <code>$PATH</code></li>
+<li><a href="https://www.graalvm.org/docs/reference-manual/aot-compilation/">Native Image</a> is installed using the command <code>gu install native-image</code></li>
+<li>Clone the <a href="https://github.com/hakandilek/graalvm-playground">graalvm-playground repository</a></li>
+</ul>
+<h2 id="run-in-the-vm">Run in the VM</h2>
+<ul>
+<li>
+<p>For convenience first run the example in the local JVM:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> $ cd graalvm-playground/spring-web
+ $./gradlew clean bootJar <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   time java -jar build/libs/spring-web-0.0.1-SNAPSHOT.jar
+
+ BUILD SUCCESSFUL in 1s
+ <span style="color:#ae81ff">4</span> actionable tasks: <span style="color:#ae81ff">4</span> executed
+
+   .   ____          _            __ _ _
+ /<span style="color:#ae81ff">\\</span> / ___<span style="color:#e6db74">&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+</span><span style="color:#e6db74"> ( ( )\___ | &#39;</span>_ | <span style="color:#e6db74">&#39;_| | &#39;</span>_ <span style="color:#ae81ff">\/</span> _<span style="color:#e6db74">`</span> | <span style="color:#ae81ff">\ \ \ \
+</span><span style="color:#ae81ff"></span> <span style="color:#ae81ff">\\</span>/  ___<span style="color:#f92672">)</span>| |_<span style="color:#f92672">)</span>| | | | | <span style="color:#f92672">||</span> <span style="color:#f92672">(</span>_| |  <span style="color:#f92672">)</span> <span style="color:#f92672">)</span> <span style="color:#f92672">)</span> <span style="color:#f92672">)</span>
+   <span style="color:#e6db74">&#39;  |____| .__|_| |_|_| |_\__, | / / / /
+</span><span style="color:#e6db74"> =========|_|==============|___/=/_/_/_/
+</span><span style="color:#e6db74"> :: Spring Boot ::        (v2.1.5.RELEASE)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"> 2019-05-23 23:19:27.344  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : Starting DemoApplication on l380 with PID 27401 (/home/XXX/graalvm-playground/spring-web/build/libs/spring-web-0.0.1-SNAPSHOT.jar started by XXX in /home/XXX/graalvm-playground/spring-web)
+</span><span style="color:#e6db74"> 2019-05-23 23:19:27.347  INFO 27401 --- [           main] me.dilek.graalvm.demo.DemoApplication    : No active profile set, falling back to default profiles: default
+</span><span style="color:#e6db74"> 2019-05-23 23:19:28.456  INFO 27401 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+</span><span style="color:#e6db74"> 2019-05-23 23:19:28.493  INFO 27401 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+</span><span style="color:#e6db74"> 2019-05-23 23:19:28.493  INFO 27401 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
+</span><span style="color:#e6db74"> 2019-05-23 23:19:28.592  INFO 27401 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+</span><span style="color:#e6db74"> 2019-05-23 23:19:28.593  INFO 27401 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1197 ms
+</span><span style="color:#e6db74"> 2019-05-23 23:19:28.925  INFO 27401 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService &#39;</span>applicationTaskExecutor<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74"> 2019-05-23 23:19:29.169  INFO 27401 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path &#39;</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
+ 2019-05-23 23:19:29.171  INFO <span style="color:#ae81ff">27401</span> --- <span style="color:#f92672">[</span>           main<span style="color:#f92672">]</span> me.dilek.graalvm.demo.DemoApplication    : Started DemoApplication in 2.194 seconds <span style="color:#f92672">(</span>JVM running <span style="color:#66d9ef">for</span> 2.633<span style="color:#f92672">)</span>
+
+</code></pre></div></li>
+</ul>
+<h2 id="build-native-image">Build Native Image</h2>
+<ul>
+<li>
+<p>Make sure that you have the right JVM version (Currently most recent supported version is JDK8-u212):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ javac -version
+javac 1.8.0_212
+</code></pre></div></li>
+<li>
+<p>Try to build the native image</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  $ ./gradlew clean bootJar <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    native-image -jar build/libs/spring-web-0.0.1-SNAPSHOT.jar
+
+  BUILD SUCCESSFUL in 0s
+  <span style="color:#ae81ff">4</span> actionable tasks: <span style="color:#ae81ff">4</span> executed
+  Build on Server<span style="color:#f92672">(</span>pid: 4674, port: 34081<span style="color:#f92672">)</span>
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>    classlist:     265.01 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>        <span style="color:#f92672">(</span>cap<span style="color:#f92672">)</span>:     919.46 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>        setup:   1,221.87 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>     analysis:   4,072.66 ms
+  Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable
+  To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is <span style="color:#66d9ef">then</span> reported at run time when it is accessed the first time.
+  Detailed message:
+  Trace: 
+    at parsing java.net.URL.setURLStreamHandlerFactory<span style="color:#f92672">(</span>URL.java:1118<span style="color:#f92672">)</span>
+  Call path from entry point to java.net.URL.setURLStreamHandlerFactory<span style="color:#f92672">(</span>URLStreamHandlerFactory<span style="color:#f92672">)</span>: 
+    at java.net.URL.setURLStreamHandlerFactory<span style="color:#f92672">(</span>URL.java:1110<span style="color:#f92672">)</span>
+    at org.springframework.boot.loader.jar.JarFile.resetCachedUrlHandlers<span style="color:#f92672">(</span>JarFile.java:401<span style="color:#f92672">)</span>
+    at org.springframework.boot.loader.jar.JarFile.registerUrlProtocolHandler<span style="color:#f92672">(</span>JarFile.java:391<span style="color:#f92672">)</span>
+    at org.springframework.boot.loader.Launcher.launch<span style="color:#f92672">(</span>Launcher.java:48<span style="color:#f92672">)</span>
+    at org.springframework.boot.loader.JarLauncher.main<span style="color:#f92672">(</span>JarLauncher.java:51<span style="color:#f92672">)</span>
+    at com.oracle.svm.core.JavaMainWrapper.run<span style="color:#f92672">(</span>JavaMainWrapper.java:153<span style="color:#f92672">)</span>
+    at com.oracle.svm.core.code.IsolateEnterStub.JavaMainWrapper_run_5087f5482cc9a6abc971913ece43acb471d2631b<span style="color:#f92672">(</span>generated:0<span style="color:#f92672">)</span>
+
+  Warning: Use -H:+ReportExceptionStackTraces to print stacktrace of underlying exception
+  Build on Server<span style="color:#f92672">(</span>pid: 4674, port: 34081<span style="color:#f92672">)</span>
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>    classlist:     114.69 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>        <span style="color:#f92672">(</span>cap<span style="color:#f92672">)</span>:     642.22 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>        setup:     896.36 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>   <span style="color:#f92672">(</span>typeflow<span style="color:#f92672">)</span>:   1,503.32 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>    <span style="color:#f92672">(</span>objects<span style="color:#f92672">)</span>:     705.94 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>   <span style="color:#f92672">(</span>features<span style="color:#f92672">)</span>:      98.03 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>     analysis:   2,358.07 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>     <span style="color:#f92672">(</span>clinit<span style="color:#f92672">)</span>:      64.41 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>     universe:     202.79 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>      <span style="color:#f92672">(</span>parse<span style="color:#f92672">)</span>:     205.68 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>     <span style="color:#f92672">(</span>inline<span style="color:#f92672">)</span>:     586.94 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>    <span style="color:#f92672">(</span>compile<span style="color:#f92672">)</span>:   1,422.75 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>      compile:   2,394.41 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>        image:     245.09 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>        write:      56.23 ms
+  <span style="color:#f92672">[</span>spring-web-0.0.1-SNAPSHOT:4674<span style="color:#f92672">]</span>      <span style="color:#f92672">[</span>total<span style="color:#f92672">]</span>:   6,324.13 ms
+  Warning: Image <span style="color:#e6db74">&#39;spring-web-0.0.1-SNAPSHOT&#39;</span> is a fallback image that requires a JDK <span style="color:#66d9ef">for</span> execution <span style="color:#f92672">(</span>use --no-fallback to suppress fallback image generation<span style="color:#f92672">)</span>.
+</code></pre></div></li>
+<li>
+<p>Check the resulting image:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  $ ls -ahl
+  ...
+  -rwxr-xr-x <span style="color:#ae81ff">1</span> XXX XXX 2,6M Mai <span style="color:#ae81ff">23</span> 23:22 spring-web-0.0.1-SNAPSHOT
+  ...
+</code></pre></div><p>The resulting image requires a Java for execution!</p>
+</li>
+<li>
+<p>Run the native image</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ ./spring-web-0.0.1-SNAPSHOT&amp; ps -ef | grep java
+  <span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> <span style="color:#ae81ff">28883</span>
+  XXX    <span style="color:#ae81ff">28883</span>  <span style="color:#ae81ff">5089</span>  <span style="color:#ae81ff">0</span> 23:31 pts/1    00:00:00 /home/XXX/tools/graalvm-ce-19.0.0/jre/bin/java -Dorg.graalvm.nativeimage.kind<span style="color:#f92672">=</span>fallback-executable -cp /home/XXX/mutfak/graalvm-playground/spring-web/build/libs/spring-web-0.0.1-SNAPSHOT.jar org.springframework.boot.loader.JarLauncher
+</code></pre></div></li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>The resulting image is not a real native image and needs a JRE to run. This is already indicated ruting native image build phase with the message <code>Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported field java.net.URL.handlers is reachable</code>.</p>
+<p>The reason is, current version of Spring 5.1 does not support GraalVM native images but the upcoming versions with 5.2 and 5.3 will mainly focus on supporting native images as mentioned <a href="https://github.com/spring-projects/spring-framework/wiki/GraalVM-native-image-support#support-of-native-images-at-spring-framework-level">here</a> and <a href="https://github.com/spring-projects/spring-framework/issues/21529#issuecomment-453474115">here</a></p></content>
+  </entry>
+  <entry>
+    <title>Hello World with GraalVM Native Image</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2019-05-23-hello-world-with-graalvm-native-image/</id>
+    <updated>2019-05-23T23:00:00Z</updated>
+    <published>2019-05-23T23:00:00Z</published>
+    <content type="html"><h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><a href="https://github.com/oracle/graal/releases">GraalVM is installed</a> and <code>&lt;GraalVM&gt;/bin</code> directory is in the <code>$PATH</code></li>
+<li><a href="https://www.graalvm.org/docs/reference-manual/aot-compilation/">Native Image</a> is installed using the command <code>gu install native-image</code></li>
+<li>Clone the <a href="https://github.com/hakandilek/graalvm-playground">graalvm-playground repository</a></li>
+</ul>
+<h2 id="run-in-the-vm">Run in the VM</h2>
+<ul>
+<li>
+<p>For convenience first run the example in the local JVM:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> $ cd graalvm-playground/01hello-world 
+ $ ./gradlew clean jar <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   time java -jar build/libs/01hello-world.jar
+
+ BUILD SUCCESSFUL in 0s
+ <span style="color:#ae81ff">3</span> actionable tasks: <span style="color:#ae81ff">3</span> executed
+ Hello World!
+ java -jar build/libs/01hello-world.jar  0,08s user 0,03s system 139% cpu 0,083 total
+ $
+</code></pre></div></li>
+</ul>
+<h2 id="build-native-image">Build Native Image</h2>
+<ul>
+<li>
+<p>Make sure that you have the right JVM version (Currently most recent supported version is JDK8-u212):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ javac -version
+javac 1.8.0_212
+</code></pre></div></li>
+<li>
+<p>Build and run native image</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  $ ./gradlew clean jar <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    native-image -jar build/libs/01hello-world.jar <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    time ./01hello-world
+
+  BUILD SUCCESSFUL in 0s
+  <span style="color:#ae81ff">3</span> actionable tasks: <span style="color:#ae81ff">3</span> executed
+  Build on Server<span style="color:#f92672">(</span>pid: 4674, port: 34081<span style="color:#f92672">)</span>
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>    classlist:     172.74 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>        <span style="color:#f92672">(</span>cap<span style="color:#f92672">)</span>:     955.19 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>        setup:   1,690.68 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>   <span style="color:#f92672">(</span>typeflow<span style="color:#f92672">)</span>:   2,260.10 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>    <span style="color:#f92672">(</span>objects<span style="color:#f92672">)</span>:     770.75 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>   <span style="color:#f92672">(</span>features<span style="color:#f92672">)</span>:     147.15 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>     analysis:   3,250.30 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>     <span style="color:#f92672">(</span>clinit<span style="color:#f92672">)</span>:      78.32 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>     universe:     262.43 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>      <span style="color:#f92672">(</span>parse<span style="color:#f92672">)</span>:     313.86 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>     <span style="color:#f92672">(</span>inline<span style="color:#f92672">)</span>:     913.91 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>    <span style="color:#f92672">(</span>compile<span style="color:#f92672">)</span>:   2,593.18 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>      compile:   4,097.51 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>        image:     390.85 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>        write:      89.51 ms
+  <span style="color:#f92672">[</span>01hello-world:4674<span style="color:#f92672">]</span>      <span style="color:#f92672">[</span>total<span style="color:#f92672">]</span>:  10,045.79 ms
+  Hello World!
+  ./01hello-world  0,00s user 0,00s system 87% cpu 0,002 total
+</code></pre></div></li>
+</ul>
+<h2 id="benchmark-results">Benchmark results</h2>
+<p>JVM Call <strong>(0,083s)</strong> vs Native Image <strong>(0,002)</strong>: quiet an improvement!</p></content>
+  </entry>
+  <entry>
+    <title>AWS Lambda Java Example</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2016-05-06-aws-lambda-java-example/</id>
+    <updated>2016-05-05T18:00:00Z</updated>
+    <published>2016-05-05T18:00:00Z</published>
+    <content type="html"><p>Please checkout the <a href="/posts/2016-05-04-aws-lambda-project-with-gradle/">Previous post for the gradle setup</a></p>
+<p>Define Java classes under <code>project-dir/src/main/java/example/</code></p>
+<h2 id="hellojava">Hello.java</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#f92672">package</span> example<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> com.amazonaws.services.lambda.runtime.Context<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.amazonaws.services.lambda.runtime.RequestHandler<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Hello</span> <span style="color:#66d9ef">implements</span> RequestHandler<span style="color:#f92672">&lt;</span>HelloRequest<span style="color:#f92672">,</span> HelloResponse<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+
+	<span style="color:#a6e22e">@Override</span>
+	<span style="color:#66d9ef">public</span> HelloResponse <span style="color:#a6e22e">handleRequest</span><span style="color:#f92672">(</span>HelloRequest input<span style="color:#f92672">,</span> Context context<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> HelloResponse<span style="color:#f92672">(</span>input<span style="color:#f92672">.</span><span style="color:#a6e22e">getInput</span><span style="color:#f92672">());</span>
+	<span style="color:#f92672">}</span>
+	
+<span style="color:#f92672">}</span>
+
+
+</code></pre></div><h2 id="hellorequestjava">HelloRequest.java</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#f92672">package</span> example<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloRequest</span> <span style="color:#f92672">{</span>
+
+	<span style="color:#66d9ef">private</span> String input<span style="color:#f92672">;</span>
+
+	<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">HelloRequest</span><span style="color:#f92672">(</span>String input<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> input<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+
+	<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">HelloRequest</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+	<span style="color:#f92672">}</span>
+
+	<span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getInput</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">return</span> input<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+
+	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setInput</span><span style="color:#f92672">(</span>String input<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> input<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div><h2 id="helloresponsejava">HelloResponse.java</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#f92672">package</span> example<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloResponse</span> <span style="color:#f92672">{</span>
+
+	<span style="color:#66d9ef">private</span> String hello<span style="color:#f92672">;</span>
+
+	<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">HelloResponse</span><span style="color:#f92672">(</span>String hello<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> hello<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+
+	<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">HelloResponse</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+	<span style="color:#f92672">}</span>
+
+	<span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getHello</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">return</span> hello<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+
+	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setHello</span><span style="color:#f92672">(</span>String hello<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> hello<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+	
+<span style="color:#f92672">}</span>
+
+</code></pre></div><p>Use the following gradle command to generate your standalone .jar deployment file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./gradlew shadowJar
+</code></pre></div><p>This will generate the .jar file with all dependencies under <code>build/libs</code>.
+Let&rsquo;s say this has generated the file <code>build/libs/hello-sample-all.jar</code>.</p>
+<p>Create an IAM Role using <a href="https://console.aws.amazon.com/iam/home?region=eu-central-1#roles">AWS IAM Console</a></p>
+<ul>
+<li>Role Name : <code>hello-sample</code></li>
+<li>AWS Service Roles : <code>AWS Lambda</code> [Select]</li>
+<li>Policy: <code>AdministratorAccess</code> [Select]
+Copy <code>Role ARN</code></li>
+</ul>
+<p>Use AWS-CLI to upload your function</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws lambda create-function <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --region eu-central-1 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --function-name hello-world-in-java <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --zip-file fileb://build/libs/hello-sample-all.jar --role ROLE-ARN-HERE <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --handler example.Hello <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --runtime java8 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --timeout <span style="color:#ae81ff">15</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --memory-size <span style="color:#ae81ff">512</span>
+</code></pre></div><p>Test your Function in <a href="https://eu-central-1.console.aws.amazon.com/lambda/home?region=eu-central-1#/functions/hello-world-in-java?tab=code">AWS Lambda Console</a></p>
+<p>Click <em>Test</em> button and change the JSON content with the following:</p>
+<pre><code>
+{
+ &quot;input&quot;: &quot;World!&quot;
+}
+
+</code></pre><p>Click <em>Save and Test</em> button. You&rsquo;ll see the execution result:</p>
+<p><img src="/Screenshot-2016-05-04.png" alt="Successful Result"></p></content>
+  </entry>
+  <entry>
+    <title>AWS Lambda Project with Gradle</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2016-05-04-aws-lambda-project-with-gradle/</id>
+    <updated>2016-05-04T18:00:00Z</updated>
+    <published>2016-05-04T18:00:00Z</published>
+    <content type="html"><p>In project directory initialize <code>build.gradle</code> file and gradle Wrapper:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gradle init
+</code></pre></div><p>Edit generated <code>build.gradle</code> file</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-gradle" data-lang="gradle">buildscript <span style="color:#f92672">{</span>
+  repositories <span style="color:#f92672">{</span> jcenter<span style="color:#f92672">()</span> <span style="color:#f92672">}</span>
+  dependencies <span style="color:#f92672">{</span>
+    <span style="color:#75715e">//Gradle shadow plugin
+</span><span style="color:#75715e"></span>    classpath <span style="color:#e6db74">&#39;com.github.jengelman.gradle.plugins:shadow:1.2.3&#39;</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+apply plugin: <span style="color:#e6db74">&#39;java&#39;</span>
+apply plugin: <span style="color:#e6db74">&#39;com.github.johnrengelman.shadow&#39;</span>
+
+repositories <span style="color:#f92672">{</span> jcenter<span style="color:#f92672">()</span> <span style="color:#f92672">}</span>
+dependencies <span style="color:#f92672">{</span>
+    <span style="color:#75715e">//AWS Lambda core library
+</span><span style="color:#75715e"></span>    compile <span style="color:#e6db74">&#39;com.amazonaws:aws-lambda-java-core:1.1.0&#39;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Create a simple Java class in <code>project-dir/src/main/java/example/Hello.java</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#f92672">package</span> example<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">{</span>
+  
+<span style="color:#f92672">}</span>
+
+</code></pre></div><p>Use the following gradle command to generate your standalone .jar deployment file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./gradlew shadowJar
+</code></pre></div><p>This will generate the .jar file with all dependencies under <code>build/libs</code> folder which can be uploaded to AWS Lambda.</p>
+<p>Please checkout the <a href="/posts/2016-05-06-aws-lambda-java-example/">next post for a simple AWS Lambda Java Example</a></p></content>
+  </entry>
+  <entry>
+    <title>UML diagrams for Jekyll and Markdown</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2016-01-15-uml-diagrams-in-markdown-pages/</id>
+    <updated>2016-01-15T13:00:00Z</updated>
+    <published>2016-01-15T13:00:00Z</published>
+    <content type="html"><p><em><strong>Update: 2020-05-05: Although it was possible to embed plantuml diagrams into markdown. As of today this does not seem to work wiithout URL encoding the PlantUml content.</strong></em></p>
+<p>It is possible to embed UML diagrams into Jekyll or Markdorn pages using the <a href="http://www.gravizo.com/">Gravizo</a> image generation service.</p>
+<p>You don&rsquo;t have to install any local Gems or plugins to embed such diagrams in your Jakyll pages.</p>
+<p>Here are some sample UML diagrams:</p>
+<h4 id="class-diagram">Class diagram</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Markdown" data-lang="Markdown">![<span style="color:#f92672">Alt text</span>](<span style="color:#a6e22e">http://g.gravizo.com/svg?
+</span><span style="color:#a6e22e">@startuml;
+</span><span style="color:#a6e22e">Object &lt;|-- ArrayList;
+</span><span style="color:#a6e22e">Object : equals%28%29;
+</span><span style="color:#a6e22e">ArrayList : Object[] elementData;
+</span><span style="color:#a6e22e">ArrayList : size%28%29;
+</span><span style="color:#a6e22e">@enduml
+</span><span style="color:#a6e22e"></span>)
+</code></pre></div><p><img src="http://g.gravizo.com/svg?%20@startuml;%20Object%20%3C%7C--%20ArrayList;%20Object%20:%20equals%28%29;%20ArrayList%20:%20Object%5B%5D%20elementData;%20ArrayList%20:%20size%28%29;%20@enduml" alt="Alt text"></p>
+<h4 id="sequence-diagram">Sequence diagram</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Markdown" data-lang="Markdown">![<span style="color:#f92672">Alt text</span>](<span style="color:#a6e22e">http://g.gravizo.com/svg?
+</span><span style="color:#a6e22e">@startuml;
+</span><span style="color:#a6e22e">actor User;
+</span><span style="color:#a6e22e">participant &#34;First Class&#34; as A;
+</span><span style="color:#a6e22e">participant &#34;Second Class&#34; as B;
+</span><span style="color:#a6e22e">participant &#34;Last Class&#34; as C;
+</span><span style="color:#a6e22e">User -&gt; A: DoWork;
+</span><span style="color:#a6e22e">activate A;
+</span><span style="color:#a6e22e">A -&gt; B: Create Request;
+</span><span style="color:#a6e22e">activate B;
+</span><span style="color:#a6e22e">B -&gt; C: DoWork;
+</span><span style="color:#a6e22e">activate C;
+</span><span style="color:#a6e22e">C --&gt; B: WorkDone;
+</span><span style="color:#a6e22e">destroy C;
+</span><span style="color:#a6e22e">B --&gt; A: Request Created;
+</span><span style="color:#a6e22e">deactivate B;
+</span><span style="color:#a6e22e">A --&gt; User: Done;
+</span><span style="color:#a6e22e">deactivate A;
+</span><span style="color:#a6e22e">@enduml</span>)
+</code></pre></div><p><img src="http://g.gravizo.com/svg?%20@startuml;%20actor%20User;%20participant%20%22First%20Class%22%20as%20A;%20participant%20%22Second%20Class%22%20as%20B;%20participant%20%22Last%20Class%22%20as%20C;%20User%20-%3E%20A:%20DoWork;%20activate%20A;%20A%20-%3E%20B:%20Create%20Request;%20activate%20B;%20B%20-%3E%20C:%20DoWork;%20activate%20C;%20C%20--%3E%20B:%20WorkDone;%20destroy%20C;%20B%20--%3E%20A:%20Request%20Created;%20deactivate%20B;%20A%20--%3E%20User:%20Done;%20deactivate%20A;%20@enduml" alt="Alt text"></p></content>
+  </entry>
+  <entry>
+    <title>Getting started with Ionic Framework</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2015-09-12-getting-started-with-ionic-framework/</id>
+    <updated>2015-09-12T22:00:00Z</updated>
+    <published>2015-09-12T22:00:00Z</published>
+    <content type="html"><p>This guide aims to give a brief introduction for <a href="http://ionicframework.com/">Ionic Framework</a> for starters.</p>
+<p>I would like to thank to <a href="http://mimoza.marmara.edu.tr/~maeyler/">Prof. Akif Eyler</a> for his patience and contributions in this post.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Following tools have to be installed in order to follow this guide.</p>
+<ul>
+<li><a href="https://www.npmjs.com/">npm</a> version 2.11.3</li>
+<li><a href="https://nodejs.org">node</a> version v0.12.7</li>
+<li><a href="https://developer.android.com/sdk/index.html">Android SDK</a> with API version 22</li>
+</ul>
+<p>This guide aims to build a mobile app for the Android platform but will also provide instructions for iOS. iOS has another set of tools and SDK for building mobile apps which is not completely covered here.</p>
+<h3 id="install-ionic-framework-via-npm">Install Ionic Framework via <code>npm</code></h3>
+<p><a href="https://www.npmjs.com/">npm</a> is the pre-installed package manager for the <a href="https://en.wikipedia.org/wiki/Node.js">Node.js</a> platform.</p>
+<h5 id="on-linux">On Linux:</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo npm install -g ionic
+</code></pre></div><h5 id="on-windows">On Windows:</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install -g ionic
+</code></pre></div><h3 id="install-cordova-cli">Install Cordova CLI</h3>
+<h5 id="on-linux-1">On Linux:</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo npm install -g cordova
+</code></pre></div><h5 id="on-windows-1">On Windows:</h5>
+<pre><code>npm install -g cordova
+</code></pre><h3 id="create-a-seed-project">Create a seed project:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ionic start ionic-getting-started
+</code></pre></div><p>Answer <code>n</code> to the following question indicating that you&rsquo;ll skip ionic.io cloud integration. We want to keep it simple here, right?</p>
+<pre><code>Create an ionic.io account to send Push Notifications and use the Ionic View app?
+(Y/n): n
+</code></pre><p>This will create the seed project:</p>
+<p><img src="/Screenshot-2015-09-09.png" alt="Ionic seed project"></p>
+<h3 id="running-your-app-in-browser">Running your app in browser</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ionic serve
+</code></pre></div><p>You&rsquo;ll see it in browser:</p>
+<p><img src="/Screenshot-2015-09-09-2.png" alt="Project running in browser"></p>
+<h2 id="adding-a-target-platform">Adding a target platform</h2>
+<h5 id="for-android">For Android:</h5>
+<pre><code>ionic platform add android
+</code></pre><p>See the <a href="https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html">Android Platform Guide</a> for full Android installation instructions:</p>
+<p>Cordova requires the <code>ANDROID_HOME</code> environment variable to be set. This should point to the <code>[ANDROID_SDK_DIR]\android-sdk</code> directory. Next, create an environment variable for <code>JAVA_HOME</code> environment variable pointing to the root folder where the Java JDK was installed.</p>
+<p>See <a href="http://ionicframework.com/docs/guide/installation.html">Ionic installation guide</a> for further instructions.</p>
+<h5 id="for-ios">For iOS:</h5>
+<pre><code>ionic platform add ios
+</code></pre><p>Note: iOS development requires OS X currently</p>
+<p>Adding Android platform should generate Android source code under <code>platforms/android</code> directory, add a resource directory for images and extend existing <code>config.xml</code> and <code>package.json</code> files.</p>
+<p><img src="/Screenshot-2015-09-12-1.png" alt="New files after adding Android platform"></p>
+<h3 id="running-your-app-on-a-device">Running your app on a device</h3>
+<p>Run your app on a device: ionic run <!-- raw HTML omitted --></p>
+<h5 id="for-android-1">For Android:</h5>
+<pre><code>ionic run android
+</code></pre><h5 id="for-ios-1">For iOS:</h5>
+<pre><code>ionic run ios
+</code></pre><p>App on Android device:</p>
+<p><img src="/Screenshot-2015-09-12-2.png" alt="Running on Android device"></p>
+<h3 id="building-your-app">Building your app</h3>
+<h5 id="for-android-2">For Android:</h5>
+<pre><code>ionic build android
+</code></pre><p>This should generate an <code>android-debug.apk</code> file under <code>\platforms\android\build\outputs\apk\</code> folder.</p>
+<h5 id="for-ios-2">For iOS:</h5>
+<pre><code>ionic build ios
+</code></pre><h3 id="running-your-app-on-an-emulator">Running your app on an emulator</h3>
+<p>Simulate your app: ionic emulate <!-- raw HTML omitted --></p>
+<h5 id="for-android-3">For Android:</h5>
+<pre><code>ionic emulate android
+</code></pre><p>If you are using Genymotion instead of the standard Android emulator, note that Genymotion behaves like a device, so it requires <code>run</code> rather than <code>emulate</code></p>
+<h5 id="for-ios-3">For iOS:</h5>
+<pre><code>ionic emulate ios
+</code></pre><h3 id="packaging-your-app">Packaging your app</h3>
+<p>You can package your app using Cordova Command :
+<code>cordova build &lt;MODE&gt; &lt;PLATFORM&gt;</code></p>
+<h5 id="for-android-debug-packaging">For Android debug packaging:</h5>
+<pre><code>cordova build --debug android
+</code></pre><p>This will generate the file <code>\platforms\android\build\outputs\apk\android-debug.apk</code></p>
+<h5 id="for-android-release-packaging">For Android release packaging:</h5>
+<pre><code>cordova build --release android
+</code></pre><p>This will generate the file <code>\platforms\android\build\outputs\apk\android-release-unsigned.apk</code></p>
+<p>You will need to sign this file if you want to publish it in Google Play Store.
+See <a href="http://ionicframework.com/docs/guide/publishing.html">Ionic publishing instructions</a> for further information.</p></content>
+  </entry>
+  <entry>
+    <title>Automated publishing of Jekyll sites on GitHub</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2015-06-24-automated-publishing-of-jekyll-sites-on-github/</id>
+    <updated>2015-06-24T22:00:00Z</updated>
+    <published>2015-06-24T22:00:00Z</published>
+    <content type="html"><p>Publishing a Jekyll based static website on GitHub Pages is quite easy once it is setup properly. This way you can trigger a publish on a different branch every time a change is pushed into the GitHub repository.</p>
+<p>I will describe how to do it using <code>rake-jekyll</code>. For more detailed and probably updated information, please refer to the rake-jekyll documentation on <a href="https://github.com/jirutka/rake-jekyll">the  project page</a></p>
+<p>If you already don&rsquo;t have one, create a <code>Gemfile</code> in your repository or update one you already have according to the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">source <span style="color:#e6db74">&#39;https://rubygems.org&#39;</span>
+
+gem <span style="color:#e6db74">&#39;jekyll&#39;</span>
+gem <span style="color:#e6db74">&#39;rake&#39;</span>
+gem <span style="color:#e6db74">&#39;rake-jekyll&#39;</span>
+</code></pre></div><p>Create or edit file <code>Rakefile</code> in your repository:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rb" data-lang="rb">require <span style="color:#e6db74">&#39;rake-jekyll&#39;</span>
+
+<span style="color:#66d9ef">Rake</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Jekyll</span><span style="color:#f92672">::</span><span style="color:#66d9ef">GitDeployTask</span><span style="color:#f92672">.</span>new(<span style="color:#e6db74">:deploy</span>)
+</code></pre></div><p>Create file <code>.travis.yml</code> in your repository:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">language</span>: ruby
+<span style="color:#66d9ef">sudo</span>: <span style="color:#66d9ef">false</span>
+<span style="color:#66d9ef">rvm</span>: <span style="color:#ae81ff">2.2.0</span>
+<span style="color:#66d9ef">script</span>: bundle exec rake deploy
+</code></pre></div><p>Install <code>travis</code> gem using shell:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gem install travis
+</code></pre></div><p>Enable <a href="https://travis-ci.org">Travis CI</a> for your github repository:</p>
+<ul>
+<li>if you already don&rsquo;t have a Travis CI account, <a href="https://travis-ci.org/">sign up</a> for one.</li>
+<li>open your <a href="https://travis-ci.org/profile/">profile page</a> on Travis</li>
+<li>find your github repository for the website and turn on the switch
+<img src="/Screenshot-2015-05-30-1.png" alt="the switch"></li>
+<li>click on the repository settings
+<img src="/Screenshot-2015-05-30-2.png" alt="repository settings"></li>
+<li>enable the setting “Build only if .travis.yml is present.”
+<img src="/Screenshot-2015-05-30-3.png" alt="enable setting"></li>
+</ul>
+<p>Generate a new personal access token on GitHub:</p>
+<ul>
+<li>Generate a new personal access token for your <a href="https://github.com/settings/tokens/new">Github profile</a></li>
+<li>select <code>public_repo</code> scope, enter description and generate. You will need the token displayed on the page for the next step.</li>
+</ul>
+<p>Encrypt the token using the following shell command (replace the <code>&lt;token&gt;</code> part with your generated token from the previous step):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ travis encrypt GH_TOKEN<span style="color:#f92672">=</span>&lt;token&gt; --add env.global
+</code></pre></div><p>Following content will be added to your <code>.travis.yml</code> file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">env</span>:
+  <span style="color:#66d9ef">global</span>:
+    <span style="color:#66d9ef">secure</span>: YOUR-ENCRYPTED-TOKEN
+</code></pre></div><p>Commit your changes and push to GitHub. Travis will trigger a build and publish your website in a couple of minutes.</p></content>
+  </entry>
+  <entry>
+    <title>Install Atom Editor on Ubuntu</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2015-05-29-install-atom-on-ubuntu/</id>
+    <updated>2015-05-29T23:00:00Z</updated>
+    <published>2015-05-29T23:00:00Z</published>
+    <content type="html"><p>Installing or updating Atom editor on Ubuntu or Linux Mint is not possible
+through apt-get but is quite easy.</p>
+<p>First, download the package using <code>wget</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wget https://atom.io/download/deb
+</code></pre></div><p>When the download is finished, install the package using <code>dpkg</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dpkg --install atom-amd64.deb
+</code></pre></div><p>Finally launch atom editor:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ atom
+</code></pre></div><p>and you have it.</p>
+<p><img src="/Screenshot-2015-05-29.png" alt="Atom screenshot"></p></content>
+  </entry>
+  <entry>
+    <title>Hello World</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2015-02-26-hello-world/</id>
+    <updated>2015-02-26T22:51:52Z</updated>
+    <published>2015-02-26T22:51:52Z</published>
+    <content type="html"><p>I&rsquo;ve been planing to blog my experiences und humble ideas about software development for a long time. So here it is. I will try to write as often as I can in both English and Turkish.</p>
+<p>I have been looking for a solution to build this blog with static pages and preferably using <a href="https://github.com">GitHub</a> infrastructure. When I&rsquo;ve first read about <a href="http://hubpress.io">HubPress</a> on <a href="https://news.ycombinator.com/item?id=9020429">Hacker News</a> I thought that I should give it a try. But it didn&rsquo;t have all the features I wanted, so I have switched to a  <a href="http://jekyllrb.com">Jekyll</a> based solution and this post has been edited accordingly. I&rsquo;m planing to write about <a href="http://jekyllrb.com">Jekyll</a> and static page hosting on <a href="https://github.com">GitHub</a> in another post later.</p>
+<p>This post about <a href="http://jekyllrb.com">Jekyll</a> will probably be in Turkish, because there is already quite a lot of documentation about that in English.</p></content>
+  </entry>
+</feed>
