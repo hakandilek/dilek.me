@@ -4,7 +4,6 @@ title:      Building a custom Retropie console
 date:       2020-05-07 23:00:00
 summary:    Building a custom RetroPie box during Covid-19 self isolation
 categories: retropie retro games
-feature:   "/zeypi/cover.jpg"
 ---
 
 ## Introduction
