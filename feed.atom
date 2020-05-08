@@ -7,9 +7,62 @@
     <name>Hakan Dilek</name>
     <uri>https://www.dilek.me/</uri>
   </author>
-  <updated>2020-05-07T20:54:55Z</updated>
+  <updated>2020-05-08T00:06:53Z</updated>
   <link rel="self" type="application/atom+xml" href="https://www.dilek.me/feed.atom" hreflang="en-us"/>
   <link rel="alternate" type="text/html" href="https://www.dilek.me/" hreflang="en-us"/>
+  <entry>
+    <title>Building a custom Retropie console</title><author>
+      <name>Hakan</name>
+      <uri>https://www.dilek.me/</uri>
+    </author>
+    <id>https://www.dilek.me/posts/2020-05-08-building-a-custom-retropie/</id>
+    <updated>2020-05-07T23:00:00Z</updated>
+    <published>2020-05-07T23:00:00Z</published>
+    <content type="html"><h2 id="introduction">Introduction</h2>
+<p>I did build a custom made Retropie box for my two daughters to play during the Covid-19 isolation.</p>
+<p>It all started a couple of years ago as I salvaged an LCD panel from an old broken <a href="https://en.wikipedia.org/wiki/Asus_Eee_PC">Netbook</a>. When I figured out that <a href="https://hackernoon.com/https-medium-com-akshaykore-diy-monitor-410ac3bbb6b9">I could use that panel and plug it via HDMI or VGA</a> I was looking for a good use for it.</p>
+<p>Then we all were struck by the Corona wave and all of a sudden we found ourselves in self isolation. This also affected all social contact including my daughter&rsquo;s 7-year-old birthday party. I thought that I could build a custom game-console and suprise her on her birthday.</p>
+<p>Here is a list of materials and the result. I might put some instructions about building it later.</p>
+<h3 id="list-of-materials">List of Materials</h3>
+<ul>
+<li>A salvaged ~12&rdquo; LCD Panel from an <a href="https://en.wikipedia.org/wiki/Asus_Eee_PC">old Netbook</a></li>
+<li>A pair of salvaged speakers from an old Laptop or Netbook</li>
+<li><a href="https://www.mikrocontroller.net/attachment/380200/User_s_guide_of_M.NT68676.2A_controller_board_V1.1.pdf">M.NT68676.2A LCD Panel Controller
+Board</a> ~ 20 EUR</li>
+<li><a href="https://www.ebay.de/itm/Power-Adapter-Power-Supply-12V-4A-Plug-Cord-support-Our-LCD-controller-Kit/163571984191?hash=item2615a6673f:g:zxoAAOxyeglTcJza">12 V / 4.0 A Power adapter for the panel controller</a> ~ 13 EUR</li>
+<li><a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/">Raspberry Pi 4 Model B</a> (4 GB) ~ 60 EUR - another model with the same ports would just do fine</li>
+<li><a href="https://www.berrybase.de/neu/armor-geh-228-use-mit-l-252-fter-f-252-r-raspberry-pi-4-schwarz">Raspberry Pi case with active cooling</a> ~ 14 EUR</li>
+<li>8GB+ microSDHC card ~5 EUR</li>
+<li><a href="https://www.raspberrypi.org/products/type-c-power-supply/">Raspberry Pi USB-C Power Supply</a> ~ 8 EUR</li>
+<li><a href="https://www.raspberrypi.org/products/micro-hdmi-to-standard-hdmi-a-cable">Micro HDMI to Standard HDMI (A/M) Cable</a> ~ 3 EUR</li>
+<li>2 x <a href="https://www.berrybase.de/computer/pc-peripheriegeraete/game-controller/2-x-usb-2.0-controller-im-snes-design-grau">USB 2.0 Controller SNES Design</a> ~ 10 EUR</li>
+<li><a href="https://en.wikipedia.org/wiki/JST_connector">4-pin JST connectors</a> ~ 2 EUR</li>
+<li><a href="https://www.amazon.de/gp/product/B002ZHELBA/">A small wooden box</a> ~ 10 EUR - or any box fitting everything together</li>
+<li><a href="https://www.amazon.de/gp/product/B00BG0S2Z8/">Foto transfer potch</a> ~ 7 EUR - if you&rsquo;d like to put some colors on the wood</li>
+<li><a href="https://www.hornbach.de/shop/Arbeitsplattenoel-Barend-Palm-transparent-250-ml/5518195/artikel.html">Countertop wood oil</a> ~ 13 EUR - or any varnish protecting the wood</li>
+<li>Plywood and some timber slat ~ 10 EUR</li>
+<li>Some wood glue and</li>
+<li>Cussion foam</li>
+</ul>
+<p>It did cost me around 180 EUR (of course it could be built for less) and around 40 hours of downloading, installing, wood working and polishing.</p>
+<p>But the result was a real joy.</p>
+<h3 id="result">Result</h3>
+<p>I did call it <code>ZeyPi</code>, names after my older daughter <code>Zeynep</code>.</p>
+<p>Here is a picture of the finished game-console with girls&rsquo; names on it:</p>
+
+
+<figure>
+<img
+class="mb-2 mx-auto leading-none shadow-xl"
+src="/zeypi/result.jpg">
+</figure>
+
+<p>Here is a video girls enjoying it:</p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/xO30VRdQHbI" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div></content>
+  </entry>
   <entry>
     <title>Spring boot with GraalVM Native Image</title><author>
       <name>Hakan</name>
