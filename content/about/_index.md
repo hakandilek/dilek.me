@@ -17,3 +17,5 @@ Thanks to the following tools used to build this website:
 
 * [Hugo](https://gohugo.io/) site builder
 * [Axiom](https://github.com/marketempower/axiom) theme for Hugo.
+
+{{< partial "disqus.html" >}}
