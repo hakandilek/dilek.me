@@ -7,7 +7,7 @@
     <name>Hakan Dilek</name>
     <uri>https://www.dilek.me/</uri>
   </author>
-  <updated>2020-05-11T20:00:05Z</updated>
+  <updated>2020-05-11T20:49:00Z</updated>
   <link rel="self" type="application/atom+xml" href="https://www.dilek.me/feed.atom" hreflang="en-us"/>
   <link rel="alternate" type="text/html" href="https://www.dilek.me/" hreflang="en-us"/>
   <entry>
@@ -48,7 +48,7 @@ Board</a> ~ 20 EUR</li>
 <p>But the result was a real joy.</p>
 <h3 id="result">Result</h3>
 <p>I did call it <code>ZeyPi</code>, names after my older daughter <code>Zeynep</code>.</p>
-<p>Here is a picture of the finished game-console with girls&rsquo; names on it:</p>
+<p>Here some pictures of the finished game-console with girls&rsquo; names on it:</p>
 
 
 <figure>
@@ -57,30 +57,19 @@ class="mb-2 mx-auto leading-none shadow-xl"
 src="/zeypi/result.jpg">
 </figure>
 
+
+
+<figure>
+<img
+class="mb-2 mx-auto leading-none shadow-xl"
+src="/zeypi/result-on.jpg">
+</figure>
+
 <p>Here is a video girls enjoying it:</p>
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <iframe src="https://www.youtube.com/embed/xO30VRdQHbI" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
-</div>
-
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-
-    (function () {
-        
-        
-        if (window.location.hostname == "localhost")
-            return;
-
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        var disqus_shortname = 'dilekme';
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
-        Disqus.</a></noscript>
-<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></content>
+</div></content>
   </entry>
   <entry>
     <title>Spring boot with GraalVM Native Image</title><author>
