@@ -58,5 +58,3 @@ Here some pictures of the finished game-console with girls' names on it:
 Here is a video girls enjoying it:
 
 {{< youtube xO30VRdQHbI >}}
-
-{{< partial "disqus.html" >}}
