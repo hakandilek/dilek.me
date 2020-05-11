@@ -4,8 +4,11 @@ title:      Building a custom Retropie console
 date:       2020-05-07 23:00:00
 summary:    Building a custom RetroPie box during Covid-19 self isolation
 description: Building a custom RetroPie box during Covid-19 self isolation
+
+feature: /zeypi/result-on.jpg
+
 images:
-- /zeypi/result-on.jpg
+  - /zeypi/result-on.jpg
 videos: [ https://www.youtube.com/v/xO30VRdQHbI ]
 categories: retropie retro games
 ---
@@ -49,11 +52,9 @@ But the result was a real joy.
 
 I did call it `ZeyPi`, names after my older daughter `Zeynep`.
 
-Here some pictures of the finished game-console with girls' names on it:
+Here a picture of the finished game-console with girls' names on it:
 
 {{< figure src="/zeypi/result.jpg"  >}}
-
-{{< figure src="/zeypi/result-on.jpg"  >}}
 
 Here is a video girls enjoying it:
 
