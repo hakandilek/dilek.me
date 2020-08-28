@@ -10,8 +10,8 @@ personal website where I mostly share about software engineering.
 
 Some links about me:
 
-* [CV/Resume](https://goo.gl/mnIocU)
 * [GitHub profile](https://github.com/hakandilek)
+* ~~CV/Resume~~, just drop me a line to receive my resume: hakan-at-dilek-dot-me
 
 Thanks to the following tools used to build this website:
 
